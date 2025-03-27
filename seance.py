@@ -1,8 +1,3 @@
-from idlelib.colorizer import prog_group_name_to_tag
-
-from exercice import Exercice
-
-
 class Seance:
     nbseancetotal = 0
     def __init__(self, nom):
@@ -18,13 +13,7 @@ class Seance:
         self.exercice_seaces.append(exercice)
 
 
-if __name__ == '__main__':
-    Exercice1 = Exercice("bench", 5,5,50 )
-    Exercice2 = Exercice("dips", 5, 5, 50)
-    seance1 = Seance("push")
-    seance1.ajouterExercice(Exercice1)
-    seance1.ajouterExercice(Exercice2)
-    seance1.afficher_exercices()
+
 
 
 
