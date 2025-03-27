@@ -1,6 +1,6 @@
 class Utilisateur:
     nombre_utilisateur = 0
-    def __init__(self, nom,taille, age,poid):
+    def __init__(self, nom : str,taille: int, age: int, poid:float):
         self.nom = nom
         self.taille = taille
         self.age = age

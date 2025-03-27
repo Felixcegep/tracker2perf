@@ -1,12 +1,13 @@
 class Exercice:
 
     exercicedisponible = ["bench", "squat", "deadlift"]
-    def __init__(self, nomexercice,set, rep,poid,temps: int = None):
+    def __init__(self, nomexercice,set : str , rep : str,poid: int,temps: int = None):
         self.nomexercice = nomexercice
         self.rep = rep
         self.set = set
         self.poid = poid
         self.temps = temps
+    # TODO: FAIRE UNE CLASS SPÉCIAL POUR LES CLASSES CARDIO SPÉCIALISER POUR UTILISER SUPER()_INIT__
 
 
 
