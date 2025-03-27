@@ -1,0 +1,18 @@
+class Exercice:
+
+    exercicedisponible = ["bench", "squat", "deadlift"]
+    def __init__(self, nomexercice,set, rep,poid,temps: int = None):
+        self.nomexercice = nomexercice
+        self.rep = rep
+        self.set = set
+        self.poid = poid
+        self.temps = temps
+
+
+
+
+
+    def __str__(self):
+        return f"{self.nomexercice} rep {self.rep} poid {self.poid} temps {self.temps}"
+
+test = Exercice("bench", 5,5, 55)
