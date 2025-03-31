@@ -1,6 +1,7 @@
 from exercicesvalide import Exercicesvalide
+    # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
+    # a l'aide d'un calcule
 class Exercice:
-
     def __init__(self, nomexercice,set : str , rep : str,poid: int,temps: int = None):
         if nomexercice in [e.value for e in Exercicesvalide]:
             self.nomexercice = nomexercice
