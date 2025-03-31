@@ -1,4 +1,3 @@
-
 from seance import Seance
 from exercice import Exercice
 import datetime
@@ -20,14 +19,13 @@ class Journee:
 
 
 if __name__ == '__main__':
+    # création de d'exercice
     Exercice1 = Exercice("bench", 5, 5, 50)
     Exercice2 = Exercice("dips", 5, 5, 50)
+    #création de séance
     seance1 = Seance("push")
     seance1.ajouterExercice(Exercice1)
     seance1.ajouterExercice(Exercice2)
-    ajourdhui = Journee("yooo","aujourdhui")
+    # 
+    ajourdhui = Journee("yooo","datetime")
     ajourdhui.ajouter_seance(seance1)
-    ajourdhui.afficher_exercice()
-
-
-
