@@ -1,7 +1,11 @@
+from exercicesvalide import Exercicesvalide
 class Exercice:
 
-    exercicedisponible = ["bench", "squat", "deadlift"]
     def __init__(self, nomexercice,set : str , rep : str,poid: int,temps: int = None):
+        if nomexercice in [e.value for e in Exercicesvalide]:
+            self.nomexercice = nomexercice
+        else:
+            raise ValueError("exercice invalide")
         self.nomexercice = nomexercice
         self.rep = rep
         self.set = set
@@ -14,5 +18,10 @@ class Exercice:
 
 
     def __str__(self):
-        return f"{self.nomexercice} rep {self.rep} poid {self.poid} temps {self.temps}"
+        if self.temps == None:
+            return f"{self.nomexercice} rep {self.rep} poid {self.poid}"
+        else:
+            return f"{self.nomexercice} rep {self.rep} poid {self.poid} temps {self.temps}"
 
+premier = Exercice("bench",5,5,50)
+print(premier)
