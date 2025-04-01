@@ -2,7 +2,7 @@ from exercice import Exercice
 
 
 class ExerciceCardio(Exercice):
-    def __init__(self, nomexercice:str,duree:int,intensite:str,distance:int):
+    def __init__(self, nomexercice:str,duree:int,intensite:str,distance:float):
         super().__init__(nomexercice)
         self.duree = duree
         self.intensite = intensite
