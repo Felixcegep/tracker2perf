@@ -1,3 +1,6 @@
+
+# Todo: changer les methode d'instance pour avor le format
+
 class Seance:
     nbseancetotal = 0
     def __init__(self, nom : str):

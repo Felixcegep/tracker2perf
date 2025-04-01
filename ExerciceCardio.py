@@ -1,6 +1,6 @@
 from Exercice import Exercice
 
-
+# Todo: changer les methode d'instance pour avor le format
 class ExerciceCardio(Exercice):
     def __init__(self, nomexercice:str,duree:int,intensite:str,distance:float):
         super().__init__(nomexercice)

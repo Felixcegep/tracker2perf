@@ -2,6 +2,9 @@ from Seance import Seance
 from Exercice import Exercice
 from datetime import datetime
 
+# Todo: changer les methode d'instance pour avor le format
+
+
 class Journee:
     def __init__(self,nom, date : datetime):
         self.nom = nom

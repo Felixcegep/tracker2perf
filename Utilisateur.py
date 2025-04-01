@@ -6,6 +6,9 @@ from datetime import datetime
 import pickle
 import enum
 
+# Todo: changer les methode d'instance pour avor le format
+# Todo: ajout de jsonpickle pour sauvegarder les progrès de l'utilisateur
+
 class Utilisateur:
     nombre_utilisateur = 0
     def __init__(self, nom : str,taille: int, age: int, poid:float,genre:str):
