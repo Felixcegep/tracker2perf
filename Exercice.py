@@ -1,13 +1,13 @@
 import json  # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
 class Exercice:
-    # sauvegarder le json pour l'utilisateur
-    # ajouter les musclecible disponible
-    # supprimer un mouvement
+    # Todo: sauvegarder le json pour l'utilisateur
+    # Todo: ajouter les musclecible disponible
+    # Todo: supprimer un mouvement
 
     with open("mouvementdisponible.json", "r") as f:
         mouvements = json.load(f)
-
+    # Todo: ajout de sécuriter si il n'y a pas de fichier
     def __init__(self, nomexercice:str):
         if nomexercice in Exercice.mouvements:
 
