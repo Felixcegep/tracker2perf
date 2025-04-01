@@ -1,6 +1,7 @@
     # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
 class Exercice:
+
     mouvements  = {
         "bench": "Exercice de musculation ciblant principalement les pectoraux, effectué avec une barre ou des haltères.",
         "squat": "Mouvement polyarticulaire sollicitant les jambes et les fessiers, souvent réalisé avec une barre sur les épaules.",
@@ -13,25 +14,33 @@ class Exercice:
         "plank": "Exercice de gainage renforçant les abdominaux et le tronc en maintenant une position statique.",
         "leg_press": "Exercice sur machine pour muscler les jambes en poussant une plateforme avec les pieds."
     }
-
-
-    def __init__(self, nomexercice:str, rpe:int, set : int ,  rep : int,   poid: int,cardio:bool=False,  temps: int = None):
+    def __init__(self, nomexercice:str):
         if nomexercice in Exercice.mouvements:
 
-            self.nomexercice = nomexercice
+            self._nomexercice = nomexercice
         else:
-            print("exercice invalide veuillez l'ajouter a liste d'exercices")
+            raise ValueError("exercice invalide veuillez l'ajouter a liste d'exercices")
+
+    @property
+    def nomexercice(self):
+        return self._nomexercice
+
+    @nomexercice.setter
+    def nomexercice(self, nomexercice):
+        if nomexercice in Exercice.mouvements:
+            self._nomexercice = nomexercice
+        else:
+            raise ValueError("mauvais reessais")
+
+
 
     @classmethod
-    def ajouter_mouvement(cls,nom:str, description:str):
-        Exercice.mouvement[nom] = description
+    def ajouter_mouvement_disponible(cls,nom:str, description:str):
+        Exercice.mouvements[nom] = description
 
 
 
 
     def __str__(self):
-        if self.temps == None:
-            return f"{self.nomexercice} rpe {self.rpe} set {self.set} rep {self.rep} poid {self.poid}"
-        else:
-            return f"{self.nomexercice} rpe {self.rpe} set {self.set}  rep {self.rep} poid {self.poid} temps {self.temps}"
+        return f"nom de l'exercice : {self.nomexercice} "
 
