@@ -1,7 +1,9 @@
     # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
 class Exercice:
-
+    # est ce que mouvement devrais etre un jsonfile
+    # argument pour : sauvegarde possible pour l'utilisateur
+    # implémentation supplémentaire si c'est json tu peux lui donner des attributs comme les muscle visé
     mouvements  = {
         "bench": "Exercice de musculation ciblant principalement les pectoraux, effectué avec une barre ou des haltères.",
         "squat": "Mouvement polyarticulaire sollicitant les jambes et les fessiers, souvent réalisé avec une barre sur les épaules.",
