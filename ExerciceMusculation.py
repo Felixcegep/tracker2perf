@@ -1,6 +1,7 @@
 from Exercice import Exercice
 # Todo: changer les methode d'instance pour avor le format
-
+# Todo: verifier snake_case pour nom de variable
+# Todo: faire des test unitaire
 class ExerciceMusculation(Exercice):
     def __init__(self, nomexercice :str,rpe:int,set:int,rep:int,poid:int):
         super().__init__(nomexercice)

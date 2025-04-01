@@ -3,6 +3,8 @@ from Exercice import Exercice
 from datetime import datetime
 
 # Todo: changer les methode d'instance pour avor le format
+# Todo: verifier snake_case pour nom de variable
+# Todo: faire des test unitaire
 
 
 class Journee:

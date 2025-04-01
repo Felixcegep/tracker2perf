@@ -1,6 +1,7 @@
 
 # Todo: changer les methode d'instance pour avor le format
-
+# Todo: verifier snake_case pour nom de variable
+# Todo: faire des test unitaire
 class Seance:
     nbseancetotal = 0
     def __init__(self, nom : str):

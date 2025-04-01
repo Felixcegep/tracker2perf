@@ -4,7 +4,8 @@ class Exercice:
     # Todo: sauvegarder le json pour l'utilisateur
     # Todo: ajouter les musclecible disponible
     # Todo: supprimer un mouvement
-
+    # Todo: verifier snake_case pour nom de variable
+    # Todo: faire des test unitaire
     with open("mouvementdisponible.json", "r") as f:
         mouvements = json.load(f)
     # Todo: ajout de sécuriter si il n'y a pas de fichier

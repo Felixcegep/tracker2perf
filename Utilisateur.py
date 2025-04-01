@@ -8,6 +8,8 @@ import enum
 
 # Todo: changer les methode d'instance pour avor le format
 # Todo: ajout de jsonpickle pour sauvegarder les progrès de l'utilisateur
+# Todo: verifier snake_case pour nom de variable
+# Todo: faire des test unitaire
 
 class Utilisateur:
     nombre_utilisateur = 0
@@ -54,4 +56,3 @@ if __name__ == '__main__':
     ajourdhui.ajouter_seance(seance1)
 
     joueur1.ajouter_journee(ajourdhui)
-
