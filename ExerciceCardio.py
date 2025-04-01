@@ -1,4 +1,4 @@
-from exercice import Exercice
+from Exercice import Exercice
 
 
 class ExerciceCardio(Exercice):

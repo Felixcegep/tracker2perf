@@ -1,5 +1,5 @@
-from seance import Seance
-from exercice import Exercice
+from Seance import Seance
+from Exercice import Exercice
 from datetime import datetime
 
 class Journee:

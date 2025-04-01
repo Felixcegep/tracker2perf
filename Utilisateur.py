@@ -1,7 +1,7 @@
-from seance import Seance
-from exercice import Exercice
-from journee import Journee
-from genre import Genre
+from Seance import Seance
+from Exercice import Exercice
+from Journee import Journee
+from Genre import Genre
 from datetime import datetime
 import pickle
 import enum

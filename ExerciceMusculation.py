@@ -1,4 +1,4 @@
-from exercice import Exercice
+from Exercice import Exercice
 
 class ExerciceMusculation(Exercice):
     def __init__(self, nomexercice :str,rpe:int,set:int,rep:int,poid:int):
