@@ -11,4 +11,3 @@ class Seance:
 
     def ajouterExercice(self, exercice):
         self.exercice_seaces.append(exercice)
-

@@ -14,7 +14,7 @@ class Exercice:
         "leg_press": "Exercice sur machine pour muscler les jambes en poussant une plateforme avec les pieds."
     }
 
-    def __init__(self, nomexercice:str, rpe:int, set : int ,  rep : int,   poid: int,  temps: int = None):
+    def __init__(self, nomexercice:str, rpe:int, set : int ,  rep : int,   poid: int,cardio:bool=False,  temps: int = None):
         if nomexercice in Exercice.mouvement:
 
             self.nomexercice = nomexercice
@@ -25,6 +25,7 @@ class Exercice:
         self.set = set
         self.poid = poid
         self.temps = temps
+        self.cardio = cardio
 
 
     @classmethod

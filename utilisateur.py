@@ -3,6 +3,7 @@ from exercice import Exercice
 from journee import Journee
 from genre import Genre
 from datetime import datetime
+import pickle
 import enum
 
 class Utilisateur:
@@ -12,18 +13,18 @@ class Utilisateur:
         self.taille = taille
         self.age = age
         self.poid = poid
-        self.journee = []
-        if genre in [g.value for g in Genre]:
-            self.genre = genre
-        else:
-            raise ValueError("genre invalide") 
+        self.historique_journee = []
+
+        self.genre = genre
+
         self.personal_record = {
-            }
+
+                }
 
         Utilisateur.nombre_utilisateur += 1
 
     def ajouter_journee(self, journee:Journee):
-        self.journee.append(journee)
+        self.historique_journee.append(journee)
 
 
 
@@ -37,6 +38,7 @@ class Utilisateur:
         return f"Nom : {self.nom}\ntaille : {self.taille}\nage:  {self.age} \npoid: {self.poid} lbs"
 
 if __name__ == '__main__':
+
     joueur1 = Utilisateur("test", 150,19 ,60,"homme")
     # création de d'exercice
     x = datetime(2020, 5, 17)
@@ -44,7 +46,9 @@ if __name__ == '__main__':
     # création de séance
     seance1 = Seance("push")
     seance1.ajouterExercice(Exercice1)
-    #
+
     ajourdhui = Journee("yooo", x)
     ajourdhui.ajouter_seance(seance1)
-    ajourdhui.afficher_exercice()
+
+    joueur1.ajouter_journee(ajourdhui)
+
