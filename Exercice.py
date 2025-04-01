@@ -1,21 +1,13 @@
-    # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
+import json  # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
 class Exercice:
-    # est ce que mouvement devrais etre un jsonfile
-    # argument pour : sauvegarde possible pour l'utilisateur
-    # implémentation supplémentaire si c'est json tu peux lui donner des attributs comme les muscle visé
-    mouvements  = {
-        "bench": "Exercice de musculation ciblant principalement les pectoraux, effectué avec une barre ou des haltères.",
-        "squat": "Mouvement polyarticulaire sollicitant les jambes et les fessiers, souvent réalisé avec une barre sur les épaules.",
-        "deadlift": "Exercice de force sollicitant le dos, les jambes et les bras, consistant à soulever une barre depuis le sol.",
-        "pull-up": "Traction à la barre pour renforcer le dos et les bras en tirant son propre poids vers le haut.",
-        "shoulder_press": "Développement des épaules avec une barre ou des haltères en poussant le poids au-dessus de la tête.",
-        "bicep_curl": "Mouvement d'isolation pour les biceps, réalisé avec des haltères ou une barre en flexion des coudes.",
-        "triceps_dips": "Exercice au poids du corps ciblant les triceps en descendant et remontant sur des barres parallèles.",
-        "lunges": "Fentes pour travailler les jambes et les fessiers, réalisées avec ou sans charge supplémentaire.",
-        "plank": "Exercice de gainage renforçant les abdominaux et le tronc en maintenant une position statique.",
-        "leg_press": "Exercice sur machine pour muscler les jambes en poussant une plateforme avec les pieds."
-    }
+    # sauvegarder le json pour l'utilisateur
+    # ajouter les musclecible disponible
+    # supprimer un mouvement
+
+    with open("mouvementdisponible.json", "r") as f:
+        mouvements = json.load(f)
+
     def __init__(self, nomexercice:str):
         if nomexercice in Exercice.mouvements:
 
@@ -37,8 +29,12 @@ class Exercice:
 
 
     @classmethod
-    def ajouter_mouvement_disponible(cls,nom:str, description:str):
-        Exercice.mouvements[nom] = description
+    def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cible:list):
+        cls.mouvements[nom] = {
+            "description": description,
+            "muscle_cible": muscle_cible
+
+        }
 
 
 
@@ -46,3 +42,5 @@ class Exercice:
     def __str__(self):
         return f"nom de l'exercice : {self.nomexercice} "
 
+Exercice("bench")
+Exercice.ajouter_mouvement_disponible("nom", "petite description", ["chest"])
