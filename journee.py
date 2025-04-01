@@ -1,29 +1,25 @@
 from seance import Seance
 from exercice import Exercice
-import datetime
+from datetime import datetime
 
 class Journee:
-    def __init__(self,nom, date : datetime.datetime):
+    def __init__(self,nom, date : datetime):
+        self.nom = nom
         self.seances_ajourdhui = []
-        self.date = date
-        self.date_creation = datetime.date.today()
+        if datetime.now() > date:
+            self.date = date
+        else:
+            raise ValueError("date ne peux pas etre dans le futur")
+        self.date_creation = datetime.today()
 
     def ajouter_seance(self, seance: Seance):
         self.seances_ajourdhui.append(seance)
+
     def afficher_exercice(self):
-        for exercices in ajourdhui.seances_ajourdhui:
+        for exercices in self.seances_ajourdhui:
             for exercice in exercices.exercice_seaces:
                 print(exercice.nomexercice)
    # TODO: ajouter une vérification de date dans le format datetime
 
 
 
-if __name__ == '__main__':
-    # création de d'exercice
-    Exercice1 = Exercice("bench", 5, 5, 50)
-    #création de séance
-    seance1 = Seance("push")
-    seance1.ajouterExercice(Exercice1)
-    # 
-    ajourdhui = Journee("yooo","datetime")
-    ajourdhui.ajouter_seance(seance1)
