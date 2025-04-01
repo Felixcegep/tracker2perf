@@ -1,0 +1,11 @@
+{
+  "bench": {
+        "description": "Exercice de musculation ciblant principalement les pectoraux, effectu\u00e9 avec une barre ou des halt\u00e8res.",
+        "muscle": [
+            "chest",
+            "triceps"
+        ]
+    }
+
+
+}
