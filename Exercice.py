@@ -10,10 +10,10 @@ class Exercice:
     with open("mouvementdisponible.json", "r") as f:
         mouvements = json.load(f)
     # Todo: ajout de sécuriter si il n'y a pas de fichier
-    def __init__(self, nomexercice:str):
-        if nomexercice in Exercice.mouvements:
+    def __init__(self, nom_exercice:str):
+        if nom_exercice in Exercice.mouvements:
 
-            self._nomexercice = nomexercice
+            self._nomexercice = nom_exercice
         else:
             raise ValueError("exercice invalide veuillez l'ajouter a liste d'exercices")
 
@@ -31,14 +31,14 @@ class Exercice:
 
 
     @classmethod
-    def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cible:list,type_exercice:str):
+    def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cibles:list,type_exercice:str):
         #Todo : dans liste muscles cibles existe
         #Todo : verifier entre deux type muscu et cardio
         if nom in cls.mouvements:
             raise ValueError("le mouvement existe deja")
-        if len(muscle_cible) < 1:
+        if len(muscle_cibles) < 1:
             raise ValueError("il faut au moins une muscle cible")
-        for muscle in muscle_cible:
+        for muscle in muscle_cibles:
             if type(muscle) != str:
                 raise ValueError("les muscle sont des string")
         if type_exercice not in ["cardio", "muscu"]:
@@ -46,7 +46,7 @@ class Exercice:
         else:    
             cls.mouvements[nom] = {
                 "description": description,
-                "muscle_cible": muscle_cible,
+                "muscle_cible": muscle_cibles,
                 "type" : type_exercice
 
         }
@@ -68,3 +68,7 @@ class Exercice:
 
     def __str__(self):
         return f"nom de l'exercice : {self.nomexercice} "
+Exercice("bench")
+Exercice.ajouter_mouvement_disponible("test", "description", "Jambeee", "muscu")
+
+Exercice.sauvegarder_mouvement_disponible()
