@@ -30,8 +30,9 @@ class Exercice:
 
 
     @classmethod
-    def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cible:list):
+    def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cible:list,type_exercice:str):
         #Todo : dans liste muscles cibles existe
+        #Todo : verifier entre deux type muscu et cardio
         if nom in cls.mouvements:
             raise ValueError("le mouvement existe deja")
         if len(muscle_cible) < 1:
@@ -39,7 +40,8 @@ class Exercice:
         else:    
             cls.mouvements[nom] = {
                 "description": description,
-                "muscle_cible": muscle_cible
+                "muscle_cible": muscle_cible,
+                "type" : type_exercice
 
         }
         with open("mouvementdisponible.json", "w") as f:
@@ -60,4 +62,3 @@ class Exercice:
 
     def __str__(self):
         return f"nom de l'exercice : {self.nomexercice} "
-Exercice.ajouter_mouvement_disponible("test","petit description", [])
