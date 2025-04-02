@@ -31,7 +31,7 @@ class Exercice:
 
     @classmethod
     def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cible:list):
-        # verifier si toute les muscles existes
+        #Todo : dans liste muscles cibles existe
         if nom in cls.mouvements:
             raise ValueError("le mouvement existe deja")
         if len(muscle_cible) < 1:
