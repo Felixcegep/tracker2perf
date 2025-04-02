@@ -6,6 +6,7 @@ class Exercice:
     # Todo: supprimer un mouvement
     # Todo: verifier snake_case pour nom de variable
     # Todo: faire des test unitaire
+
     with open("mouvementdisponible.json", "r") as f:
         mouvements = json.load(f)
     # Todo: ajout de sécuriter si il n'y a pas de fichier
@@ -37,6 +38,11 @@ class Exercice:
             raise ValueError("le mouvement existe deja")
         if len(muscle_cible) < 1:
             raise ValueError("il faut au moins une muscle cible")
+        for muscle in muscle_cible:
+            if type(muscle) != str:
+                raise ValueError("les muscle sont des string")
+        if type_exercice not in ["cardio", "muscu"]:
+            raise ValueError("le type est sois cardio ou muscu")
         else:    
             cls.mouvements[nom] = {
                 "description": description,
@@ -44,17 +50,17 @@ class Exercice:
                 "type" : type_exercice
 
         }
-        with open("mouvementdisponible.json", "w") as f:
-            json.dump(cls.mouvements, f,indent=4)
-    
+
     @classmethod
     def supprimer_mouvement_disponible(cls,nom:str):
         if nom in cls.mouvements:
             del cls.mouvements[nom]
-            with open("mouvementdisponible.json", "w") as f:
-                json.dump(cls.mouvements, f,indent=4)
         else:
             raise ValueError("le mouvement n'existe pas")
+    @classmethod
+    def sauvegarder_mouvement_disponible(cls):
+        with open("mouvementdisponible.json", "w") as f:
+            json.dump(cls.mouvements, f,indent=4)
         
 
 
