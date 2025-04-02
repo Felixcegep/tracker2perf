@@ -31,17 +31,33 @@ class Exercice:
 
     @classmethod
     def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cible:list):
-        cls.mouvements[nom] = {
-            "description": description,
-            "muscle_cible": muscle_cible
+        # verifier si toute les muscles existes
+        if nom in cls.mouvements:
+            raise ValueError("le mouvement existe deja")
+        if len(muscle_cible) < 1:
+            raise ValueError("il faut au moins une muscle cible")
+        else:    
+            cls.mouvements[nom] = {
+                "description": description,
+                "muscle_cible": muscle_cible
 
         }
+        with open("mouvementdisponible.json", "w") as f:
+            json.dump(cls.mouvements, f,indent=4)
+    
+    @classmethod
+    def supprimer_mouvement_disponible(cls,nom:str):
+        if nom in cls.mouvements:
+            del cls.mouvements[nom]
+            with open("mouvementdisponible.json", "w") as f:
+                json.dump(cls.mouvements, f,indent=4)
+        else:
+            raise ValueError("le mouvement n'existe pas")
+        
 
 
 
 
     def __str__(self):
         return f"nom de l'exercice : {self.nomexercice} "
-
-Exercice("bench")
-Exercice.ajouter_mouvement_disponible("nom", "petite description", ["chest"])
+Exercice.ajouter_mouvement_disponible("test","petit description", [])
