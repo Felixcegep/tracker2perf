@@ -17,6 +17,7 @@ class Utilisateur:
         self.nom = nom
         self.taille = taille
         self.age = age
+        #Todo : tracker le poid de l'utilisateur lorsqu'il change avec la date
         self.poid = poid
         self.historique_journee = []
 
@@ -46,13 +47,25 @@ if __name__ == '__main__':
 
     joueur1 = Utilisateur("test", 150,19 ,60,"homme")
     # création de d'exercice
-    x = datetime(2020, 5, 17)
-    Exercice1 = Exercice("bench", 5, 5, 5, 50, )
-    # création de séance
-    seance1 = Seance("push")
+    datedeseance = datetime(2005, 2, 7)
+    day1 = Journee("nom", datedeseance)
+    day2 = Journee("nom", datedeseance)
+
+# seance
+
+    seance1 = Seance("seance1")
+    seance2 = Seance("seance2")
+# exercice
+    Exercice1 = Exercice("bench")
+    Exercice2 = Exercice("test")
+# ajouter seance
     seance1.ajouterExercice(Exercice1)
+    seance1.ajouterExercice(Exercice2)
+    seance2.ajouterExercice(Exercice1)
+    seance2.ajouterExercice(Exercice2)
+# jours
+    day1.ajouter_seance(seance1)
+    day2.ajouter_seance(seance2)
 
-    ajourdhui = Journee("yooo", x)
-    ajourdhui.ajouter_seance(seance1)
-
-    joueur1.ajouter_journee(ajourdhui)
+# user
+    joueur1.ajouter_journee(day1)
