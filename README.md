@@ -1,3 +1,5 @@
+Le celebre tracker2perf permet a l'utilisateur de garder une trace de tous ses entrainements et de tous ses repas pour ne pas perdre de vue ses objectifs.
+
 Felix : Classes liées au exercices et gym
 
 Loic : Classes liées a la nutrition et/ou course
