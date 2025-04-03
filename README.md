@@ -1,3 +1,6 @@
+Felix : Classes liées au exercices et gym
+Loic : Classes liées a la nutrition et/ou course
+
 ajout d'un systeme de calcule l'intensité de la session
 donnée utile a avoir 
 1. 1RM estimé pour chaque exercice (ex : squat, développé couché, etc.).
