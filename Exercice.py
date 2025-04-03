@@ -33,7 +33,7 @@ class Exercice:
     @classmethod
     def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cibles:list,type_exercice:str):
         #Todo : dans liste muscles cibles existe
-        #Todo : verifier entre deux type muscu et cardio
+        #Todo : changer if type_exercice not in ["cardio", "muscu"] pour quelque chose de mieux
         if nom in cls._mouvements:
             raise ValueError("le mouvement existe deja")
         if len(muscle_cibles) < 1:
@@ -67,6 +67,5 @@ class Exercice:
 
 
     def __str__(self):
-        return f"nom de l'exercice : {self.nomexercice} "
-Exercice("bench")
+        return f"exercice : {self.nomexercice} "
 
