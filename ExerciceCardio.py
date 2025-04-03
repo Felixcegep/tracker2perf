@@ -4,15 +4,45 @@ from Exercice import Exercice
 # Todo: verifier snake_case pour nom de variable
 # Todo: faire des test unitaire
 class ExerciceCardio(Exercice):
-    # verifier mouvements disponible cardio 
-    def __init__(self, nom_exercice:str,duree:int,intensite:str,distance:float):
+    # verifier mouvements disponible cardio
+    def __init__(self, nom_exercice:str,duree:int,distance:float,intensite : int):
         super().__init__(nom_exercice)
         self.duree = duree
         self.intensite = intensite
         self.distance = distance
 
-    def __str__(self):
-        return f'nom :{self.nomexercice} duree : {self.duree} intensite : {self.intensite} distances : {self.distance}'
+    @property
+    def intensite(self):
+        return self._intensite
 
-test = ExerciceCardio("squat",9,"dure",9)
-print(test)
+    @intensite.setter
+    def intensite(self, intensite):
+        if 0 < intensite <= 10:
+            self._intensite = intensite
+        else:
+            raise ValueError("intensite doit etre entre 1 et 10")
+
+    @property
+    def distance(self):
+        return self._distance
+    @distance.setter
+    def distance(self, distance):
+        if distance <= 0:
+            raise ValueError("la distance doit etre positive")
+        else:
+            self._distance = distance
+
+    @property
+    def duree(self):
+        return self._duree
+    @duree.setter
+    def duree(self, duree):
+        if duree <= 0:
+            raise ValueError("la duree doit etre positive")
+        else:
+            self._duree = duree
+
+    def __str__(self):
+        return f'nom :{self.nomexercice} duree : {self._duree} intensite : {self.intensite} distances : {self.distance}'
+
+test = ExerciceCardio("squat",9,10,5)
