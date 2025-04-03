@@ -1,4 +1,5 @@
 Felix : Classes liées au exercices et gym
+
 Loic : Classes liées a la nutrition et/ou course
 
 ajout d'un systeme de calcule l'intensité de la session
