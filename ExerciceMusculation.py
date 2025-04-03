@@ -10,6 +10,17 @@ class ExerciceMusculation(Exercice):
         self.set = set
         self.rep = rep
         self.poid = poid
+    @property
+    def rpe(self):
+        return self._rpe
+    @rpe.setter
+    def rpe(self,rpe):
+        if 0 < rpe <=10:
+            self._rpe = rpe
+        else:
+            raise ValueError("rpe doit etre dans la range de 1 a 10")
+
 
     def __str__(self):
-        return f"nom : {self.nomexercice} rpe : {self.rpe} set : {self.set} rep : {self.rep} poid : {self.poid}"
+        return f"nom : {self.nomexercice}, rpe : {self.rpe}, set : {self.set}, rep : {self.rep}, poid : {self.poid} kg"
+
