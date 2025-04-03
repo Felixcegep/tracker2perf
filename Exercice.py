@@ -8,8 +8,10 @@ class Exercice:
     # Todo: faire des test unitaire
     #Todo : faire une classe mouvement
 
+    # TODO: faire que ca l'ouvre un fichier jsonpickle
     with open("mouvementdisponible.json", "r") as f:
-        MOUVEMENT = json.load(f)
+
+        MOUVEMENT_dispo = json.load(f)
         type_valide = ["cardio","musculation"]
 
 
@@ -23,7 +25,7 @@ class Exercice:
 
     @nomexercice.setter
     def nomexercice(self, nom_exercice):
-        if nom_exercice in Exercice.MOUVEMENT:
+        if nom_exercice in Exercice.MOUVEMENT_dispo:
             self._nom_exercice = nom_exercice
         else:
             raise ValueError(f"Exercice '{nom_exercice}' n'est pas valide. Veuillez l'ajouter à la liste.")
@@ -32,7 +34,7 @@ class Exercice:
     def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cibles:list,type_exercice:str):
         #Todo : dans liste muscles cibles existe
         #Todo : changer if type_exercice not in ["cardio", "muscu"] pour quelque chose de mieux
-        if nom in cls.MOUVEMENT:
+        if nom in cls.MOUVEMENT_dispo:
             raise ValueError("le mouvement existe deja")
         if len(muscle_cibles) < 1:
             raise ValueError("il faut au moins une muscle cible")
@@ -41,8 +43,9 @@ class Exercice:
                 raise ValueError("les muscle sont des string")
         if type_exercice not in cls.type_valide:
             raise ValueError("le type est sois cardio ou muscu")
-        else:    
-            cls.MOUVEMENT[nom] = {
+        else:
+            #TODO: faire que ca crée un objet Mouvement là
+            cls.MOUVEMENT_dispo[nom] = {
                 "description": description,
                 "muscle_cible": muscle_cibles,
                 "type" : type_exercice
@@ -51,14 +54,14 @@ class Exercice:
 
     @classmethod
     def supprimer_mouvement_disponible(cls,nom:str):
-        if nom in cls.MOUVEMENT:
-            del cls.MOUVEMENT[nom]
+        if nom in cls.MOUVEMENT_dispo:
+            del cls.MOUVEMENT_dispo[nom]
         else:
             raise ValueError("le mouvement n'existe pas")
     @classmethod
     def sauvegarder_mouvement_disponible(cls):
         with open("mouvementdisponible.json", "w") as f:
-            json.dump(cls.MOUVEMENT, f, indent=4)
+            json.dump(cls.MOUVEMENT_dispo, f, indent=4)
         
 
 
