@@ -6,10 +6,13 @@ class Exercice:
     # Todo: supprimer un mouvement
     # Todo: verifier snake_case pour nom de variable
     # Todo: faire des test unitaire
+    #Todo : faire une classe mouvement
 
     with open("mouvementdisponible.json", "r") as f:
         MOUVEMENT = json.load(f)
         type_valide = ["cardio","musculation"]
+
+
     # Todo: ajout de sécuriter si il n'y a pas de fichier
     def __init__(self, nom_exercice:str):
         self.nomexercice = nom_exercice
