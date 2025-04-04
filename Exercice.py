@@ -60,7 +60,7 @@ class Exercice:
             raise ValueError("le mouvement n'existe pas")
     @classmethod
     def sauvegarder_mouvement_disponible(cls):
-        with open("Exercice.pkl", "wb") as f:
+        with open("mouvement_disponible.pkl", "wb") as f:
             pickle.dump(cls.MOUVEMENT_dispo, f)
         
 
@@ -69,6 +69,3 @@ class Exercice:
 
     def __str__(self):
         return f"exercice : {self.nomexercice} "
-print(Exercice.MOUVEMENT_dispo)
-Exercice.ajouter_mouvement_disponible("test1","test",["test"],"musculation")
-print(Exercice.MOUVEMENT_dispo)
