@@ -1,4 +1,4 @@
-import json  # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
+import pickle # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
 class Exercice:
     # Todo: sauvegarder le json pour l'utilisateur
@@ -9,9 +9,8 @@ class Exercice:
     #Todo : faire une classe mouvement
 
     # TODO: faire que ca l'ouvre un fichier jsonpickle
-    with open("mouvementdisponible.json", "r") as f:
-
-        MOUVEMENT_dispo = json.load(f)
+    with open("Exercice.pkl", "rb") as f:
+        MOUVEMENT_dispo = pickle.load(f)
         type_valide = ["cardio","musculation"]
 
 
@@ -25,7 +24,7 @@ class Exercice:
 
     @nomexercice.setter
     def nomexercice(self, nom_exercice):
-        if nom_exercice in Exercice.MOUVEMENT_dispo:
+        if nom_exercice in Exercice.MOUVEMENT_dispo.keys():
             self._nom_exercice = nom_exercice
         else:
             raise ValueError(f"Exercice '{nom_exercice}' n'est pas valide. Veuillez l'ajouter à la liste.")
@@ -34,7 +33,7 @@ class Exercice:
     def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cibles:list,type_exercice:str):
         #Todo : dans liste muscles cibles existe
         #Todo : changer if type_exercice not in ["cardio", "muscu"] pour quelque chose de mieux
-        if nom in cls.MOUVEMENT_dispo:
+        if nom in cls.MOUVEMENT_dispo.keys():
             raise ValueError("le mouvement existe deja")
         if len(muscle_cibles) < 1:
             raise ValueError("il faut au moins une muscle cible")
@@ -60,8 +59,8 @@ class Exercice:
             raise ValueError("le mouvement n'existe pas")
     @classmethod
     def sauvegarder_mouvement_disponible(cls):
-        with open("mouvementdisponible.json", "w") as f:
-            json.dump(cls.MOUVEMENT_dispo, f, indent=4)
+        with open("Exercice.pkl", "wb") as f:
+            pickle.dump(cls.MOUVEMENT_dispo, f)
         
 
 
@@ -69,4 +68,3 @@ class Exercice:
 
     def __str__(self):
         return f"exercice : {self.nomexercice} "
-test = Exercice("bench")
