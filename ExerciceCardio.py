@@ -45,4 +45,3 @@ class ExerciceCardio(Exercice):
     def __str__(self):
         return f'nom :{self.nomexercice} duree : {self._duree} intensite : {self.intensite} distances : {self.distance}'
 
-test = ExerciceCardio("squat",9,10,5)
