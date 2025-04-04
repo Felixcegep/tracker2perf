@@ -5,7 +5,8 @@ from Genre import Genre
 from datetime import datetime
 import pickle
 import enum
-
+from ExerciceCardio import ExerciceCardio
+from ExerciceMusculation import ExerciceMusculation
 # Todo: changer les methode d'instance pour avor le format
 # Todo: ajout de jsonpickle pour sauvegarder les progrès de l'utilisateur
 # Todo: verifier snake_case pour nom de variable
@@ -56,16 +57,12 @@ if __name__ == '__main__':
     seance1 = Seance("seance1")
     seance2 = Seance("seance2")
 # exercice
-    Exercice1 = Exercice("bench")
-    Exercice2 = Exercice("test")
+
+    Exercice1 = ExerciceMusculation("test1", 1,1,2,3)
 # ajouter seance
     seance1.ajouterExercice(Exercice1)
-    seance1.ajouterExercice(Exercice2)
-    seance2.ajouterExercice(Exercice1)
-    seance2.ajouterExercice(Exercice2)
 # jours
     day1.ajouter_seance(seance1)
-    day2.ajouter_seance(seance2)
 
 # user
     joueur1.ajouter_journee(day1)
