@@ -1,4 +1,6 @@
 from Exercice import Exercice
+from ExerciceCardio import ExerciceCardio
+from ExerciceMusculation import ExerciceMusculation
 
 
 # Todo: changer les methode d'instance pour avor le format
@@ -15,8 +17,8 @@ class Seance:
         for exercice in self.exercice_seaces:
             print(exercice.nomexercice)
 
-    def ajouterExercice(self, exercice:Exercice):
-        if isinstance(exercice, Exercice):
+    def ajouterExercice(self, exercice:ExerciceMusculation):
+        if isinstance(exercice, ExerciceCardio) or isinstance(exercice, ExerciceMusculation):
             self.exercice_seaces.append(exercice)
         else:
-            raise ValueError("exercice n'est pas un Exercice")
+            raise ValueError("exercice n'est pas un ExerciceMusculation ou ExerciceCardio")
