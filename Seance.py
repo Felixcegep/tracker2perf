@@ -17,7 +17,7 @@ class Seance:
         for exercice in self.exercice_seaces:
             print(exercice.nomexercice)
 
-    def ajouterExercice(self, exercice:ExerciceMusculation):
+    def ajouter_exercice(self, exercice:ExerciceMusculation):
         if isinstance(exercice, ExerciceCardio) or isinstance(exercice, ExerciceMusculation):
             self.exercice_seaces.append(exercice)
         else:
