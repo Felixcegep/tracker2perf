@@ -1,5 +1,6 @@
 import pickle # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
+from Mouvement import Mouvement
 class Exercice:
     # Todo: sauvegarder le json pour l'utilisateur
     # Todo: ajouter les musclecible disponible
@@ -11,7 +12,7 @@ class Exercice:
     # TODO: faire que ca l'ouvre un fichier jsonpickle
     with open("Exercice.pkl", "rb") as f:
         MOUVEMENT_dispo = pickle.load(f)
-        type_valide = ["cardio","musculation"]
+    type_valide = ["cardio","musculation"]
 
 
     # Todo: ajout de sécuriter si il n'y a pas de fichier
@@ -44,12 +45,12 @@ class Exercice:
             raise ValueError("le type est sois cardio ou muscu")
         else:
             #TODO: faire que ca crée un objet Mouvement là
-            cls.MOUVEMENT_dispo[nom] = {
-                "description": description,
-                "muscle_cible": muscle_cibles,
-                "type" : type_exercice
-
-        }
+            cls.MOUVEMENT_dispo[nom] = Mouvement(
+                name=nom,
+                description=description,
+                muscle=muscle_cibles,
+                type=type_exercice
+                    )
 
     @classmethod
     def supprimer_mouvement_disponible(cls,nom:str):
