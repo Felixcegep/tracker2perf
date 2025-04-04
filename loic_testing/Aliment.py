@@ -1,9 +1,9 @@
 
 class Aliment:
-    def __init__(self,nom,calories,proteine):
+    def __init__(self,nom,calories,proteines):
         self.nom = nom
         self.calories = calories
-        self.proteine = proteine
+        self.proteines = proteines
 
     @property
     def calories(self):
