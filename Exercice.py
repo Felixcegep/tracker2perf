@@ -10,7 +10,7 @@ class Exercice:
     #Todo : faire une classe mouvement
 
     # TODO: faire que ca l'ouvre un fichier jsonpickle
-    with open("Exercice.pkl", "rb") as f:
+    with open("mouvement_disponible.pkl", "rb") as f:
         MOUVEMENT_dispo = pickle.load(f)
     type_valide = ["cardio","musculation"]
 
@@ -69,3 +69,6 @@ class Exercice:
 
     def __str__(self):
         return f"exercice : {self.nomexercice} "
+print(Exercice.MOUVEMENT_dispo)
+Exercice.ajouter_mouvement_disponible("test1","test",["test"],"musculation")
+print(Exercice.MOUVEMENT_dispo)
