@@ -22,3 +22,6 @@ class Seance:
             self.exercice_seaces.append(exercice)
         else:
             raise ValueError("exercice n'est pas un ExerciceMusculation ou ExerciceCardio")
+
+    def __str__(self):
+        return f'{self.nom} {self.exercice_seaces}'
