@@ -1,7 +1,11 @@
 import pickle # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
 from Mouvement import Mouvement
+# enum
 from MouvementType import MouvementType
+from Muscledispo import Muscledispo
+# compteur pour regarder si un muscle_cible est choisie un fois uniquement
+from collections import Counter
 class Exercice:
     # Todo: sauvegarder le json pour l'utilisateur
     # Todo: ajouter les musclecible disponible
@@ -34,14 +38,17 @@ class Exercice:
     @classmethod
     def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cibles:list,type_exercice:str):
         #Todo : dans liste muscles cibles existe
-        #Todo : changer if type_exercice not in ["cardio", "muscu"] pour quelque chose de mieux
         if nom in cls.MOUVEMENT_dispo.keys():
             raise ValueError("le mouvement existe deja")
         if len(muscle_cibles) < 1:
             raise ValueError("il faut au moins une muscle cible")
-        for muscle in muscle_cibles:
-            if type(muscle) != str:
-                raise ValueError("les muscle sont des string")
+
+        for muscle_check in muscle_cibles:
+            if muscle_check not in [muscle.value for muscle in Muscledispo]:
+                muscle_invalide = muscle_check
+                raise ValueError(f"ce muscle n'est pas valide{muscle_invalide}")
+
+
         if type_exercice not in [mouvement.value for mouvement in MouvementType]:
             raise ValueError("le type est sois cardio ou musculation")
         else:
@@ -71,6 +78,4 @@ class Exercice:
     def __str__(self):
         return f"exercice : {self.nomexercice} "
 
-if "cardio" not in [mouvement.value for mouvement in MouvementType]:
-    print("invalide")
-
+Exercice.ajouter_mouvement_disponible("test2","description",["Pectoraux"],"cardio")
