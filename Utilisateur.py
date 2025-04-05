@@ -32,6 +32,7 @@ class Utilisateur:
 
     def ajouter_journee(self, journee:Journee):
         self.historique_journee.append(journee)
+        #TODO : ajouter pr dans lors de ajouter journee
 
 
 
@@ -60,7 +61,7 @@ if __name__ == '__main__':
 
     Exercice1 = ExerciceMusculation("test1", 1,1,2,3)
 # ajouter seance
-    seance1.ajouterExercice(Exercice1)
+    seance1.ajouter_exercice(Exercice1)
 # jours
     day1.ajouter_seance(seance1)
 
