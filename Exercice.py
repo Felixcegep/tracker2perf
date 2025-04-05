@@ -1,6 +1,7 @@
 import pickle # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
     # a l'aide d'un calcule
 from Mouvement import Mouvement
+from MouvementType import MouvementType
 class Exercice:
     # Todo: sauvegarder le json pour l'utilisateur
     # Todo: ajouter les musclecible disponible
@@ -41,8 +42,8 @@ class Exercice:
         for muscle in muscle_cibles:
             if type(muscle) != str:
                 raise ValueError("les muscle sont des string")
-        if type_exercice not in cls.type_valide:
-            raise ValueError("le type est sois cardio ou muscu")
+        if type_exercice not in [mouvement.value for mouvement in MouvementType]:
+            raise ValueError("le type est sois cardio ou musculation")
         else:
             #TODO: faire que ca crée un objet Mouvement là
             cls.MOUVEMENT_dispo[nom] = Mouvement(
@@ -69,3 +70,7 @@ class Exercice:
 
     def __str__(self):
         return f"exercice : {self.nomexercice} "
+
+if "cardio" not in [mouvement.value for mouvement in MouvementType]:
+    print("invalide")
+
