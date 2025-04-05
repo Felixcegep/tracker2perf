@@ -47,7 +47,9 @@ class Exercice:
             if muscle_check not in [muscle.value for muscle in Muscledispo]:
                 muscle_invalide = muscle_check
                 raise ValueError(f"ce muscle n'est pas valide{muscle_invalide}")
-
+        counter = Counter(muscle_cibles)
+        if not all(count == 1 for count in counter.values()):
+            raise ValueError("un muscle peut seulement etre cibler une fois")
 
         if type_exercice not in [mouvement.value for mouvement in MouvementType]:
             raise ValueError("le type est sois cardio ou musculation")
@@ -78,4 +80,3 @@ class Exercice:
     def __str__(self):
         return f"exercice : {self.nomexercice} "
 
-Exercice.ajouter_mouvement_disponible("test2","description",["Pectoraux"],"cardio")
