@@ -5,3 +5,5 @@ class Mouvement:
         self.muscle = muscle
         self.type = type
 
+    def __str__(self):
+        return f"Mouvement: {self.name}, Type: {self.type}, Muscles: {', '.join(self.muscle)}"
