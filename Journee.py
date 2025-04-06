@@ -17,11 +17,29 @@ class Journee:
         self.seances_ajourdhui = []
         self.nutrition_aujourdhui = []
         self.poid_aujourdhui = poid_aujourdhui
-        if datetime.now() > date and isinstance(date, datetime):
-            self.date = date
-        else:
-            raise ValueError("date ne peux pas etre dans le futur")
+        self.date = date        
         self.date_creation = datetime.today()
+    @property
+    def date(self):
+        return self._date
+
+    @date.setter
+    def date(self, date):
+        if datetime.now() > date and isinstance(date, datetime):
+            self._date = date
+        else:
+            raise ValueError("date ne peux pas etre dans le futur et doit etre de format datetime")
+    @property
+    def poid_aujourdhui(self):
+        return self._poid_aujourdhui
+
+    @poid_aujourdhui.setter
+    def poid_aujourdhui(self, poid_aujourdhui):
+        if poid_aujourdhui > 0:
+            self._poid_aujourdhui = poid
+        else:
+            raise ValueError("le poid doit etre superieur a 0")
+            
 
     def ajouter_seance(self, seance: Seance):
         self.seances_ajourdhui.append(seance)
