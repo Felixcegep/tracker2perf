@@ -25,3 +25,6 @@ class Seance:
 
     def __str__(self):
         return f'{self.nom} {self.exercice_seaces}'
+exercice1 = ExerciceMusculation("test",1,1,1,1)
+seance1 = Seance("test")
+seance1.ajouter_exercice(exercice1)
