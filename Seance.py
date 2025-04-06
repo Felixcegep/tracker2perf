@@ -13,6 +13,16 @@ class Seance:
         self.exercice_seaces = []
         Seance.nbseancetotal += 1
 
+    @property
+    def nom(self):
+        return self._nom
+    @nom.setter
+    def nom(self, nom):
+        if len(nom) > 0:
+            self._nom = nom
+        else:
+            raise("le nom de la seance ne peut pas etre vide")
+
     def afficher_exercices(self):
         if len(self.exercice_seaces) == 0:
             return "il n'y a pas d'exercice dans cette seance"
@@ -34,6 +44,7 @@ class Seance:
                 break
     def afficher_total_exercice(self):
         return Seance.nbseancetotal
-        
+    
+    
     def __str__(self):
         return f'{self.nom} {self.exercice_seaces}'
