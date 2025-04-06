@@ -15,7 +15,7 @@ class Seance:
 
     def afficher_exercices(self):
         if len(self.exercice_seaces) == 0:
-            print("il n'y a pas d'exercice dans cette seance")
+            return "il n'y a pas d'exercice dans cette seance"
         else:
             compteur = 0
             for exercice in self.exercice_seaces:
@@ -32,6 +32,8 @@ class Seance:
             if exercice.nomexercice == nom_exercice:
                 self.exercice_seaces.remove(exercice)
                 break
-        print("nom invalide")
+    def afficher_total_exercice(self):
+        return Seance.nbseancetotal
+        
     def __str__(self):
         return f'{self.nom} {self.exercice_seaces}'
