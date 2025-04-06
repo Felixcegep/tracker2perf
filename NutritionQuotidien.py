@@ -1,9 +1,11 @@
 import pickle
 from Aliment import Aliment
 class NutritionQuotidien:
-
-    with open("aliment_disponible.pkl", "rb") as f:
-        ALIMENT_dispo = pickle.load(f)
+    try:
+        with open("aliment_disponible.pkl", "rb") as f:
+            ALIMENT_dispo = pickle.load(f)
+    except FileNotFoundError:
+        ALIMENT_dispo = {}
 
     def __init__(self):
         pass
@@ -25,9 +27,6 @@ class NutritionQuotidien:
     def sauvegarder_aliment_disponible(cls):
         with open("aliment_disponible.pkl", "wb") as f:
             pickle.dump(cls.ALIMENT_dispo, f)
-
-
-
 
 
 
