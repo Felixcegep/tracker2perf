@@ -33,6 +33,7 @@ class Utilisateur:
     def ajouter_journee(self, journee:Journee):
         self.historique_journee.append(journee)
         #TODO : ajouter pr dans lors de ajouter journee
+        
 
 
 
@@ -45,6 +46,7 @@ class Utilisateur:
         print(cls.nombre_utilisateur)
     def obtenir_exercices_info(self):
         exercices_liste = []
+        # peut etre ameliorer
         for journee in self.historique_journee:
             for seance in journee.seances_ajourdhui:
                 for exercice in seance.exercice_seaces:
@@ -64,30 +66,4 @@ class Utilisateur:
     def __str__(self):
         return f"Nom : {self.nom}\ntaille : {self.taille}\nage:  {self.age} \npoid: {self.poid} lbs"
 
-if __name__ == '__main__':
 
-    joueur1 = Utilisateur("test", 150,19 ,60,"homme")
-    # création de d'exercice
-    datedeseance = datetime(2005, 2, 7)
-    day1 = Journee("nom", datedeseance)
-    day2 = Journee("nom", datedeseance)
-
-# seance
-
-    seance1 = Seance("seance1")
-# exercice
-
-    Exercice1 = ExerciceMusculation("test", 1,1,2,3)
-    Exercice2 = ExerciceMusculation("Presse à cuisses", 1,1,2,3)
-
-# ajouter seance
-    seance1.ajouter_exercice(Exercice1)
-    seance1.ajouter_exercice(Exercice2)
-    
-# jours
-    day1.ajouter_seance(seance1)
-
-# user
-    joueur1.ajouter_journee(day1)
-    test = joueur1.obtenir_exercices_info()
-    print(test[1]["nom"])
