@@ -11,8 +11,8 @@ if __name__ == '__main__':
     joueur1 = Utilisateur("test", 150,19 ,60,"homme")
     # création de d'exercice
     datedeseance = datetime(2005, 2, 7)
-    day1 = Journee("nom", datedeseance)
-    day2 = Journee("nom", datedeseance)
+    day1 = Journee("nom", datedeseance,143)
+    day2 = Journee("nom", datedeseance,130)
 
 # seance
 
