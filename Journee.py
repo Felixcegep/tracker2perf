@@ -11,12 +11,13 @@ from NutritionQuotidien import NutritionQuotidien
 
 
 class Journee:
-    def __init__(self,nom, date : datetime):
+    def __init__(self,nom, date : datetime, poid_aujourdhui : float):
         #Todo : ajouter le poid lors de la journee
         self.nom = nom
         self.seances_ajourdhui = []
         self.nutrition_aujourdhui = []
-        if datetime.now() > date:
+        self.poid_aujourdhui = poid_aujourdhui
+        if datetime.now() > date and isinstance(date, datetime):
             self.date = date
         else:
             raise ValueError("date ne peux pas etre dans le futur")
