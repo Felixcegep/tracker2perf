@@ -41,6 +41,9 @@ class Utilisateur:
             elif exercice["nom"] in self.personal_record.keys():
                 if exercice["poid_kg"] > self.personal_record[exercice["nom"]]:
                     print("le pr a agmenter felicitation :)")
+                    self.personal_record[exercice["nom"]] = exercice["poid_kg"]
+                else:
+                    print("rien na changer dans pr")
                 
     @classmethod
     def afficher_total_utilisateur(cls):
