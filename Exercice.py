@@ -1,20 +1,13 @@
-import pickle # ajouter intensiter pour chaque exercices pour ensuite pouvoir la calculer dans séance
-    # a l'aide d'un calcule
+import pickle
 from Mouvement import Mouvement
-# enum
 from MouvementType import MouvementType
 from Muscledispo import Muscledispo
-# compteur pour regarder si un muscle_cible est choisie un fois uniquement
+
 from collections import Counter
 class Exercice:
-    # Todo: sauvegarder le json pour l'utilisateur
-    # Todo: ajouter les musclecible disponible
-    # Todo: supprimer un mouvement
-    # Todo: verifier snake_case pour nom de variable
     # Todo: faire des test unitaire
-    #Todo : faire une classe mouvement
-
     # TODO: faire que ca l'ouvre un fichier jsonpickle
+
     with open("mouvement_disponible.pkl", "rb") as f:
         MOUVEMENT_dispo = pickle.load(f)
     type_valide = ["cardio","musculation"]
@@ -79,4 +72,3 @@ class Exercice:
 
     def __str__(self):
         return f"exercice : {self.nomexercice} "
-
