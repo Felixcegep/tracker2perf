@@ -31,16 +31,17 @@ class Utilisateur:
         Utilisateur.nombre_utilisateur += 1
 
     def ajouter_journee(self, journee:Journee):
-        self.historique_journee.append(journee)
-        #TODO : ajouter pr dans lors de ajouter journee
-        
-
-
-
-
-
-
-
+        #self.historique_journee.append(journee)
+        infojournee = journee.obtenir_exercices_info()
+        for exercice in infojournee:
+            if exercice["nom"] not in self.personal_record.keys():
+                print(exercice["nom"],"a ete ajouter au personal record")
+                self.personal_record[exercice["nom"]] = exercice["poid_kg"]
+            
+            elif exercice["nom"] in self.personal_record.keys():
+                if exercice["poid_kg"] > self.personal_record[exercice["nom"]]:
+                    print("le pr a agmenter felicitation :)")
+                
     @classmethod
     def afficher_total_utilisateur(cls):
         print(cls.nombre_utilisateur)
