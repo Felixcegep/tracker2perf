@@ -34,6 +34,14 @@ class Utilisateur:
                 }
 
         Utilisateur.nombre_utilisateur += 1
+    def actualiser_poid(self):
+        # passer a travers toutes les journee pour mettre toutes les donne de chaque journee 
+        # 
+        pass
+    
+    def actualiser_pr(self):
+        pass
+        
 
     def ajouter_journee(self, journee:Journee):
         #TODO : cette methode contiens deux fonctionnaliter change la 
