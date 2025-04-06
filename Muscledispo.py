@@ -16,3 +16,4 @@ class Muscledispo(Enum):
     Rhomboides = "Rhomboïdes"
     Adducteurs = "Adducteurs"
     Lombaires = "Lombaires"
+    Avantbras = "Avant-bras"
