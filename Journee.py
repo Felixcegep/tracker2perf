@@ -36,7 +36,7 @@ class Journee:
     @poid_aujourdhui.setter
     def poid_aujourdhui(self, poid_aujourdhui):
         if poid_aujourdhui > 0:
-            self._poid_aujourdhui = poid
+            self._poid_aujourdhui = poid_aujourdhui
         else:
             raise ValueError("le poid doit etre superieur a 0")
             
