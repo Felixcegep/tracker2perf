@@ -12,6 +12,7 @@ from NutritionQuotidien import NutritionQuotidien
 
 class Journee:
     def __init__(self,nom, date : datetime):
+        #Todo : ajouter le poid lors de la journee
         self.nom = nom
         self.seances_ajourdhui = []
         self.nutrition_aujourdhui = []
