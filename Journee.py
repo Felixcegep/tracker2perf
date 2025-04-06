@@ -5,8 +5,6 @@ from NutritionQuotidien import NutritionQuotidien
 
 
 
-# Todo: changer les methode d'instance pour avor le format
-# Todo: verifier snake_case pour nom de variable
 # Todo: faire des test unitaire
 
 
@@ -70,4 +68,3 @@ class Journee:
     #    self.nutrition_aujourdhui.append(nutrition)
             
 
-   # TODO: ajouter une vérification de date dans le format datetime
