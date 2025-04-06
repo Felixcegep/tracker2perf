@@ -1,6 +1,7 @@
 from Seance import Seance
 from ExerciceMusculation import ExerciceMusculation
 from datetime import datetime
+from NutritionQuotidien import NutritionQuotidien
 
 
 
@@ -28,13 +29,8 @@ class Journee:
             for exercice in exercices.exercice_seaces:
                 print(exercice.nomexercice)
 
-    #def ajouter_nutrition(self, nutrition: Nutrition.NutritionQuotidien):
-     #   self.nutrition_aujourdhui.append(nutrition)
-
+    def ajouter_nutrition(self, nutrition: NutritionQuotidien):
+        self.nutrition_aujourdhui.append(nutrition)
+            
 
    # TODO: ajouter une vérification de date dans le format datetime
-exercice1 = ExerciceMusculation("test",1,1,1,1)
-seance1 = Seance("test")
-seance1.ajouter_exercice(exercice1)
-
-
