@@ -31,19 +31,24 @@ class Utilisateur:
         Utilisateur.nombre_utilisateur += 1
 
     def ajouter_journee(self, journee:Journee):
-        #self.historique_journee.append(journee)
-        infojournee = journee.obtenir_exercices_info()
-        for exercice in infojournee:
-            if exercice["nom"] not in self.personal_record.keys():
-                print(exercice["nom"],"a ete ajouter au personal record")
-                self.personal_record[exercice["nom"]] = exercice["poid_kg"]
+        #TODO : cette methode contiens deux fonctionnaliter change la 
+        if isinstance(journee, Journee):
+            self.historique_journee.append(journee)
             
-            elif exercice["nom"] in self.personal_record.keys():
-                if exercice["poid_kg"] > self.personal_record[exercice["nom"]]:
-                    print("le pr a agmenter felicitation :)")
+            infojournee = journee.obtenir_exercices_info()
+            for exercice in infojournee:
+                if exercice["nom"] not in self.personal_record.keys():
+                    print(exercice["nom"],"a ete ajouter au personal record")
                     self.personal_record[exercice["nom"]] = exercice["poid_kg"]
-                else:
-                    print("rien na changer dans pr")
+                
+                elif exercice["nom"] in self.personal_record.keys():
+                    if exercice["poid_kg"] > self.personal_record[exercice["nom"]]:
+                        print("le pr a agmenter felicitation :)")
+                        self.personal_record[exercice["nom"]] = exercice["poid_kg"]
+                    else:
+                        print("rien na changer dans pr")
+        else:
+            raise ValueError("journee n'est pas une instance de Journee")
                 
     @classmethod
     def afficher_total_utilisateur(cls):
