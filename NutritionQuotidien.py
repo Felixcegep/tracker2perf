@@ -1,4 +1,3 @@
-from Utilisateur import Utilisateur
 import pickle
 from Aliment import Aliment
 class NutritionQuotidien:

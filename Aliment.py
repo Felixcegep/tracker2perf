@@ -15,5 +15,3 @@ class Aliment:
             self._calories = calories
         else:
             raise ValueError("les calories doivent être superieur a 0")
-if __name__ == '__main__':
-    Aliment("test", -99,30)
