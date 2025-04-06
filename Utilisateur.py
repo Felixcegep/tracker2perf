@@ -14,6 +14,11 @@ from ExerciceMusculation import ExerciceMusculation
 
 class Utilisateur:
     nombre_utilisateur = 0
+    try:
+        with open("Utilisateurs.pkl", "rb") as f:
+            Utilisateurs = pickle.load(f)
+    except FileNotFoundError:
+        ALIMENT_dispo = {}
     def __init__(self, nom : str,taille: int, age: int, poid:float,genre:str):
         self.nom = nom
         self.taille = taille
@@ -32,6 +37,9 @@ class Utilisateur:
 
     def ajouter_journee(self, journee:Journee):
         #TODO : cette methode contiens deux fonctionnaliter change la 
+        # changer le poid parce que poid va etre dans journee
+        # de la maniere que pr a ete charger mais le faire dans un liste 
+        # historique de poid liste de tuple (date: poid)
         if isinstance(journee, Journee):
             self.historique_journee.append(journee)
             
@@ -71,7 +79,9 @@ class Utilisateur:
 
                     exercices_liste.append(exercice_individuel)
         return exercices_liste
-        
+    def sauvegarder_utilisateur(self):
+        with open("Utilisateurs.pkl", "wb") as f:
+            pickle.dump(self.Utilisateurs, f)
     def __str__(self):
         return f"Nom : {self.nom}\ntaille : {self.taille}\nage:  {self.age} \npoid: {self.poid} lbs"
 
