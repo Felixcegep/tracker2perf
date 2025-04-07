@@ -1,8 +1,5 @@
 from Seance import Seance
-from ExerciceMusculation import ExerciceMusculation
 from datetime import datetime
-from NutritionQuotidien import NutritionQuotidien
-
 
 
 # Todo: faire des test unitaire

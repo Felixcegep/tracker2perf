@@ -1,13 +1,5 @@
-from ExerciceMusculation import ExerciceMusculation
-from Seance import Seance
-from datetime import datetime
-from Journee import Journee
-from Utilisateur import Utilisateur
-from Exercice import Exercice
-
-
 if __name__ == '__main__':
-
+"""
     joueur1 = Utilisateur("test", 150,19 ,60,"homme")
     # création de d'exercice
     datedeseance = datetime(2005, 2, 7)
@@ -37,3 +29,4 @@ if __name__ == '__main__':
     joueur1.ajouter_journee(day2)
     joueur1.actualiser_data_poid_jours()
     print(joueur1.historique_poids_journee)
+"""

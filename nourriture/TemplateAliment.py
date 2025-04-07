@@ -1,5 +1,5 @@
-
-class Aliment:
+# pour 100 grams
+class TemplateAliment:
     def __init__(self,nom,calories,proteines):
         self.nom = nom
         self.calories = calories

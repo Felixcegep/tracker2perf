@@ -1,5 +1,6 @@
 import pickle
-from Aliment import Aliment
+from TemplateAliment import TemplateAliment
+from PortionAliment import PortionAliment
 class NutritionQuotidien:
     try:
         with open("aliment_disponible.pkl", "rb") as f:
@@ -7,15 +8,19 @@ class NutritionQuotidien:
     except FileNotFoundError:
         ALIMENT_dispo = {}
 
-    def __init__(self):
-        pass
+    def __init__(self,nom):
+        self.nom = nom
+        self.aliment_ajourdhui = []
+
+    def ajouter_aliment_ajourdhui(self,PortionAliment):
+        self.aliment_ajourdhui.append(PortionAliment)
 
     @classmethod
     def ajouter_aliment_disponible(cls, nom, proteines, calories):
         if nom in cls.ALIMENT_dispo.keys():
             raise ValueError("Cet aliment est deja dans la liste.")
         else:
-            cls.ALIMENT_dispo[nom] = Aliment(nom, proteines, calories)
+            cls.ALIMENT_dispo[nom] = TemplateAliment(nom, proteines, calories)
     @classmethod
     def supprimer_aliment_disponible(cls, nom):
         if nom in cls.ALIMENT_dispo.keys():
@@ -27,6 +32,7 @@ class NutritionQuotidien:
     def sauvegarder_aliment_disponible(cls):
         with open("aliment_disponible.pkl", "wb") as f:
             pickle.dump(cls.ALIMENT_dispo, f)
+
 
 
 
