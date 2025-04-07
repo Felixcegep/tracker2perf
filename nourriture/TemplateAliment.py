@@ -1,4 +1,8 @@
 # pour 100 grams
+
+
+
+#Todo : tu vas devoir faire un des super donc fait des calorie d'aliments
 class TemplateAliment:
     def __init__(self,nom,calories,proteines):
         self.nom = nom
