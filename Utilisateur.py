@@ -34,10 +34,13 @@ class Utilisateur:
                 }
 
         Utilisateur.nombre_utilisateur += 1
-    def actualiser_poid(self):
-        # passer a travers toutes les journee pour mettre toutes les donne de chaque journee 
-        # 
-        pass
+    def actualiser_data_poid_jours(self):
+        # passer a travers toutes les journee pour mettre toutes les donne de chaque journee
+        liste_date_journee = []
+        for journee in self.historique_journee:
+            tupledate_poid = (journee.poid_aujourdhui, journee.date)
+            liste_date_journee.append(tupledate_poid)
+        return liste_date_journee
     
     def actualiser_pr(self):
         pass
