@@ -35,4 +35,5 @@ if __name__ == '__main__':
     
     joueur1.ajouter_journee(day1)
     joueur1.ajouter_journee(day2)
-    print(joueur1.actualiser_data_poid_jours())
+    joueur1.actualiser_data_poid_jours()
+    print(joueur1.historique_poids_journee)
