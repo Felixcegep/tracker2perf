@@ -10,6 +10,7 @@ class ExerciceMusculation(Exercice):
         self.set = set
         self.rep = rep
         self.poid_kg = poid_kg
+        self.volume = set * rep * poid_kg
     @property
     def rpe(self):
         return self._rpe
