@@ -55,7 +55,7 @@ class ClickableLabel(QLabel):
         print(f"'{self.text()}' label clicked. Emitting signal...")
         self.Journeemodif = Journeemodif_window(self.text())
         self.Journeemodif.show()
-        self.close()
+
 
 class Journeemodif_window(QMainWindow):
     def __init__(self, label_text=None):
@@ -81,6 +81,8 @@ class dashboard_window(QMainWindow):
 
         # passer a travers la liste journee
         # recharge et le plus recent ajouter en haut avec reversed liste
+        self.afficher_elements_scrollbar()
+    def afficher_elements_scrollbar(self):
         for jour in reversed(self.creationcompte.journee):
             label = ClickableLabel(str(jour))  # Tu peux personnaliser ici
             label.setStyleSheet("padding: 10px; border: 1px solid #aaa; border-radius: 5px;")
@@ -148,6 +150,7 @@ class CreateAccount(QMainWindow):
     def go_todashboard(self):
         self.dashboard_window = dashboard_window()
         self.dashboard_window.show()
+        self.close()
     # chatgpt explication message erreur
     def show_popup_message(self, title, message):
         # Display a popup message box with a title and message
