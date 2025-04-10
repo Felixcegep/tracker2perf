@@ -3,11 +3,11 @@ import os
 import pickle
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QScrollArea, \
     QWidget, QVBoxLayout  # Corrected the import
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal
 from demo_interface1.creationcompte import creationcompte
 from demo_interface1.dashboard_ui import Dashboard
 from demo_interface1.journee_ui import Journee_ui
-
+from Journeemodif_ui import Journeemodif
 class journeetest:
     def __init__(self,nom):
         self.nom = nom
@@ -36,14 +36,34 @@ class utilisateur():
 
 
 class ClickableLabel(QLabel):
+    """
+    A QLabel subclass that emits a 'labelClicked' signal
+    with its text when clicked.
+    """
+    # --- Define the signal using PySide6.QtCore.Signal ---
+    print("pour les bouton dans les choix de classe scrollable")
+
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
         # couleurs pour differencier
-        self.setStyleSheet("padding: 8px; border: 1px solid gray; border-radius: 5px;")
-        self.setAlignment(Qt.AlignCenter)
+        self.setStyleSheet("padding: 8px; border: 1px solid gray; border-radius: 5px; background-color: #e0e0e0;")
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.setCursor(Qt.CursorShape.PointingHandCursor) # Indicate it's clickable
 
     def mousePressEvent(self, event):
         print(f"Label clicked: {self.text()}")
+        print(f"'{self.text()}' label clicked. Emitting signal...")
+        self.Journeemodif = Journeemodif_window(self.text())
+        self.Journeemodif.show()
+        self.close()
+
+class Journeemodif_window(QMainWindow):
+    def __init__(self, label_text=None):
+        super().__init__()
+        self.ui = Journeemodif()
+        self.ui.setupUi(self)
+        if label_text != None:
+            print("bro a été transmis", label_text)
 
 class dashboard_window(QMainWindow):
     def __init__(self):
