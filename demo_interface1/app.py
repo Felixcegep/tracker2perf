@@ -1,7 +1,9 @@
 import sys
 import os
 import pickle
-from PySide6.QtWidgets import QApplication, QMainWindow,QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QScrollArea, \
+    QWidget, QVBoxLayout  # Corrected the import
+from PySide6.QtCore import Qt
 from demo_interface1.creationcompte import creationcompte
 from demo_interface1.dashboard_ui import Dashboard
 from demo_interface1.journee_ui import Journee_ui
@@ -32,19 +34,42 @@ class utilisateur():
         else:
             self._nom = nom  # Set the private attribute _nom
 
+
+class ClickableLabel(QLabel):
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        # couleurs pour differencier
+        self.setStyleSheet("padding: 8px; border: 1px solid gray; border-radius: 5px;")
+        self.setAlignment(Qt.AlignCenter)
+
+    def mousePressEvent(self, event):
+        print(f"Label clicked: {self.text()}")
+
 class dashboard_window(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.journee = ["yes","non"]
         self.ui = Dashboard()  # Instantiate the UI class from second_ui.py
         self.ui.setupUi(self)  # Setup the UI
         self.ui.aller.clicked.connect(self.allerdashboard)
+
         with open("creationcompte.pkl", "rb") as f:
             self.creationcompte = pickle.load(f)
         print(self.creationcompte.journee)
         self.ui.nom.setText(self.creationcompte.nom)
+
+        # passer a travers la liste journee
+        for jour in self.creationcompte.journee:
+            label = ClickableLabel(str(jour))  # Tu peux personnaliser ici
+            label.setStyleSheet("padding: 10px; border: 1px solid #aaa; border-radius: 5px;")
+            # selection le widget et le layout. puis cree un widget(label)
+            self.ui.listejourney.widget().layout().addWidget(label)
+
+
     def allerdashboard(self):
         self.Journee = Journee()
         self.Journee.show()
+        self.close()
 
 class Journee(QMainWindow):
     def __init__(self):
@@ -67,6 +92,7 @@ class Journee(QMainWindow):
     def go_todashboard(self):
         self.dashboard_window = dashboard_window()
         self.dashboard_window.show()
+        self.close()
 class CreateAccount(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -83,7 +109,7 @@ class CreateAccount(QMainWindow):
 
         if not nom:  # This checks if 'nom' is empty or None
             self.show_popup_message("This is wrong", "The name cannot be empty!")
-            return  # Stop further execution if the name is invalid
+            return
 
         else:
 
@@ -100,7 +126,7 @@ class CreateAccount(QMainWindow):
     def go_todashboard(self):
         self.dashboard_window = dashboard_window()
         self.dashboard_window.show()
-
+    # chatgpt explication message erreur
     def show_popup_message(self, title, message):
         # Display a popup message box with a title and message
         msg = QMessageBox(self)
