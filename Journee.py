@@ -1,5 +1,7 @@
 from Seance import Seance
 from datetime import datetime
+from nourriture.NutritionQuotidien import NutritionQuotidien
+import pickle
 
 
 # Todo: faire des test unitaire
@@ -35,6 +37,8 @@ class Journee:
         else:
             raise ValueError("le poid doit etre superieur a 0")
             
+    def ajouter_nutrition_quotidienne(self, nutrition_quotidienne):
+        self.nutrition_aujourdhui.append(nutrition_quotidienne)
 
     def ajouter_seance(self, seance: Seance):
         self.seances_ajourdhui.append(seance)
