@@ -59,7 +59,8 @@ class dashboard_window(QMainWindow):
         self.ui.nom.setText(self.creationcompte.nom)
 
         # passer a travers la liste journee
-        for jour in self.creationcompte.journee:
+        # recharge et le plus recent ajouter en haut avec reversed liste
+        for jour in reversed(self.creationcompte.journee):
             label = ClickableLabel(str(jour))  # Tu peux personnaliser ici
             label.setStyleSheet("padding: 10px; border: 1px solid #aaa; border-radius: 5px;")
             # selection le widget et le layout. puis cree un widget(label)
