@@ -1,5 +1,15 @@
+from PortionAliment import PortionAliment
+from NutritionQuotidien import NutritionQuotidien
+
 if __name__ == '__main__':
-"""
+    portion_oklm = PortionAliment("test", 5)
+    souper_oklm_bien_becte = PortionAliment("test", 5)
+    print(type(portion_oklm))
+    nutrition_oklm = NutritionQuotidien("667")
+    nutrition_oklm.ajouter_aliment_ajourdhui(portion_oklm)
+
+
+    """
     joueur1 = Utilisateur("test", 150,19 ,60,"homme")
     # création de d'exercice
     datedeseance = datetime(2005, 2, 7)

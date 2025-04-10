@@ -1,8 +1,8 @@
 import pickle
 import os
 class PortionAliment:
-    file_path = os.path.join(os.getcwd(), "aliment_disponible.pkl")
-    with open("file_path", "rb") as f:
+
+    with open("aliment_disponible.pkl", "rb") as f:
         aliment = pickle.load(f)
 
     def __init__(self,nom,par_100_grammes):

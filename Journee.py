@@ -1,7 +1,5 @@
 from Seance import Seance
 from datetime import datetime
-from nourriture.NutritionQuotidien import NutritionQuotidien
-import pickle
 
 
 # Todo: faire des test unitaire
