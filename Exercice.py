@@ -10,7 +10,7 @@ class Exercice:
 
     with open("mouvement_disponible.pkl", "rb") as f:
         MOUVEMENT_dispo = pickle.load(f)
-    type_valide = ["cardio","musculation"]
+
 
 
     # Todo: ajout de sécuriter si il n'y a pas de fichier
