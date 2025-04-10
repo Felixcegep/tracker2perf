@@ -63,7 +63,8 @@ class Journeemodif_window(QMainWindow):
         self.ui = Journeemodif()
         self.ui.setupUi(self)
         if label_text != None:
-            print("bro a été transmis", label_text)
+            self.ui.info.setText(label_text)
+
 
 class dashboard_window(QMainWindow):
     def __init__(self):
