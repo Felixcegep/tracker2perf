@@ -1,5 +1,5 @@
 import pickle
-import os
+
 class PortionAliment:
 
     with open("aliment_disponible.pkl", "rb") as f:
@@ -18,7 +18,21 @@ class PortionAliment:
             self._nom = value
         else:
             raise ValueError("Aliment non disponible, veuillez l'ajouter.")
+    @property
+    #probleme de logique
+    def par_100_grammes(self):
+        return self._par_100_grammes
+    @par_100_grammes.setter
+    def par_100_grammes(self,value):
+        if isinstance(value,float) and value > 0:
+            self._par_100_grammes = value
+        #rajouter un elif pour raise les probleme plus clairement
+        else:
+            raise ValueError("la valuers par_100_grammes n'est pas bonne ")
+
+
 
     def __str__(self):
         return f'{self.nom} contient {self.par_100_grammes}'
 
+test = PortionAliment("test", 1)
