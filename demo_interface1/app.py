@@ -42,6 +42,7 @@ class ClickableLabel(QLabel):
     """
     # --- Define the signal using PySide6.QtCore.Signal ---
     print("pour les bouton dans les choix de classe scrollable")
+    labelClicked = Signal(str)
 
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
@@ -50,11 +51,12 @@ class ClickableLabel(QLabel):
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.setCursor(Qt.CursorShape.PointingHandCursor) # Indicate it's clickable
 
+
     def mousePressEvent(self, event):
         print(f"Label clicked: {self.text()}")
         print(f"'{self.text()}' label clicked. Emitting signal...")
-        self.Journeemodif = Journeemodif_window(self.text())
-        self.Journeemodif.show()
+        self.labelClicked.emit(self.text())
+
 
 
 class Journeemodif_window(QMainWindow):
@@ -62,17 +64,27 @@ class Journeemodif_window(QMainWindow):
         super().__init__()
         self.ui = Journeemodif()
         self.ui.setupUi(self)
+        with open("creationcompte.pkl", "rb") as f:
+            self.creationcompte = pickle.load(f)
         if label_text != None:
             self.ui.info.setText(label_text)
+            self.ui.supprimer.clicked.connect(lambda: self.go_todashboard(label_text))
 
 
+    def go_todashboard(self,label_text):
+        print("la liste disp", self.creationcompte.journee)
+        print("mon element", label_text)
+        # ca ne trouve pas l'element dans la liste
+        if label_text in self.creationcompte.journee:
+            print("est dans la liste")
+        else:
+            print("non")
 class dashboard_window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.journee = ["yes","non"]
         self.ui = Dashboard()  # Instantiate the UI class from second_ui.py
         self.ui.setupUi(self)  # Setup the UI
-        self.ui.aller.clicked.connect(self.allerdashboard)
+        self.ui.aller.clicked.connect(self.allerjournee)
 
         with open("creationcompte.pkl", "rb") as f:
             self.creationcompte = pickle.load(f)
@@ -88,9 +100,16 @@ class dashboard_window(QMainWindow):
             label.setStyleSheet("padding: 10px; border: 1px solid #aaa; border-radius: 5px;")
             # selection le widget et le layout. puis cree un widget(label)
             self.ui.listejourney.widget().layout().addWidget(label)
+            #chatgpt
+            label.labelClicked.connect(self.handle_label_click)
+    #chatgpt
+    def handle_label_click(self, label_text):
+        print(f"Dashboard received click from: {label_text}")
+        self.Journeemodif = Journeemodif_window(label_text)
+        self.Journeemodif.show()
+        self.close()
 
-
-    def allerdashboard(self):
+    def allerjournee(self):
         self.Journee = Journee()
         self.Journee.show()
         self.close()
