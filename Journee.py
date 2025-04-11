@@ -20,7 +20,7 @@ class Journee:
 
     @date.setter
     def date(self, date):
-        if datetime.now() > date and isinstance(date, datetime):
+        if datetime.now() >= date and isinstance(date, datetime):
             self._date = date
         else:
             raise ValueError("date ne peux pas etre dans le futur et doit etre de format datetime")
