@@ -8,6 +8,11 @@ from demo_interface1.creationcompte import creationcompte
 from demo_interface1.dashboard_ui import Dashboard
 from demo_interface1.journee_ui import Journee_ui
 from Journeemodif_ui import Journeemodif
+class exercice:
+    def __init__(self,exercice):
+        self.exercice = exercice
+
+
 class journeetest:
     def __init__(self,nom):
         self.nom = nom
@@ -71,14 +76,21 @@ class Journeemodif_window(QMainWindow):
             self.ui.supprimer.clicked.connect(lambda: self.go_todashboard(label_text))
 
 
+
     def go_todashboard(self,label_text):
         print("la liste disp", self.creationcompte.journee)
         print("mon element", label_text)
         # ca ne trouve pas l'element dans la liste
-        if label_text in self.creationcompte.journee:
-            print("est dans la liste")
-        else:
-            print("non")
+        for journee in self.creationcompte.journee:
+            if journee.nom == label_text:
+                self.creationcompte.journee.remove(journee)
+                with open("creationcompte.pkl", "wb") as f:
+                    pickle.dump(self.creationcompte, f)
+                print(journee, "a été supprimer")
+                self.dashboard_window = dashboard_window()
+                self.dashboard_window.show()
+                self.close()
+
 class dashboard_window(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -96,7 +108,7 @@ class dashboard_window(QMainWindow):
         self.afficher_elements_scrollbar()
     def afficher_elements_scrollbar(self):
         for jour in reversed(self.creationcompte.journee):
-            label = ClickableLabel(str(jour))  # Tu peux personnaliser ici
+            label = ClickableLabel(str(jour.nom))  # Tu peux personnaliser ici
             label.setStyleSheet("padding: 10px; border: 1px solid #aaa; border-radius: 5px;")
             # selection le widget et le layout. puis cree un widget(label)
             self.ui.listejourney.widget().layout().addWidget(label)
