@@ -3,7 +3,6 @@ from ExerciceCardio import ExerciceCardio
 from ExerciceMusculation import ExerciceMusculation
 
 
-# Todo: changer les methode d'instance pour avor le format
 # Todo: verifier snake_case pour nom de variable
 # Todo: faire des test unitaire
 class Seance:
@@ -21,7 +20,8 @@ class Seance:
         if len(nom) > 0:
             self._nom = nom
         else:
-            raise("le nom de la seance ne peut pas etre vide")
+            raise ValueError("le nom de la seance ne peut pas etre vide")
+
 
     def afficher_exercices(self):
         if len(self.exercice_seaces) == 0:
