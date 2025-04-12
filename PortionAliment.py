@@ -35,4 +35,3 @@ class PortionAliment:
     def __str__(self):
         return f'{self.nom} contient {self.par_100_grammes}'
 
-test = PortionAliment("test", 1)

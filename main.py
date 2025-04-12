@@ -1,42 +1,30 @@
-from PortionAliment import PortionAliment
-from NutritionQuotidien import NutritionQuotidien
-
+import pickle
+from datetime import timedelta, datetime
+from ExerciceMusculation import ExerciceMusculation
+from Utilisateur import Utilisateur
+from Seance import Seance
+from Journee import Journee
+from Exercice import Exercice
 if __name__ == '__main__':
-    portion_oklm = PortionAliment("test", 5)
-    souper_oklm_bien_becte = PortionAliment("test", 5)
-    print(type(portion_oklm))
-    nutrition_oklm = NutritionQuotidien("667")
-    nutrition_oklm.ajouter_aliment_ajourdhui(portion_oklm)
+    with open("Utilisateurs.pkl", "rb") as file:
+        User12 = pickle.load(file)
+    User12.actualiser_data_poid_jours()
+    sorted_journees = sorted(User12.historique_poids_journee, key=lambda x: x[1])
 
-
+    print(sorted_journees)
     """
-    joueur1 = Utilisateur("test", 150,19 ,60,"homme")
-    # création de d'exercice
-    datedeseance = datetime(2005, 2, 7)
-    day1 = Journee("nom", datedeseance,143)
-    day2 = Journee("nom", datedeseance,130)
+    User12 = Utilisateur("test", 199,23,241,"homme")
+    holy = datetime.today()
+    holy -= timedelta(days = 1)
+    journee_aujourd = Journee("yolo", holy,150)
 
-# seance
+    seance_aujourd = Seance("journee_aujourd", )
 
-    seance1 = Seance("seance1")
-    seance2 = Seance("seance2")
-    
-# exercice
 
-    Exercice1 = ExerciceMusculation("test", 1,1,2,3)
-    Exercice2 = ExerciceMusculation("Presse à cuisses", 1,1,2,3)
-    Exercice3 = ExerciceMusculation("Presse à cuisses",5,5,5,5)
-# ajouter seance
-    seance1.ajouter_exercice(Exercice1)
-    seance1.ajouter_exercice(Exercice2)
-    seance2.ajouter_exercice(Exercice3)
-    
-# jours
-    day1.ajouter_seance(seance1)
-    day2.ajouter_seance(seance2)
-    
-    joueur1.ajouter_journee(day1)
-    joueur1.ajouter_journee(day2)
-    joueur1.actualiser_data_poid_jours()
-    print(joueur1.historique_poids_journee)
+    seance_aujourd.ajouter_exercice(ExerciceMusculation("Développé couché", 5,5,5,5))
+    seance_aujourd.ajouter_exercice (ExerciceMusculation("test",5,4,3,10))
+    seance_aujourd.ajouter_exercice(ExerciceMusculation("test", 5, 4, 3, 16))
+    journee_aujourd.ajouter_seance(seance_aujourd)
+    User12.ajouter_journee(journee_aujourd)
+    User12.sauvegarder_utilisateur()
 """
