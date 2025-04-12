@@ -1,3 +1,5 @@
+from datetime import date
+
 from Journee import Journee
 import pickle
 # Todo: changer les methode d'instance pour avor le format
@@ -14,6 +16,9 @@ class Utilisateur:
         self.poid = poid
         self.historique_journee = []
         self.historique_poids_journee = []
+        self.date_creation_journee = date.today()
+
+        self.historique_poids_journee.append((self.poid, self.date_creation_journee))
 
         self.genre = genre
 
@@ -53,6 +58,7 @@ class Utilisateur:
         if isinstance(journee, Journee):
             self.historique_journee.append(journee)
             self.mettre_a_jours_pr(journee)
+
 
         else:
             raise ValueError("journee n'est pas une instance de Journee")
