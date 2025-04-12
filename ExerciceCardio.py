@@ -1,10 +1,7 @@
 from Exercice import Exercice
 
-# Todo: changer les methode d'instance pour avor le format
-# Todo: verifier snake_case pour nom de variable
-# Todo: faire des test unitaire
+#TODO  finir verification exercicecardio disponible depuis le fichier Mouvementdisponible
 class ExerciceCardio(Exercice):
-    # verifier mouvements disponible cardio
     def __init__(self, nom_exercice:str,duree:int,distance:float,intensite : int):
         super().__init__(nom_exercice)
         self.duree = duree
