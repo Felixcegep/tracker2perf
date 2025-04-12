@@ -2,8 +2,7 @@ from Exercice import Exercice
 from ExerciceCardio import ExerciceCardio
 from ExerciceMusculation import ExerciceMusculation
 
-
-# Todo: verifier snake_case pour nom de variable
+#TODO : ajouter la logique de volume de la seance
 # Todo: faire des test unitaire
 class Seance:
     nbseancetotal = 0
