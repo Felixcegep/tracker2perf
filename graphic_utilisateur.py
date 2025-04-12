@@ -11,7 +11,8 @@ class GraphicUtilisateur:
     def afficher_utilisateur(self):
         print(self.info)
 
-        
+    def volume_par_seance(self):
+        pass
     def poid_journee(self,date_filtre):
         date_limite = datetime.today() - timedelta(days = date_filtre)
 
@@ -50,5 +51,6 @@ class GraphicUtilisateur:
     # graphique volume de la sessions
 if __name__ == '__main__':
     g = GraphicUtilisateur()
-    g.poid_journee(30)
+    g.poid_journee(15)
+
     
