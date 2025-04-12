@@ -8,10 +8,6 @@ from Exercice import Exercice
 if __name__ == '__main__':
     with open("Utilisateurs.pkl", "rb") as file:
         User12 = pickle.load(file)
-    User12.actualiser_data_poid_jours()
-    sorted_journees = sorted(User12.historique_poids_journee, key=lambda x: x[1])
-
-    print(sorted_journees)
     """
     User12 = Utilisateur("test", 199,23,241,"homme")
     holy = datetime.today()
