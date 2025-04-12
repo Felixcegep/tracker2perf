@@ -3,16 +3,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.dates as mdates
 from Utilisateur import Utilisateur
-from datetime import datetime
+from datetime import datetime, timedelta
 class GraphicUtilisateur:
     def __init__(self):
         with open("Utilisateurs.pkl", "rb") as f:
             self.info = pickle.load(f)
     def afficher_utilisateur(self):
         print(self.info)
-    # graph poid et le temps
-    # exercice les réaliser fait
-    def poid_journee(self):
+
+        
+    def poid_journee(self,date_filtre):
+        date_limite = datetime.today() - timedelta(days = date_filtre)
+
         axe_x = []
         axe_y = []
         self.info.actualiser_data_poid_jours()
@@ -22,9 +24,10 @@ class GraphicUtilisateur:
             # Convert string date to datetime object if necessary
             if isinstance(date, str):
                 date = datetime.strptime(date, '%Y-%m-%d')
-
-            axe_x.append(date)
-            axe_y.append(poids)
+            if date >= date_limite:
+                axe_x.append(date)
+                axe_y.append(poids)
+                print(axe_x)
 
         fig, ax = plt.subplots()
         ax.plot(axe_x, axe_y)
@@ -39,7 +42,7 @@ class GraphicUtilisateur:
         plt.ylabel("Poids (lbs)")
         plt.title("Évolution du poids au fil des jours")
         plt.grid(True)
-
+        plt.savefig("evolution_poids.png")
         plt.show()
 
 
@@ -47,4 +50,5 @@ class GraphicUtilisateur:
     # graphique volume de la sessions
 if __name__ == '__main__':
     g = GraphicUtilisateur()
-    g.poid_journee()
+    g.poid_journee(30)
+    
