@@ -9,7 +9,11 @@ class GraphicUtilisateur:
         print(self.info)
     # graph poid et le temps
     # exercice les réaliser fait
+    def poid_journee(self):
+        self.info.actualiser_data_poid_jours()
+        sorted_journees = sorted(self.info.historique_poids_journee, key=lambda x: x[1])
+        print(sorted_journees)
 
 if __name__ == '__main__':
     g = GraphicUtilisateur()
-    g.afficher_utilisateur()
+    g.poid_journee()
