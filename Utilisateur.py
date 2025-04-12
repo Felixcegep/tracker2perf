@@ -6,12 +6,6 @@ import pickle
 # Todo: faire des test unitaire
 
 class Utilisateur:
-    nombre_utilisateur = 0
-    try:
-        with open("Utilisateurs.pkl", "rb") as f:
-            Utilisateurs = pickle.load(f)
-    except FileNotFoundError:
-        ALIMENT_dispo = {}
     def __init__(self, nom : str,taille: int, age: int, poid:float,genre:str):
         self.nom = nom
         self.taille = taille
@@ -27,7 +21,6 @@ class Utilisateur:
 
                 }
 
-        Utilisateur.nombre_utilisateur += 1
     def actualiser_data_poid_jours(self):
         # passer a travers toutes les journee pour mettre toutes les donne de chaque journee
         liste_date_journee = []
@@ -64,9 +57,7 @@ class Utilisateur:
         else:
             raise ValueError("journee n'est pas une instance de Journee")
 
-    @classmethod
-    def afficher_total_utilisateur(cls):
-        print(cls.nombre_utilisateur)
+
     def obtenir_exercices_info(self):
         exercices_liste = []
         # peut etre ameliorer
@@ -87,7 +78,7 @@ class Utilisateur:
         return exercices_liste
     def sauvegarder_utilisateur(self):
         with open("Utilisateurs.pkl", "wb") as f:
-            pickle.dump(self.Utilisateurs, f)
+            pickle.dump(self, f)
     def __str__(self):
         return f"Nom : {self.nom}\ntaille : {self.taille}\nage:  {self.age} \npoid: {self.poid} lbs"
 
