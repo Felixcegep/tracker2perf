@@ -12,45 +12,49 @@ class GraphicUtilisateur:
         print(self.info)
 
     def volume_par_seance(self):
-        pass
+        print(user12)
     def poid_journee(self,date_filtre):
-        date_limite = datetime.today() - timedelta(days = date_filtre)
+        if len(self.info.historique_poids_journee) == 0:
+            print("aucune date disponible")
+            #TODO: devrait etre en graph
+        else:
+            date_limite = datetime.today() - timedelta(days = date_filtre)
 
-        axe_x = []
-        axe_y = []
-        self.info.actualiser_data_poid_jours()
-        sorted_journees = sorted(self.info.historique_poids_journee, key=lambda x: x[0])  # Sort by date
+            axe_x = []
+            axe_y = []
+            self.info.actualiser_data_poid_jours()
+            sorted_journees = sorted(self.info.historique_poids_journee, key=lambda x: x[0])  # Sort by date
 
-        for poids, date in sorted_journees:
-            # Convert string date to datetime object if necessary
-            if isinstance(date, str):
-                date = datetime.strptime(date, '%Y-%m-%d')
-            if date >= date_limite:
-                axe_x.append(date)
-                axe_y.append(poids)
-                print(axe_x)
+            for poids, date in sorted_journees:
+                # Convert string date to datetime object if necessary
+                if isinstance(date, str):
+                    date = datetime.strptime(date, '%Y-%m-%d')
+                if date >= date_limite:
+                    axe_x.append(date)
+                    axe_y.append(poids)
+                    print(axe_x)
 
-        fig, ax = plt.subplots()
-        ax.plot(axe_x, axe_y)
+            fig, ax = plt.subplots()
+            ax.plot(axe_x, axe_y)
 
-        # Format the x-axis to show dates properly
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+            # Format the x-axis to show dates properly
+            ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
 
-        # Auto format x-axis labels
-        fig.autofmt_xdate()
+            # Auto format x-axis labels
+            fig.autofmt_xdate()
 
-        plt.xlabel("Date")
-        plt.ylabel("Poids (lbs)")
-        plt.title("Évolution du poids au fil des jours")
-        plt.grid(True)
-        plt.savefig("evolution_poids.png")
-        plt.show()
+            plt.xlabel("Date")
+            plt.ylabel("Poids (lbs)")
+            plt.title("Évolution du poids au fil des jours")
+            plt.grid(True)
+            plt.savefig("evolution_poids.png")
+            plt.show()
 
 
 
     # graphique volume de la sessions
 if __name__ == '__main__':
     g = GraphicUtilisateur()
-    g.poid_journee(15)
+    g.poid_journee(360)
 
     
