@@ -5,9 +5,11 @@ from Utilisateur import Utilisateur
 from Seance import Seance
 from Journee import Journee
 from Exercice import Exercice
+from graphic_utilisateur import GraphicUtilisateur
 if __name__ == '__main__':
-    with open("Utilisateurs.pkl", "rb") as file:
-        User12 = pickle.load(file)
+    g = GraphicUtilisateur()
+    g.volume_par_seance()
+    
     """
     User12 = Utilisateur("test", 199,23,241,"homme")
     holy = datetime.today()

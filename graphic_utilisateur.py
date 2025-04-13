@@ -12,7 +12,12 @@ class GraphicUtilisateur:
         print(self.info)
 
     def volume_par_seance(self):
-        print(user12)
+        for journee in self.info.historique_journee:
+            print(journee)
+            #TODO:  regarder si la liste est vide
+            for seance in journee.seances_ajourdhui:
+                print(seance.nom, seance.volume_par_seance())
+
     def poid_journee(self,date_filtre):
         if len(self.info.historique_poids_journee) == 0:
             print("aucune date disponible")
@@ -53,8 +58,6 @@ class GraphicUtilisateur:
 
 
     # graphique volume de la sessions
-if __name__ == '__main__':
-    g = GraphicUtilisateur()
-    g.poid_journee(360)
+
 
     
