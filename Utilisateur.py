@@ -52,12 +52,14 @@ class Utilisateur:
                     print("rien na changer dans pr")
     def ajouter_journee(self, journee:Journee):
         #TODO : cette methode contiens deux fonctionnaliter change la
-        # changer le poid parce que poid va etre dans journee
-        # de la maniere que pr a ete charger mais le faire dans un liste
-        # historique de poid liste de tuple (date: poid)
+        # regarder si il y a des doublon dans les date deja
+        # pas complet
         if isinstance(journee, Journee):
-            self.historique_journee.append(journee)
-            self.mettre_a_jours_pr(journee)
+            if journee.date in [journee.date for journee in self.historique_journee[1]]:
+                raise ValueError
+            else:
+                self.historique_journee.append(journee)
+                self.mettre_a_jours_pr(journee)
 
 
         else:
