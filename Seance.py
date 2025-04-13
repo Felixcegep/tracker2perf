@@ -20,8 +20,13 @@ class Seance:
             self._nom = nom
         else:
             raise ValueError("le nom de la seance ne peut pas etre vide")
+    
 
-
+    def volume_par_seance(self):
+        total_volume = 0
+        for exercice in self.exercice_seaces:
+            total_volume += exercice.volume
+        return total_volume
     def afficher_exercices(self):
         if len(self.exercice_seaces) == 0:
             return "il n'y a pas d'exercice dans cette seance"
