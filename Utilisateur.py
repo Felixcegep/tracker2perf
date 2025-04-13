@@ -51,15 +51,20 @@ class Utilisateur:
                 else:
                     print("rien na changer dans pr")
     def ajouter_journee(self, journee:Journee):
-        #TODO : cette methode contiens deux fonctionnaliter change la
-        # regarder si il y a des doublon dans les date deja
-        # pas complet
+        #TODO : debug le code
         if isinstance(journee, Journee):
-            if journee.date in [journee.date for journee in self.historique_journee[1]]:
-                raise ValueError
-            else:
-                self.historique_journee.append(journee)
-                self.mettre_a_jours_pr(journee)
+            if len(self.historique_journee) > 0:
+                for journee_existante in self.historique_journee:
+
+                    if journee_existante.date.strftime('%Y-%m-%d') == journee.date.strftime('%Y-%m-%d'):
+                        raise ValueError("cette journee existe deja")
+                    else:
+                        self.historique_journee.append(journee)
+                        self.mettre_a_jours_pr(journee)
+                        
+                    
+            self.historique_journee.append(journee)
+            self.mettre_a_jours_pr(journee)
 
 
         else:
