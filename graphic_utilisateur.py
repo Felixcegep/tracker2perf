@@ -11,19 +11,40 @@ class GraphicUtilisateur:
     def afficher_utilisateur(self):
         print(self.info)
 
-    def volume_par_seance(self):
+    def volume_par_seance(self,date_filtre):
+
+        axe_x = []
+        axe_y = []
         liste_jours_volume = []
         for journee in self.info.historique_journee:
-            print(journee)
+
             #TODO:  regarder si la liste est vide
             for seance in journee.seances_ajourdhui:
                 journeevolume = (journee.date,seance.volume_par_seance())
                 liste_jours_volume.append(journeevolume)
-            print(liste_jours_volume)
-            #ajouter date limite
-            #filtre
-            #et faire le graph
+        sorted_journees = sorted(liste_jours_volume, key=lambda x: x[0])
+        # mettre en ordre les journee pour ensuite les mettre dans un diagrame
+        for date, poids in sorted_journees:
+            # Convert string date to datetime object if necessary
+            print(date,poids)
+            if isinstance(date,datetime):
+                axe_x.append(date)
+                axe_y.append(poids)
+        fig, ax = plt.subplots()
+        ax.plot(axe_x, axe_y)
 
+        # Format the x-axis to show dates properly
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+
+        # Auto format x-axis labels
+        fig.autofmt_xdate()
+
+        plt.xlabel("Date")
+        plt.ylabel("Poids (lbs)")
+        plt.title("Évolution du volume au fil des jours")
+        plt.grid(True)
+        plt.savefig("evolution_volume.png")
+        plt.show()
 
     def poid_journee(self,date_filtre):
         if len(self.info.historique_poids_journee) == 0:
@@ -44,7 +65,6 @@ class GraphicUtilisateur:
                 if date >= date_limite:
                     axe_x.append(date)
                     axe_y.append(poids)
-                    print(axe_x)
 
             fig, ax = plt.subplots()
             ax.plot(axe_x, axe_y)
