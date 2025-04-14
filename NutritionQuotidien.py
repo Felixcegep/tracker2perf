@@ -1,6 +1,7 @@
 import pickle
 from PortionAliment import PortionAliment
 from  TemplateAliment import TemplateAliment
+
 class NutritionQuotidien:
     try:
         with open("aliment_disponible.pkl", "rb") as f:
@@ -12,17 +13,12 @@ class NutritionQuotidien:
         self.nom = nom
         self.aliment_ajourdhui = []
 
-    def ajouter_aliment_ajourdhui(self,aliment_tousseule:PortionAliment):
+    def ajouter_aliment_ajourdhui(self,aliment_toutseul:PortionAliment):
 
-        if isinstance(aliment_tousseule,PortionAliment):
-            self.aliment_ajourdhui.append(aliment_tousseule)
+        if isinstance(aliment_toutseul,PortionAliment):
+            self.aliment_ajourdhui.append(aliment_toutseul)
         else:
-            raise TypeError("cette objet n'est pas valide")
-
-
-
-
-
+            raise TypeError("Cet objet n'est pas valide.")
 
 
     @classmethod
@@ -42,6 +38,8 @@ class NutritionQuotidien:
     def sauvegarder_aliment_disponible(cls):
         with open("aliment_disponible.pkl", "wb") as f:
             pickle.dump(cls.ALIMENT_dispo, f)
+
+
 
 
 
