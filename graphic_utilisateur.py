@@ -12,11 +12,18 @@ class GraphicUtilisateur:
         print(self.info)
 
     def volume_par_seance(self):
+        liste_jours_volume = []
         for journee in self.info.historique_journee:
             print(journee)
             #TODO:  regarder si la liste est vide
             for seance in journee.seances_ajourdhui:
-                print(seance.nom, seance.volume_par_seance())
+                journeevolume = (journee.date,seance.volume_par_seance())
+                liste_jours_volume.append(journeevolume)
+            print(liste_jours_volume)
+            #ajouter date limite
+            #filtre
+            #et faire le graph
+
 
     def poid_journee(self,date_filtre):
         if len(self.info.historique_poids_journee) == 0:
