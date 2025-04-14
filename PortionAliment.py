@@ -23,7 +23,8 @@ class PortionAliment:
     def par_100_grammes(self):
         return self._par_100_grammes
     @par_100_grammes.setter
-    def par_100_grammes(self,value):
+    def par_100_grammes(self,value:float):
+        value = float(value)
         if isinstance(value,float) and value > 0:
             self._par_100_grammes = value
         #rajouter un elif pour raise les probleme plus clairement
