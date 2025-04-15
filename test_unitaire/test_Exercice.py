@@ -1,9 +1,5 @@
-import pickle
-from Mouvement import Mouvement
-from MouvementType import MouvementType
-from Muscledispo import Muscledispo
-from Exercice import Exercice
-import pytest
+from Muscu.Exercice import Exercice
+
 
 def test_Exercice_ajout():
     # verifier si l'ajout fonctionne

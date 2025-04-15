@@ -1,8 +1,6 @@
-from Exercice import Exercice
-from ExerciceCardio import ExerciceCardio
-from ExerciceMusculation import ExerciceMusculation
-from Seance import Seance
-import pytest
+from Muscu.Exercice import Exercice
+from Muscu.ExerciceMusculation import ExerciceMusculation
+from Muscu.Seance import Seance
 
 
 def test_seanche_volume_par_seance():

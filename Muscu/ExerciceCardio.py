@@ -1,4 +1,4 @@
-from Exercice import Exercice
+from .Exercice import Exercice
 
 #TODO  finir verification exercicecardio disponible depuis le fichier Mouvementdisponible
 class ExerciceCardio(Exercice):
@@ -7,6 +7,17 @@ class ExerciceCardio(Exercice):
         self.duree = duree
         self.intensite = intensite
         self.distance = distance
+
+    @property
+    def nomexercice(self):
+        return self._nomexercice
+
+    @nomexercice.setter
+    def nomexercice(self, nomexercice):
+        if "cardio" == Exercice.MOUVEMENT_dispo[nomexercice].type:
+            self._nomexercice = nomexercice
+        else:
+            raise ValueError("cette element n'est pas un exercice de cardio")
 
     @property
     def intensite(self):

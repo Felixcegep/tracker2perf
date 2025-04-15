@@ -1,4 +1,4 @@
-from Exercice import Exercice
+from Muscu.Exercice import Exercice
 # Todo: faire des test unitaire
 class ExerciceMusculation(Exercice):
     def __init__(self, nomexercice :str,rpe:int,set:int,rep:int,poid_kg:int):
@@ -9,6 +9,18 @@ class ExerciceMusculation(Exercice):
         self.rep = rep
         self.poid_kg = poid_kg
         self.volume = set * rep * poid_kg
+
+
+    @property
+    def nomexercice(self):
+        return self._nomexercice
+    @nomexercice.setter
+    def nomexercice(self, nomexercice):
+        if "musculation" == Exercice.MOUVEMENT_dispo[nomexercice].type:
+            self._nomexercice = nomexercice
+        else:
+            raise ValueError("cette element n'est pas un exercice de musculation")
+
     @property
     def rpe(self):
         return self._rpe
@@ -47,4 +59,4 @@ class ExerciceMusculation(Exercice):
             raise ValueError("le poid doit etre entre la range de 1 a 500 kg")
 
     def __str__(self):
-        return f"nom : {self.nomexercice}, rpe : {self.rpe}, set : {self.set}, rep : {self.rep}, poid : {self.poid} kg"
+        return f"nom : {self.nomexercice}, rpe : {self.rpe}, set : {self.set}, rep : {self.rep}, poid : {self.poid_kg} kg"

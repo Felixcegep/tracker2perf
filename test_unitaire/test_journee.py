@@ -1,9 +1,7 @@
-from Exercice import Exercice
-from ExerciceCardio import ExerciceCardio
-from ExerciceMusculation import ExerciceMusculation
-from Seance import Seance
+from Muscu.Exercice import Exercice
+from Muscu.ExerciceMusculation import ExerciceMusculation
+from Muscu.Seance import Seance
 from Journee import Journee
-import pytest
 from datetime import datetime, timedelta
 
 def test_ajouter_nutrition_quotidienne():

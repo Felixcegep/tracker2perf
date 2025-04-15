@@ -1,23 +1,26 @@
+from .Mouvement import Mouvement
+from .MouvementType import MouvementType
+from .Muscledispo import Muscledispo
 import pickle
-from Mouvement import Mouvement
-from MouvementType import MouvementType
-from Muscledispo import Muscledispo
-
+from pathlib import Path
 from collections import Counter
+
 class Exercice:
     # Todo: faire des test unitaire
     # TODO: faire que ca l'ouvre un fichier jsonpickle
+
     try:
-        with open("mouvement_disponible.pkl", "rb") as f:
+        file_path = Path(__file__).resolve().parent.parent / "mouvement_disponible.pkl"
+
+        with open(file_path, "rb") as f:
             MOUVEMENT_dispo = pickle.load(f)
+
     except FileNotFoundError:
         MOUVEMENT_dispo = {}
 
-
     # Todo: ajout de sécuriter si il n'y a pas de fichier
-    def __init__(self, nom_exercice:str):
+    def __init__(self, nom_exercice: str):
         self.nomexercice = nom_exercice
-
     @property
     def nomexercice(self):
         return self._nom_exercice
@@ -30,8 +33,8 @@ class Exercice:
             raise ValueError(f"Exercice n'est pas valide. Veuillez l'ajouter à la liste.")
 
     @classmethod
-    def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cibles:list,type_exercice:str):
-        #Todo : dans liste muscles cibles existe
+    def ajouter_mouvement_disponible(cls, nom: str, description: str, muscle_cibles: list, type_exercice: str):
+        # Todo : dans liste muscles cibles existe
         if nom in cls.MOUVEMENT_dispo.keys():
             raise ValueError("le mouvement existe deja")
         if len(muscle_cibles) < 1:
@@ -48,28 +51,25 @@ class Exercice:
         if type_exercice not in [mouvement.value for mouvement in MouvementType]:
             raise ValueError("le type est sois cardio ou musculation")
         else:
-            #TODO: faire que ca crée un objet Mouvement là
+            # TODO: faire que ca crée un objet Mouvement là
             cls.MOUVEMENT_dispo[nom] = Mouvement(
                 name=nom,
                 description=description,
                 muscle=muscle_cibles,
                 type=type_exercice
-                    )
+            )
 
     @classmethod
-    def supprimer_mouvement_disponible(cls,nom:str):
+    def supprimer_mouvement_disponible(cls, nom: str):
         if nom in cls.MOUVEMENT_dispo:
             del cls.MOUVEMENT_dispo[nom]
         else:
             raise ValueError("le mouvement n'existe pas")
+
     @classmethod
     def sauvegarder_mouvement_disponible(cls):
-        with open("mouvement_disponible.pkl", "wb") as f:
+        with open(cls.file_path, "wb") as f:
             pickle.dump(cls.MOUVEMENT_dispo, f)
-        
-
-
-
 
     def __str__(self):
         return f"exercice : {self.nomexercice} "
