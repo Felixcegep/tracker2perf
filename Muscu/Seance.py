@@ -40,7 +40,7 @@ class Seance:
                 print(compteur, ":", exercice.nomexercice)
                 compteur += 1
 
-    def ajouter_exercice(self, exercice: ExerciceMusculation):
+    def ajouter_exercice(self, exercice: ExerciceMusculation | ExerciceCardio):
         if isinstance(exercice, ExerciceCardio) or isinstance(exercice, ExerciceMusculation):
             self.exercice_seaces.append(exercice)
         else:
