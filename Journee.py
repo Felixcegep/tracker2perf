@@ -1,4 +1,4 @@
-from Seance import Seance
+from Muscu import Seance
 from datetime import datetime
 
 
@@ -44,7 +44,7 @@ class Journee:
     def afficher_exercice(self):
         for exercices in self.seances_ajourdhui:
             for exercice in exercices.exercice_seaces:
-                print(exercice._nom_exercice)
+                print(exercice.nom_exercice)
     def obtenir_exercices_info(self):
         exercices_liste = []
         
