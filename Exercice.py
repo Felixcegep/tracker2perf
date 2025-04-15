@@ -7,10 +7,11 @@ from collections import Counter
 class Exercice:
     # Todo: faire des test unitaire
     # TODO: faire que ca l'ouvre un fichier jsonpickle
-
-    with open("mouvement_disponible.pkl", "rb") as f:
-        MOUVEMENT_dispo = pickle.load(f)
-
+    try:
+        with open("mouvement_disponible.pkl", "rb") as f:
+            MOUVEMENT_dispo = pickle.load(f)
+    except FileNotFoundError:
+        MOUVEMENT_dispo = {}
 
 
     # Todo: ajout de sécuriter si il n'y a pas de fichier
@@ -26,7 +27,7 @@ class Exercice:
         if nom_exercice in Exercice.MOUVEMENT_dispo.keys():
             self._nom_exercice = nom_exercice
         else:
-            raise ValueError(f"Exercice '{nom_exercice}' n'est pas valide. Veuillez l'ajouter à la liste.")
+            raise ValueError(f"Exercice n'est pas valide. Veuillez l'ajouter à la liste.")
 
     @classmethod
     def ajouter_mouvement_disponible(cls,nom:str, description:str, muscle_cibles:list,type_exercice:str):
