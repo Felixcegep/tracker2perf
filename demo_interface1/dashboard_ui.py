@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenuBar,
-    QPushButton, QScrollArea, QSizePolicy, QStatusBar,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QMainWindow,
+    QMenuBar, QPushButton, QScrollArea, QSizePolicy,
+    QStatusBar, QVBoxLayout, QWidget)
 
 class Dashboard(object):
     def setupUi(self, MainWindow):
@@ -53,12 +53,17 @@ class Dashboard(object):
 
         self.verticalLayout.addWidget(self.genre)
 
+        self.lineEdit = QLineEdit(self.centralwidget)
+        self.lineEdit.setObjectName(u"lineEdit")
+
+        self.verticalLayout.addWidget(self.lineEdit)
+
         self.listejourney = QScrollArea(self.centralwidget)
         self.listejourney.setObjectName(u"listejourney")
         self.listejourney.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 780, 386))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 780, 358))
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.listejourney.setWidget(self.scrollAreaWidgetContents)
@@ -91,6 +96,7 @@ class Dashboard(object):
         self.poid.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.age.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.genre.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.lineEdit.setText(QCoreApplication.translate("MainWindow", u"search journee", None))
         self.aller.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
     # retranslateUi
 
