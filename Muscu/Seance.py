@@ -3,8 +3,7 @@ from .ExerciceCardio import ExerciceCardio
 from .ExerciceMusculation import ExerciceMusculation
 
 
-# TODO : ajouter la logique de volume de la seance
-# Todo: faire des test unitaire
+
 class Seance:
     nbseancetotal = 0
 
