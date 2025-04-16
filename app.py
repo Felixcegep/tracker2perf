@@ -66,11 +66,7 @@ class Dashboard(QMainWindow):
         self.date_filtre = 365
         self.update_graphs()
 
-    def set_filter_and_update(self, filter_value):
-        """Generic function to set filter and update."""
-        print(f"Setting filter to {filter_value}")
-        self.date_filtre = filter_value  # Could be 0 for "all time"
-        self.update_graphs()
+
 
     def update_graphs(self):
         """Clears and redraws both graphs based on the current self.date_filtre."""
