@@ -6,8 +6,9 @@ from Journee import Journee
 from graphic_utilisateur import GraphicUtilisateur
 if __name__ == '__main__':
 
+
     g = GraphicUtilisateur()
-    g.volume_par_seance(200)
+    g.poid_journee(200)
     
     #ExerciceMusculation("test", 9,9,9,9)
 """
