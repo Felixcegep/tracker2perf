@@ -22,7 +22,15 @@ class Dashboard(QMainWindow):
         self.ui.button7Days.clicked.connect(self.set_filter_7_days)
         self.ui.button30Days.clicked.connect(self.set_filter_30_days)  # Use .connect()
         self.ui.buttonSinceStart.clicked.connect(self.set_filter_365_days)
-        print("Connected button30Days")
+        #welcome en haut a droit
+        welcometext = self.ui.welcomeLabel
+        # ouvrir fichier compte
+        with open("Utilisateurs.pkl", "rb") as f:
+            self.creationcompte = pickle.load(f)
+        welcometext.setText("bienvenue " + self.creationcompte.nom)
+
+
+
 
         #valeur par defaut de la date filtre
         self.date_filtre = 30
