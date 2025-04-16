@@ -18,13 +18,18 @@
     <item row="0" column="0">
      <widget class="QLabel" name="welcomeLabel">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>bienvenue USER</string>
+       <string>bienvenue</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -92,7 +97,7 @@
             <x>0</x>
             <y>0</y>
             <width>178</width>
-            <height>600</height>
+            <height>589</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_scroll_content">
@@ -109,7 +114,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QListWidget" name="daysListWidget">
+            <widget class="QListWidget" name="listejourney">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                <horstretch>0</horstretch>
