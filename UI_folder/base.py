@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QMainWindow,
-    QMenuBar, QSizePolicy, QStatusBar, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QMenuBar,
+    QSizePolicy, QStatusBar, QWidget)
 
 class Ui_UI_Base(object):
     def setupUi(self, UI_Base):
@@ -27,15 +27,15 @@ class Ui_UI_Base(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.legraph = QWidget(self.centralwidget)
-        self.legraph.setObjectName(u"legraph")
+        self.legraph2 = QWidget(self.centralwidget)
+        self.legraph2.setObjectName(u"legraph2")
 
-        self.horizontalLayout.addWidget(self.legraph)
+        self.horizontalLayout.addWidget(self.legraph2)
 
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
+        self.legraph1 = QWidget(self.centralwidget)
+        self.legraph1.setObjectName(u"legraph1")
 
-        self.horizontalLayout.addWidget(self.label)
+        self.horizontalLayout.addWidget(self.legraph1)
 
         UI_Base.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(UI_Base)
@@ -53,6 +53,5 @@ class Ui_UI_Base(object):
 
     def retranslateUi(self, UI_Base):
         UI_Base.setWindowTitle(QCoreApplication.translate("UI_Base", u"MainWindow", None))
-        self.label.setText(QCoreApplication.translate("UI_Base", u"test", None))
     # retranslateUi
 

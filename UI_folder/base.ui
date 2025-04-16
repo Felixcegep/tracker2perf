@@ -16,14 +16,10 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QWidget" name="legraph" native="true"/>
+     <widget class="QWidget" name="legraph2" native="true"/>
     </item>
     <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>test</string>
-      </property>
-     </widget>
+     <widget class="QWidget" name="legraph1" native="true"/>
     </item>
    </layout>
   </widget>
