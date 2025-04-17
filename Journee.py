@@ -44,10 +44,10 @@ class Journee:
     def afficher_exercice(self):
         for exercices in self.seances_ajourdhui:
             for exercice in exercices.exercice_seaces:
-                print(exercice.nom_exercice)
+                print(exercice.nomexercice)
     def obtenir_exercices_info(self):
         exercices_liste = []
-        
+
         for seance in self.seances_ajourdhui:
             for exercice in seance.exercice_seaces:
                 exercice_individuel = {
