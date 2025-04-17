@@ -11,7 +11,7 @@ from graphic_utilisateur import GraphicUtilisateur
 goodgraph = GraphicUtilisateur()
 
 class journeemodif(QWidget):
-    def __init__(self):
+    def __init__(self,parent=None):
         super().__init__() # Call the QWidget constructor
 
         # Create an instance of the UI generated class
@@ -21,6 +21,8 @@ class journeemodif(QWidget):
         # passing 'self' (the QWidget instance) as the argument.
         # This populates the QWidget with the UI elements.
         self.ui.setupUi(self)
+        if parent:
+            print(parent)
 
 class Dashboard(QMainWindow):
     def __init__(self):
@@ -36,7 +38,8 @@ class Dashboard(QMainWindow):
         self.ui.buttonSinceStart.clicked.connect(self.set_filter_365_days)
         #
         self.ui.searchLineEdit.textChanged.connect(self.filtrer_journees)
-        self.ui.ajouterjournee.clicked.connect(self.ajouter_journees)
+        self.ui.ajouterjournee.clicked.connect(self.ajouter_journee)
+        self.ui.listejourney.itemClicked.connect(self.selection_scrollbar)
 
         #welcome en haut a droit
         welcometext = self.ui.welcomeLabel
@@ -48,10 +51,17 @@ class Dashboard(QMainWindow):
         self.actualiser_SCROLLBAR()
         self.afficher_muscu_graph()
 
-    def ajouter_journees(self):
+    def selection_scrollbar(self, item):
+        date = item.text()
+        self.journeemodif = journeemodif(date)
+        self.journeemodif.show()
+        self.close()
+    def ajouter_journee(self,date):
         self.journeemodif = journeemodif()
         self.journeemodif.show()
         self.close()
+
+
 
     def filtrer_journees(self, texte):
         self.ui.listejourney.clear()  # On vide la liste
@@ -72,7 +82,7 @@ class Dashboard(QMainWindow):
             journeeformat.append(journee.date.strftime("%m/%d/%Y"))
         self.ui.listejourney.addItems(journeeformat)
         # il sait quand ca selectionne et le printe
-        self.ui.listejourney.itemClicked.connect(lambda: print(self.ui.listejourney.selectedItems()[0].text()))
+
 
         #valeur par defaut de la date filtre
 

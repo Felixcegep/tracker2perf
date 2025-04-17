@@ -5,11 +5,19 @@ from Utilisateur import Utilisateur
 from Journee import Journee
 from graphic_utilisateur import GraphicUtilisateur
 if __name__ == '__main__':
+    date = "01/25/2025"
+    with open("Utilisateurs.pkl", "rb") as f:
+        data = pickle.load(f)
+    indexvalide = -1
+    for journee in data.historique_journee:
+        indexvalide +=1
+        if date == journee.date.strftime("%m/%d/%Y"):
+            break
+    print(data.historique_journee[indexvalide].date)
 
 
-    g = GraphicUtilisateur()
-    g.poid_journee(200)
-    
+
+
     #ExerciceMusculation("test", 9,9,9,9)
 """
     User12 = Utilisateur("test", 199,23,241,"homme")
