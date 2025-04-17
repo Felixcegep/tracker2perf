@@ -8,10 +8,13 @@ import pickle
 from UI_folder import Ui_dashboard, Ui_DayView
 from graphic_utilisateur import GraphicUtilisateur
 
+#graphique
 goodgraph = GraphicUtilisateur()
+#info de l'utilsateur
+info_utilisateur = goodgraph.info
 
 class journeemodif(QWidget):
-    def __init__(self,parent=None):
+    def __init__(self,journee_specifique=None):
         super().__init__() # Call the QWidget constructor
 
         # Create an instance of the UI generated class
@@ -21,9 +24,48 @@ class journeemodif(QWidget):
         # passing 'self' (the QWidget instance) as the argument.
         # This populates the QWidget with the UI elements.
         self.ui.setupUi(self)
-        if parent:
-            print(parent)
+        self.ui.backButton.clicked.connect(self.retourner_dashboard)
 
+        #bouton exercice et affichage
+        self.ui.exercisesList
+        self.ui.addExerciseButton
+        self.ui.removeExerciseButton.clicked.connect(self.supprimer_exercices)
+        #
+        #trouver l'index de la journee dans la liste
+
+        if journee_specifique:
+            for index, journee in enumerate(info_utilisateur.historique_journee):
+                formatted_date = journee.date.strftime("%m/%d/%Y")
+                if journee_specifique == formatted_date:
+                    index_valide = index  # Store the index of the first match
+
+                    break
+        self.afficher_exercices(index_valide)
+    #TODO : def exercices pas terminer :(
+    def afficher_exercices(self,index_valide):
+        self.ui.exercisesList.clear()
+
+        exercice_liste_scrollbar = []
+        for exercice in info_utilisateur.historique_journee[index_valide].obtenir_exercices_info():
+            exercice_liste_scrollbar.append(exercice["nom"])
+
+        self.ui.exercisesList.addItems(exercice_liste_scrollbar)
+    def supprimer_exercices(self,index_valide):
+
+        element_selectionner = self.ui.exercisesList.currentItem()
+        if element_selectionner is not None:
+            #ajouter une pop up avant de supprimer pour assurer que c'est correcte
+            print(element_selectionner.text())
+            self.afficher_exercices(index_valide)
+        else:
+            print("No item selected.")
+
+
+
+    def retourner_dashboard(self):
+        self.aller_dashboad = Dashboard()
+        self.aller_dashboad.show()
+        self.close()
 class Dashboard(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -44,8 +86,8 @@ class Dashboard(QMainWindow):
         #welcome en haut a droit
         welcometext = self.ui.welcomeLabel
         # ouvrir fichier compte
-        with open("Utilisateurs.pkl", "rb") as f:
-            self.creationcompte = pickle.load(f)
+
+        self.creationcompte = info_utilisateur
         # afficher le salut a l'utilisateur
         welcometext.setText("bienvenue " + self.creationcompte.nom)
         self.actualiser_SCROLLBAR()
