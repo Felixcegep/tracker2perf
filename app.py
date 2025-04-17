@@ -54,12 +54,20 @@ class journeemodif(QWidget):
 
         element_selectionner = self.ui.exercisesList.currentItem()
         if element_selectionner is not None:
+            element_selectionner = element_selectionner.text()
             #ajouter une pop up avant de supprimer pour assurer que c'est correcte
-            print(element_selectionner.text())
+
+            info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].supprimer_exercice(element_selectionner)
             self.afficher_exercices(index_valide)
+
+            #TODO : ajout que quand il quitte la page si il a modifier le fichier il doit sauvegarder
+
         else:
             print("No item selected.")
+            #ajouter un message d'erreur aucun message
 
+    def ajouter_exercice(self,index_valide):
+        pass
 
 
     def retourner_dashboard(self):
