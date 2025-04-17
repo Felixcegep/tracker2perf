@@ -1,15 +1,26 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pickle
-from UI_folder import Ui_UI_Base
-from UI_folder import Ui_dashboard
+
+from UI_folder import Ui_dashboard, Ui_DayView
 from graphic_utilisateur import GraphicUtilisateur
 
 goodgraph = GraphicUtilisateur()
 
+class journeemodif(QWidget):
+    def __init__(self):
+        super().__init__() # Call the QWidget constructor
+
+        # Create an instance of the UI generated class
+        self.ui = Ui_DayView()
+
+        # Call the setupUi method from the generated class,
+        # passing 'self' (the QWidget instance) as the argument.
+        # This populates the QWidget with the UI elements.
+        self.ui.setupUi(self)
 
 class Dashboard(QMainWindow):
     def __init__(self):
@@ -25,6 +36,8 @@ class Dashboard(QMainWindow):
         self.ui.buttonSinceStart.clicked.connect(self.set_filter_365_days)
         #
         self.ui.searchLineEdit.textChanged.connect(self.filtrer_journees)
+        self.ui.ajouterjournee.clicked.connect(self.ajouter_journees)
+
         #welcome en haut a droit
         welcometext = self.ui.welcomeLabel
         # ouvrir fichier compte
@@ -34,6 +47,11 @@ class Dashboard(QMainWindow):
         welcometext.setText("bienvenue " + self.creationcompte.nom)
         self.actualiser_SCROLLBAR()
         self.afficher_muscu_graph()
+
+    def ajouter_journees(self):
+        self.journeemodif = journeemodif()
+        self.journeemodif.show()
+        self.close()
 
     def filtrer_journees(self, texte):
         self.ui.listejourney.clear()  # On vide la liste
