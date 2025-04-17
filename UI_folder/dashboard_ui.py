@@ -87,10 +87,10 @@ class Ui_dashboard(object):
 
         self.verticalLayout_scroll_content.addWidget(self.listejourney)
 
-        self.pushButton = QPushButton(self.scrollAreaWidgetContents_days)
-        self.pushButton.setObjectName(u"pushButton")
+        self.ajouterjournee = QPushButton(self.scrollAreaWidgetContents_days)
+        self.ajouterjournee.setObjectName(u"ajouterjournee")
 
-        self.verticalLayout_scroll_content.addWidget(self.pushButton)
+        self.verticalLayout_scroll_content.addWidget(self.ajouterjournee)
 
         self.scrollArea_days.setWidget(self.scrollAreaWidgetContents_days)
 
@@ -259,7 +259,7 @@ class Ui_dashboard(object):
 #if QT_CONFIG(tooltip)
         self.listejourney.setToolTip(QCoreApplication.translate("dashboard", u"Liste des jours", None))
 #endif // QT_CONFIG(tooltip)
-        self.pushButton.setText(QCoreApplication.translate("dashboard", u"ajouter Journee", None))
+        self.ajouterjournee.setText(QCoreApplication.translate("dashboard", u"ajouter Journee", None))
         self.label_1.setText(QCoreApplication.translate("dashboard", u"label", None))
         self.description_1.setText(QCoreApplication.translate("dashboard", u"description", None))
         self.label_2.setText(QCoreApplication.translate("dashboard", u"label", None))

@@ -127,7 +127,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="ajouterjournee">
              <property name="text">
               <string>ajouter Journee</string>
              </property>
