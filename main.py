@@ -4,21 +4,15 @@ from Muscu import ExerciceMusculation, Seance, Exercice
 from Utilisateur import Utilisateur
 from Journee import Journee
 from graphic_utilisateur import GraphicUtilisateur
+
 if __name__ == '__main__':
-    date = "01/25/2025"
+
     with open("Utilisateurs.pkl", "rb") as f:
-        data = pickle.load(f)
-    indexvalide = -1
-    for journee in data.historique_journee:
-        indexvalide +=1
-        if date == journee.date.strftime("%m/%d/%Y"):
-            break
-    print(data.historique_journee[indexvalide].date)
+        User12 = pickle.load(f)
+    print(User12.historique_journee[0].seances_ajourdhui[0])
+    print(User12.historique_journee[0].seances_ajourdhui[0].supprimer_exercice("test"))
+    print(User12.historique_journee[0].seances_ajourdhui[0])
 
-
-
-
-    #ExerciceMusculation("test", 9,9,9,9)
 """
     User12 = Utilisateur("test", 199,23,241,"homme")
     holy = datetime.today()
@@ -34,4 +28,5 @@ if __name__ == '__main__':
     journee_aujourd.ajouter_seance(seance_aujourd)
     User12.ajouter_journee(journee_aujourd)
     User12.sauvegarder_utilisateur()
+
 """
