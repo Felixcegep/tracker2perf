@@ -20,10 +20,11 @@ class Journee:
 
     @date.setter
     def date(self, date):
-        if datetime.now() >= date and isinstance(date, datetime):
-            self._date = date
-        else:
-            raise ValueError("date ne peux pas etre dans le futur et doit etre de format datetime")
+        if not isinstance(date, datetime):
+            raise ValueError("La date doit être de type datetime.")
+        if date > datetime.now():
+            raise ValueError("La date ne peut pas être dans le futur.")
+        self._date = date
     @property
     def poid_aujourdhui(self):
         return self._poid_aujourdhui
