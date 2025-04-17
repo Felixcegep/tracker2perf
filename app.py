@@ -1,4 +1,5 @@
 import sys
+
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -22,17 +23,42 @@ class Dashboard(QMainWindow):
         self.ui.button7Days.clicked.connect(self.set_filter_7_days)
         self.ui.button30Days.clicked.connect(self.set_filter_30_days)  # Use .connect()
         self.ui.buttonSinceStart.clicked.connect(self.set_filter_365_days)
+        #
+        self.ui.searchLineEdit.textChanged.connect(self.filtrer_journees)
         #welcome en haut a droit
         welcometext = self.ui.welcomeLabel
         # ouvrir fichier compte
         with open("Utilisateurs.pkl", "rb") as f:
             self.creationcompte = pickle.load(f)
+        # afficher le salut a l'utilisateur
         welcometext.setText("bienvenue " + self.creationcompte.nom)
+        self.actualiser_SCROLLBAR()
+        self.afficher_muscu_graph()
 
+    def filtrer_journees(self, texte):
+        self.ui.listejourney.clear()  # On vide la liste
+        journeeformat = []
 
+        for journee in self.creationcompte.historique_journee:
+            date_str = journee.date.strftime("%m/%d/%Y")
+            if texte.lower() in date_str.lower():  # filtre simple
+                journeeformat.append(date_str)
 
+        self.ui.listejourney.addItems(journeeformat)
+
+        # ajout d'itemps dans la scroll bar
+    def actualiser_SCROLLBAR(self):
+        self.ui.listejourney.clear()  # On vide la liste
+        journeeformat = []
+        for journee in self.creationcompte.historique_journee:
+            journeeformat.append(journee.date.strftime("%m/%d/%Y"))
+        self.ui.listejourney.addItems(journeeformat)
+        # il sait quand ca selectionne et le printe
+        self.ui.listejourney.itemClicked.connect(lambda: print(self.ui.listejourney.selectedItems()[0].text()))
 
         #valeur par defaut de la date filtre
+
+    def afficher_muscu_graph(self):
         self.date_filtre = 30
         # (volume_par_seance)
         self.figure1 = Figure()
