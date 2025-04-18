@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DayView</class>
+ <widget class="QWidget" name="DayView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>749</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Day Details</string>
+  </property>
+  <property name="styleSheet">
+   <string>/* === Global Styles === */
+QWidget#DayView {
+    background-color: #F5F5F7; /* Consistent light gray background */
+}
+
+QWidget {
+    color: #333333; /* Default text color */
+    /* font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; */
+}
+
+/* === Frame Styling (Cards) === */
+QFrame {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px; /* Consistent radius */
+}
+
+/* === Label Styling === */
+/* Main Header Label */
+QLabel#headerLabel {
+    font-size: 18pt; /* Slightly smaller than original, more title-like */
+    font-weight: bold; /* Bold */
+    color: #222222; /* Darker text */
+    padding: 5px 0; /* Vertical padding */
+    margin-bottom: 5px; /* Space below header */
+}
+
+/* Section Header Labels inside Frames */
+#exercisesLabel, #foodLabel {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #444444;
+    background-color: transparent; /* Ensure no frame bg */
+    border: none; /* Ensure no frame border */
+    padding: 4px 0; /* Small padding */
+}
+
+/* Ensure labels inside frames don't inherit wrong styles */
+QFrame QLabel {
+    background-color: transparent;
+    border: none;
+    border-radius: 0px;
+}
+
+/* === Button Styling === */
+/* Default Button Style (Blue) - applied if no specific ID matches */
+QPushButton {
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    min-height: 24px;
+    font-weight: 500;
+}
+QPushButton:hover {
+    background-color: #3395FF;
+}
+QPushButton:pressed {
+    background-color: #005ECB;
+}
+QPushButton:disabled {
+     background-color: #DCDCDC;
+     color: #A0A0A0;
+}
+
+/* Back Button (Link style) */
+QPushButton#backButton {
+    background: transparent;
+    color: #007AFF;
+    font-size: 11pt; /* Standard size */
+    font-weight: normal;
+    border: none;
+    padding: 5px 0px; /* Minimal padding */
+    min-height: 20px;
+    text-align: left; /* Align text left */
+}
+QPushButton#backButton:hover {
+    background: transparent; /* No background change */
+    color: #005ECB; /* Darker blue on hover */
+    text-decoration: underline;
+}
+QPushButton#backButton:pressed {
+    background: transparent; /* No background change */
+    text-decoration: underline;
+}
+
+/* Add/Remove Buttons (Secondary action style - Gray) */
+QPushButton#addExerciseButton, QPushButton#addFoodButton,
+QPushButton#removeExerciseButton, QPushButton#removeFoodButton {
+    background-color: #E9E9ED; /* Subtle gray */
+    color: #333333; /* Standard text color */
+    border: 1px solid #DCDCDC; /* Subtle border */
+    border-radius: 5px; /* Consistent radius */
+    padding: 6px 12px; /* Slightly smaller padding */
+    min-height: 22px;
+    font-size: 10pt; /* Slightly smaller font */
+    font-weight: normal;
+}
+QPushButton#addExerciseButton:hover, QPushButton#addFoodButton:hover,
+QPushButton#removeExerciseButton:hover, QPushButton#removeFoodButton:hover {
+    background-color: #DDDDDF; /* Slightly darker gray on hover */
+    border-color: #CFCFCF;
+}
+QPushButton#addExerciseButton:pressed, QPushButton#addFoodButton:pressed,
+QPushButton#removeExerciseButton:pressed, QPushButton#removeFoodButton:pressed {
+    background-color: #D5D5D7; /* Even darker gray when pressed */
+}
+
+/* Delete Button (Destructive action style - Red) */
+QPushButton#deleteDayButton {
+    background: transparent;
+    border: 1px solid #FF3B30; /* Red border */
+    color: #FF3B30; /* Red text */
+    border-radius: 5px; /* Consistent radius */
+    padding: 8px 16px; /* Standard padding */
+    min-height: 24px;
+    font-weight: 500; /* Medium weight */
+}
+QPushButton#deleteDayButton:hover {
+    background-color: rgba(255, 59, 48, 0.08); /* Very subtle red background */
+    border-color: #E02010;
+    color: #E02010;
+}
+QPushButton#deleteDayButton:pressed {
+    background-color: rgba(255, 59, 48, 0.15); /* Slightly more visible red background */
+}
+
+/* === List Widget Styling === */
+QListWidget {
+    background-color: #FFFFFF; /* White background */
+    border: none; /* No border for the list widget itself */
+    /* border-radius: 5px; Optional: if list is directly visible */
+}
+QListWidget::item {
+    padding: 8px 10px;
+    border-bottom: 1px solid #F0F0F0;
+    color: #333333; /* Ensure text color */
+}
+QListWidget::item:last {
+    border-bottom: none;
+}
+QListWidget::item:selected {
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border-radius: 4px;
+    border-bottom-color: transparent; /* Hide border line when selected */
+}
+QListWidget::item:hover:!selected {
+     background-color: #E8F3FF;
+     color: #222222;
+     border-radius: 4px;
+}
+
+/* === Scroll Area Styling === */
+QScrollArea {
+  border: none;
+  background-color: transparent;
+}
+
+/* === Scroll Bar Styling === */
+QScrollBar:vertical {
+    border: none;
+    background: #FFFFFF; /* Match frame background */
+    width: 8px;
+    margin: 0px 0px 0px 0px;
+}
+QScrollBar::handle:vertical {
+    background: #CFCFCF; /* Lighter handle for content areas */
+    min-height: 25px;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #B0B0B0;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: none; background: none; height: 0px; width: 0px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <widget class="QPushButton" name="backButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>← Back to Dashboard</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="headerLabel">
+     <property name="text">
+      <string>Tuesday, April 23, 2024</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="exerciseFrame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <layout class="QVBoxLayout" name="exerciseLayout">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <property name="leftMargin">
+       <number>12</number>
+      </property>
+      <property name="topMargin">
+       <number>12</number>
+      </property>
+      <property name="rightMargin">
+       <number>12</number>
+      </property>
+      <property name="bottomMargin">
+       <number>12</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="exercisesLabel">
+        <property name="text">
+         <string>Exercises</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QScrollArea" name="exercisesScrollArea">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>150</height>
+         </size>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>414</width>
+           <height>150</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="scrollAreaLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QListWidget" name="exercisesList"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="exBtnLayout">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer_ex">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="addExerciseButton">
+          <property name="text">
+           <string>+ Add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeExerciseButton">
+          <property name="text">
+           <string>− Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>afficher exercices disponible</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="foodFrame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <layout class="QVBoxLayout" name="foodLayout">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <property name="leftMargin">
+       <number>12</number>
+      </property>
+      <property name="topMargin">
+       <number>12</number>
+      </property>
+      <property name="rightMargin">
+       <number>12</number>
+      </property>
+      <property name="bottomMargin">
+       <number>12</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="foodLabel">
+        <property name="text">
+         <string>Food Intake</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QScrollArea" name="foodScrollArea">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>150</height>
+         </size>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>414</width>
+           <height>150</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="scrollAreaLayout_2">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QListWidget" name="foodList"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="foodBtnLayout">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer_food">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="addFoodButton">
+          <property name="text">
+           <string>+ Add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeFoodButton">
+          <property name="text">
+           <string>− Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>afficher nourriture disponible</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_bottom">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="deleteDayButton">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Delete Day</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
