@@ -5,13 +5,20 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pickle
 
-from UI_folder import Ui_dashboard, Ui_DayView
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
 goodgraph = GraphicUtilisateur()
 #info de l'utilsateur
 info_utilisateur = goodgraph.info
+
+class cree_journee(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_CreateJourneeWidget()
+        self.ui.setupUi(self)
+
 
 class journeemodif(QWidget):
     def __init__(self,journee_specifique=None):
@@ -219,6 +226,6 @@ if __name__ == "__main__":
 
 
     app = QApplication(sys.argv)
-    window = Dashboard()
+    window = cree_journee()
     window.show()
     sys.exit(app.exec())

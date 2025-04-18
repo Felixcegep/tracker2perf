@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CreateJourneeWidget</class>
+ <widget class="QWidget" name="CreateJourneeWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tracker2Perf - Ajouter Journée</string>
+  </property>
+  <property name="styleSheet">
+   <string>/* === Main Widget === */
+#CreateJourneeWidget {
+    background-color: #F0F0F0; /* Slightly off-white */
+}
+
+/* === Labels === */
+QLabel {
+    font-size: 11pt;
+    color: #333333;
+    /* font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; */
+}
+
+#titleLabel {
+    font-size: 18pt; /* Prominent title */
+    font-weight: bold;
+    color: #1c1c1e;
+    padding-bottom: 15px; /* Space below title */
+}
+
+/* Labels used in Form Layouts */
+QFormLayout QLabel {
+    padding-top: 5px; /* Align label nicely with input */
+}
+
+/* === Line Edits === */
+QLineEdit {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 6px 10px;
+    min-height: 22px;
+    font-size: 11pt;
+    color: #333333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #007AFF;
+}
+
+QLineEdit[placeholderText] {
+    color: #AAAAAA;
+}
+
+/* === Date Edit === */
+QDateEdit {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 5px 8px; /* Slightly less vertical padding needed */
+    min-height: 22px;
+    font-size: 11pt;
+    color: #333333;
+}
+QDateEdit:focus {
+    border: 1px solid #007AFF;
+}
+
+/* Style the dropdown button (optional, basic) */
+QDateEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left-width: 1px;
+    border-left-color: #DCDCDC;
+    border-left-style: solid;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+QDateEdit::down-arrow {
+    /* Consider adding an arrow icon using 'image:' property and a resource file */
+     image: url(noexist.png); /* Placeholder, use a real icon path */
+     width: 12px;
+     height: 12px;
+}
+QDateEdit::down-arrow:on { /* shift the arrow when popup is open */
+    top: 1px;
+    left: 1px;
+}
+
+
+/* === Action Buttons === */
+QPushButton#saveButton {
+    background-color: #007AFF; /* Primary action */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    min-height: 24px;
+    font-size: 11pt;
+    font-weight: 500;
+}
+QPushButton#saveButton:hover { background-color: #3395FF; }
+QPushButton#saveButton:pressed { background-color: #005ECB; }
+QPushButton#saveButton:disabled { background-color: #DCDCDC; color: #A0A0A0; }
+
+QPushButton#cancelButton {
+    background-color: #E9E9ED; /* Secondary action */
+    color: #333333;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 8px 20px;
+    min-height: 24px;
+    font-size: 11pt;
+    font-weight: normal;
+}
+QPushButton#cancelButton:hover { background-color: #DDDDDF; border-color: #CFCFCF; }
+QPushButton#cancelButton:pressed { background-color: #D5D5D7; }
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="mainVLayout">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>25</number>
+   </property>
+   <property name="topMargin">
+    <number>25</number>
+   </property>
+   <property name="rightMargin">
+    <number>25</number>
+   </property>
+   <property name="bottomMargin">
+    <number>25</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="text">
+      <string>Ajouter une Journée</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="journeeFormLayout">
+     <property name="labelAlignment">
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <property name="horizontalSpacing">
+      <number>10</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>12</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="nomJourneeLabel">
+       <property name="text">
+        <string>Nom de la Journée</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="nomJourneeLineEdit">
+       <property name="placeholderText">
+        <string>e.g., Lundi, Jour de Jambes</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="dateLabel">
+       <property name="text">
+        <string>Date</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDateEdit" name="dateEdit">
+       <property name="displayFormat">
+        <string>yyyy-MM-dd</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="poidsAujourdhuiLabel">
+       <property name="text">
+        <string>Poids Aujourd'hui</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="poidsAujourdhuiLineEdit">
+       <property name="placeholderText">
+        <string>en kg (e.g., 71.2)</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonBoxHLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Annuler</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Ajouter</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
