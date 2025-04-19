@@ -59,9 +59,9 @@ class journeemodif(QWidget):
         self.ui.setupUi(self)
         self.ui.backButton.clicked.connect(self.retourner_dashboard)
         self.texte_date = self.ui.headerLabel
-        self.supprimer_journee =self.ui.deleteDayButton
-        #si appuis sur le bouton supprimer journee ca supprime la journee
 
+        #si appuis sur le bouton supprimer journee ca supprime la journee
+        self.ui.deleteDayButton.clicked.connect(lambda : self.supprimer_journeee(journee_specifique))
 
         #bouton exercice et affichage
         self.ui.exercisesList
@@ -79,6 +79,15 @@ class journeemodif(QWidget):
 
                     break
         self.afficher_exercices(index_valide)
+    def supprimer_journeee(self,journee_specifique):
+        print(journee_specifique)
+        for index, journee in enumerate(info_utilisateur.historique_journee):
+            if journee.date.strftime("%m/%d/%Y") == journee_specifique:
+                del info_utilisateur.historique_journee[index]
+                self.retourner_dashboard()
+                break
+
+
     #TODO : def exercices pas terminer :(
     def afficher_exercices(self,index_valide):
         self.ui.exercisesList.clear()
