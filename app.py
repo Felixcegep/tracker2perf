@@ -140,8 +140,8 @@ class Dashboard(QMainWindow):
         self.journeemodif.show()
         self.close()
     def ajouter_journee(self,date):
-        self.journeemodif = journeemodif()
-        self.journeemodif.show()
+        self.ajouter_journee = cree_journee()
+        self.ajouter_journee.show()
         self.close()
 
 
