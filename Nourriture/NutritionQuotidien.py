@@ -18,6 +18,11 @@ class NutritionQuotidien:
         self.aliment_ajourdhui = []
 
     def ajouter_aliment_ajourdhui(self,aliment_toutseul:PortionAliment):
+        """
+        #TODO
+        :param aliment_toutseul:
+        :return:
+        """
 
         if isinstance(aliment_toutseul,PortionAliment):
             self.aliment_ajourdhui.append(aliment_toutseul)
@@ -25,6 +30,10 @@ class NutritionQuotidien:
             raise TypeError("Cet objet n'est pas valide.")
 
     def supprimer_aliment_ajourdhui(self):
+        """
+        #TODO
+        :return:
+        """
         pass
 
 

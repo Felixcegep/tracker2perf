@@ -29,7 +29,6 @@ class PortionAliment:
     #probleme de logique
     def par_100_grammes(self):
         return self._par_100_grammes
-
     @par_100_grammes.setter
     def par_100_grammes(self,value:float):
         value = float(value)
@@ -41,6 +40,13 @@ class PortionAliment:
 
     @classmethod
     def ajouter_aliment_disponible(cls, nom, proteines, calories):
+        """
+        Ajoute un aliment a la banque d'aliments disponibles
+        :param nom:
+        :param proteines:
+        :param calories:
+        :return: None
+        """
         if nom in cls.ALIMENT_dispo.keys():
             raise ValueError("Cet aliment est deja dans la liste.")
         else:
@@ -48,6 +54,11 @@ class PortionAliment:
 
     @classmethod
     def supprimer_aliment_disponible(cls, nom):
+        """
+        Retire un aliment de la banque d'aliments disponibles
+        :param nom:
+        :return: None
+        """
         if nom in cls.ALIMENT_dispo.keys():
             del cls.ALIMENT_dispo[nom]
         else:
@@ -55,6 +66,10 @@ class PortionAliment:
 
     @classmethod
     def sauvegarder_aliment_disponible(cls):
+        """
+        Met a jour la banque d'aliments disponible
+        :return:
+        """
         with open(cls.file_path, "wb") as f:
             pickle.dump(cls.ALIMENT_dispo, f)
     def __str__(self):
