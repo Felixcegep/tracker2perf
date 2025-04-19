@@ -8,16 +8,68 @@ from datetime import datetime
 from Journee import Journee
 
 
-from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
 goodgraph = GraphicUtilisateur()
 #info de l'utilsateur
 info_utilisateur = goodgraph.info
+with open("mouvement_disponible.pkl", "rb") as f:
+    mouvement_disponible = pickle.load(f)
 
 
+class cree_exercice(QWidget):
+    #ajouter les erreur possible
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_ExerciseCreator()
+        self.ui.setupUi(self)
+        #bouton pour switch
+        self.cardioButton= self.ui.cardioButton
+        self.musculationButton = self.ui.musculationButton
+        self.inputStackedWidget = self.ui.inputStackedWidget
 
+        self.cardioPage = self.ui.cardioPage
+        self.musculationPage = self.ui.musculationPage
+        #changer l'affichage
+        self.cardioButton.clicked.connect(lambda: self.inputStackedWidget.setCurrentWidget(self.cardioPage))
+        self.musculationButton.clicked.connect(lambda: self.inputStackedWidget.setCurrentWidget(self.musculationPage))
+
+
+        #EXTRAIRE CARDIO
+        self.ui.nomExerciceComboBox
+        self.ui.dureeLineEdit
+        self.ui.distanceLineEdit
+        self.ui.intensiteLineEdit
+        #EXTRAIRE MUSCULATION
+        self.ui.rpeLineEdit
+        self.ui.setsLineEdit
+        self.ui.repsLineEdit
+        self.ui.poidsLineEdit
+        self.ajouter_exercice_deroulant()
+        # les bouton du bas
+        self.ui.saveButton.clicked.connect(self.enregister_exercice)
+
+        self.ui.cancelButton
+        self.ui.addNewMovementButton
+
+    def enregister_exercice(self):
+        exercice_type = self.ui.inputStackedWidget.currentWidget()
+        if exercice_type:
+            print(exercice_type.objectName())
+            # si exercice page faire objet exercicemuscu
+            #sinon faire exercicecardio
+
+    def ajouter_exercice_deroulant(self):
+        #TODO FAIRE QUE QUAND TU EST DANS CARDIO TU N'AS PAS LES MEME CHOIX QUE SI TU ES DAnS MUSCU
+        with open("mouvement_disponible.pkl", "rb") as f:
+            mouvement_disponible = pickle.load(f)
+        liste_exercice = []
+        for exercice in mouvement_disponible:
+            liste_exercice.append(exercice)
+
+        self.ui.nomExerciceComboBox.addItems(liste_exercice)
 class cree_journee(QWidget):
     #ajouter les erreur possible
     def __init__(self):
@@ -258,6 +310,6 @@ if __name__ == "__main__":
 
 
     app = QApplication(sys.argv)
-    window = Dashboard()
+    window = cree_exercice()
     window.show()
     sys.exit(app.exec())
