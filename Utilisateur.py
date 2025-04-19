@@ -70,6 +70,17 @@ class Utilisateur:
                         
             raise ValueError("journee n'est pas une instance de Journee")
 
+    def supprimer_journee(self,journee_user):
+        #TODO : TERMINER et debug se qui manque a cette fonction
+        print(journee_user)
+        for index,journee in enumerate(self.historique_journee):
+            print(journee.date.strftime("%Y-%m-%d"))
+            if journee_user == journee.date.strftime("%Y-%m-%d"):
+                del self.historique_journee[index]
+                print("supprimer avec success")
+                break
+        #if journee in [journee_existante.date.strftime("%Y-%m-%d") for journee_existante in self.historique_journee]:
+        #    print("oui")
 
     def obtenir_exercices_info(self):
         exercices_liste = []

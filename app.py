@@ -59,6 +59,9 @@ class journeemodif(QWidget):
         self.ui.setupUi(self)
         self.ui.backButton.clicked.connect(self.retourner_dashboard)
         self.texte_date = self.ui.headerLabel
+        self.supprimer_journee =self.ui.deleteDayButton
+        #si appuis sur le bouton supprimer journee ca supprime la journee
+
 
         #bouton exercice et affichage
         self.ui.exercisesList
@@ -100,7 +103,8 @@ class journeemodif(QWidget):
         else:
             print("No item selected.")
             #ajouter un message d'erreur aucun message
-
+    def supprimer_journee(self):
+        pass
     def ajouter_exercice(self,index_valide):
         pass
 
@@ -172,28 +176,28 @@ class Dashboard(QMainWindow):
         #valeur par defaut de la date filtre
 
     def afficher_muscu_graph(self):
-
-        # (volume_par_seance)
+        # ---------------- Figure / Canvas 1 ----------------
         self.figure1 = Figure()
         self.canvas1 = FigureCanvas(self.figure1)
         layout1 = QVBoxLayout()
         layout1.addWidget(self.canvas1)
         self.ui.legraph1.setLayout(layout1)
 
-        # (poid_journee)
+        # ---------------- Figure / Canvas 2 ----------------
         self.figure2 = Figure()
         self.canvas2 = FigureCanvas(self.figure2)
         layout2 = QVBoxLayout()
         layout2.addWidget(self.canvas2)
         self.ui.legraph2.setLayout(layout2)
 
-        # mettre dans le graph
+        # ---------------- Tracé volume_par_seance ----------
         ax1 = self.figure1.add_subplot(111)
-        goodgraph.volume_par_seance(ax1,self.date_filtre)
+        goodgraph.volume_par_seance(ax1, self.date_filtre)  # gère le « vide »
         self.canvas1.draw()
 
+        # ---------------- Tracé poid_journee ---------------
         ax2 = self.figure2.add_subplot(111)
-        goodgraph.poid_journee(ax2, self.date_filtre)
+        goodgraph.poid_journee(ax2, self.date_filtre)  # gère le « vide »
         self.canvas2.draw()
 
     def set_filter_7_days(self):
@@ -213,37 +217,28 @@ class Dashboard(QMainWindow):
         self.date_filtre = 99999
         self.update_graphs()
 
-
-
     def update_graphs(self):
-        """Clears and redraws both graphs based on the current self.date_filtre."""
+        """Redessine les deux graphiques avec le filtre courant."""
         print(f"Updating graphs with filter: {self.date_filtre}")
 
-        # --- Update Graph 1 ---
+        # ---------- Graphique 1 : volume_par_seance ----------
         try:
-            # Clear previous plot on figure 1
-            self.figure1.clear()
-            # Add new subplot
+            self.figure1.clear()  # on vide la figure
             ax1 = self.figure1.add_subplot(111)
-            # Call your plotting function (doesn't depend on date_filtre here)
-            goodgraph.volume_par_seance(ax1)
-            # Redraw the canvas
-            self.canvas1.draw()
+            goodgraph.volume_par_seance(ax1,  # 🔴 passer le filtre !
+                                        date_filtre=self.date_filtre)
+            self.canvas1.draw_idle()  # ✔️ draw_idle
             print("Graph 1 updated.")
         except Exception as e:
             print(f"Error updating graph 1: {e}")
 
-        # --- Update Graph 2 ---
+        # ---------- Graphique 2 : poid_journee -------------
         try:
-            # Clear previous plot on figure 2
             self.figure2.clear()
-            # Add new subplot
             ax2 = self.figure2.add_subplot(111)
-            # Call your plotting function, passing the CURRENT filter value
-            # Ensure goodgraph.poid_journee handles the filter value (e.g., 0 for all time)
-            goodgraph.poid_journee(ax2, date_filtre=self.date_filtre)
-            # Redraw the canvas
-            self.canvas2.draw()
+            goodgraph.poid_journee(ax2,
+                                   date_filtre=self.date_filtre)
+            self.canvas2.draw_idle()
             print("Graph 2 updated.")
         except Exception as e:
             print(f"Error updating graph 2: {e}")
