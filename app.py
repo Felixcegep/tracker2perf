@@ -4,6 +4,9 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pickle
+from datetime import datetime
+from Journee import Journee
+
 
 from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget
 from graphic_utilisateur import GraphicUtilisateur
@@ -13,11 +16,34 @@ goodgraph = GraphicUtilisateur()
 #info de l'utilsateur
 info_utilisateur = goodgraph.info
 
+
+
 class cree_journee(QWidget):
+    #ajouter les erreur possible
     def __init__(self):
         super().__init__()
         self.ui = Ui_CreateJourneeWidget()
         self.ui.setupUi(self)
+        #info a extraire de l'utilisateur
+        self.nomjournee = self.ui.nomJourneeLineEdit
+        self.date = self.ui.dateEdit
+        self.poid = self.ui.poidsAujourdhuiLineEdit
+        #bouton annuler et accepter
+        self.annuler = self.ui.cancelButton
+        self.accepter = self.ui.saveButton
+        self.annuler.clicked.connect(self.retourner_dashboard)
+        self.accepter.clicked.connect(self.ajouter_journee)
+    def retourner_dashboard(self):
+        self.aller_dashboad = Dashboard()
+        self.aller_dashboad.show()
+        self.close()
+    def convertir_date(self):
+        bon_datetime = datetime.strptime(self.date.text(), "%Y-%m-%d")
+        return bon_datetime
+    def ajouter_journee(self):
+        info_utilisateur.ajouter_journee(Journee(self.nomjournee.text(),self.convertir_date(),float(self.poid.text())))
+        info_utilisateur.sauvegarder_utilisateur()
+        self.retourner_dashboard()
 
 
 class journeemodif(QWidget):
@@ -226,6 +252,6 @@ if __name__ == "__main__":
 
 
     app = QApplication(sys.argv)
-    window = cree_journee()
+    window = Dashboard()
     window.show()
     sys.exit(app.exec())
