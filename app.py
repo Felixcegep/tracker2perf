@@ -58,6 +58,7 @@ class journeemodif(QWidget):
         # This populates the QWidget with the UI elements.
         self.ui.setupUi(self)
         self.ui.backButton.clicked.connect(self.retourner_dashboard)
+        self.texte_date = self.ui.headerLabel
 
         #bouton exercice et affichage
         self.ui.exercisesList
@@ -67,6 +68,7 @@ class journeemodif(QWidget):
         #trouver l'index de la journee dans la liste
 
         if journee_specifique:
+            self.texte_date.setText(journee_specifique)
             for index, journee in enumerate(info_utilisateur.historique_journee):
                 formatted_date = journee.date.strftime("%m/%d/%Y")
                 if journee_specifique == formatted_date:
@@ -208,7 +210,7 @@ class Dashboard(QMainWindow):
     def set_filter_365_days(self):
         """Sets the filter to 30 days and updates graphs."""
         print("Setting filter to 30 days")
-        self.date_filtre = 365
+        self.date_filtre = 99999
         self.update_graphs()
 
 
