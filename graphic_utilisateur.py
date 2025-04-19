@@ -12,6 +12,9 @@ class GraphicUtilisateur:
     def afficher_utilisateur(self):
         print(self.info)
 
+    from datetime import datetime, timedelta
+    import matplotlib.dates as mdates
+
     def volume_par_seance(self, ax, date_filtre=None):
         print("lancer...")
         axe_x = []
@@ -45,6 +48,48 @@ class GraphicUtilisateur:
             # fait un retation
         else:
             print("la liste est vide")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def poid_journee(self, ax, date_filtre):
         if len(self.info.historique_poids_journee) == 0:
