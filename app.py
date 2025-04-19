@@ -123,7 +123,7 @@ class Dashboard(QMainWindow):
         self.ui.searchLineEdit.textChanged.connect(self.filtrer_journees)
         self.ui.ajouterjournee.clicked.connect(self.ajouter_journee)
         self.ui.listejourney.itemClicked.connect(self.selection_scrollbar)
-
+        self.date_filtre = 7
         #welcome en haut a droit
         welcometext = self.ui.welcomeLabel
         # ouvrir fichier compte
@@ -170,7 +170,7 @@ class Dashboard(QMainWindow):
         #valeur par defaut de la date filtre
 
     def afficher_muscu_graph(self):
-        self.date_filtre = 30
+
         # (volume_par_seance)
         self.figure1 = Figure()
         self.canvas1 = FigureCanvas(self.figure1)
