@@ -16,113 +16,114 @@ class GraphicUtilisateur:
     import matplotlib.dates as mdates
 
     def volume_par_seance(self, ax, date_filtre=None):
-        #TODO COMPRENDRE LA LOGIQUE DES DEUX GRAPHIQUE
-        """
-        Trace l’évolution du volume total par séance (kg·rép) au fil des jours.
+        print("lancer...")
+        axe_x = []
+        axe_y = []
+        liste_jours_volume = []
 
-        Paramètres
-        ----------
-        ax : matplotlib.axes.Axes
-            Axe déjà créé (par ex. figure.add_subplot()).
-        date_filtre : int | None
-            Nombre de jours à conserver. Ex. 90 => affiche les 90 derniers jours.
-            Si None, on affiche tout l’historique.
-        """
+        if len(self.info.historique_journee) > 0:
+            for journee in self.info.historique_journee:
+                for seance in journee.seances_ajourdhui:
+                    journeevolume = (journee.date, seance.volume_par_seance())
+                    liste_jours_volume.append(journeevolume)
 
-        # -- remise à zéro de l’axe --
-        ax.clear()
+            sorted_journees = sorted(liste_jours_volume, key=lambda x: x[0])
+            for date, poids in sorted_journees:
+                if isinstance(date, datetime):
+                    axe_x.append(date)
+                    axe_y.append(poids)
 
-        # -- données manquantes ? --
-        if not self.info.historique_journee:
-            ax.set_title("Aucune donnée disponible")
+            # Plotting on the given axis
+            ax.clear()
+            ax.plot(axe_x, axe_y)
+            ax.set_title("Évolution du volume au fil des jours")
+            ax.set_xlabel("Date")
+            ax.set_ylabel("Poids (lbs)")
+            ax.grid(True)
+            ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+            for label in ax.get_xticklabels():
+                label.set_rotation(45)
+                label.set_horizontalalignment('right')
             ax.figure.tight_layout()
-            return
+            # fait un retation
+        else:
+            print("la liste est vide")
 
-        # -- limite temporelle --
-        date_limite = (
-            datetime.today() - timedelta(days=date_filtre)
-            if date_filtre is not None
-            else datetime.min
-        )
 
-        # -- récolte & filtre --
-        donnees = []  # [(date, volume), …]
-        for journee in self.info.historique_journee:
-            # Conversion éventuelle en datetime
-            d = journee.date
-            if isinstance(d, str):
-                d = datetime.strptime(d, "%Y-%m-%d")
 
-            if d < date_limite:
-                continue  # on ignore cette journée
 
-            for seance in journee.seances_ajourdhui:
-                donnees.append((d, seance.volume_par_seance()))
 
-        if not donnees:  # il ne reste rien après filtrage
-            ax.set_title("Aucune donnée disponible")
-            ax.figure.tight_layout()
-            return
 
-        # -- tri chronologique --
-        donnees.sort(key=lambda t: t[0])
 
-        # -- séparation X/Y --
-        axe_x, axe_y = zip(*donnees)
 
-        # -- tracé --
-        ax.plot_date(axe_x, axe_y, "-o")
-        ax.set_title("Évolution du volume par séance")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Volume (kg·rép)")  # adapte le libellé si besoin
-        ax.grid(True)
 
-        # formatage de l’axe X
-        ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-        ax.tick_params(axis="x", rotation=45)
-        ax.figure.tight_layout()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def poid_journee(self, ax, date_filtre):
-        ax.clear()
-
-        # Rien à tracer ?
-        if not self.info.historique_poids_journee:
+        if len(self.info.historique_poids_journee) == 0:
+            print("aucune date disponible")
+            # TODO: pourrait afficher un message dans le graph
+            ax.clear()
             ax.set_title("Aucune donnée disponible")
             ax.figure.tight_layout()
-            return
+        else:
+            date_limite = datetime.today() - timedelta(days=date_filtre)
 
-        date_limite = datetime.today() - timedelta(days=date_filtre)
+            axe_x = []
+            axe_y = []
+            self.info.actualiser_data_poid_jours()
+            sorted_journees = sorted(self.info.historique_poids_journee, key=lambda x: x[0])
 
-        # -- convertir une bonne fois les dates en datetime et filtrer --
-        donnees = []
-        for poids, date in self.info.historique_poids_journee:
-            if isinstance(date, str):
-                date = datetime.strptime(date, "%Y-%m-%d")
-            if date >= date_limite:
-                donnees.append((date, poids))  # <- (date, poids) !
+            for poids, date in sorted_journees:
+                if isinstance(date, str):
+                    date = datetime.strptime(date, '%Y-%m-%d')
+                if date >= date_limite:
+                    axe_x.append(date)
+                    axe_y.append(poids)
 
-        if not donnees:
-            ax.set_title("Aucune donnée disponible")
+            ax.clear()
+            ax.plot(axe_x, axe_y, marker='o')
+            ax.set_title("Évolution du poids au fil des jours")
+            ax.set_xlabel("Date")
+            ax.set_ylabel("Poids (lbs)")
+            ax.grid(True)
+            ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+            for label in ax.get_xticklabels():
+                label.set_rotation(45)
+                label.set_horizontalalignment('right')
             ax.figure.tight_layout()
-            return
-
-        # -- trier par date --
-        donnees.sort(key=lambda t: t[0])  # t[0] = date
-
-        # -- séparer X et Y --
-        axe_x, axe_y = zip(*donnees)
-
-        # -- tracer --
-        ax.plot_date(axe_x, axe_y, "-o")  # plot_date gère mieux les dates
-        ax.set_title("Évolution du poids au fil des jours")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Poids (lbs)")
-        ax.grid(True)
-
-        # Formatage de l’axe X
-        ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-        ax.tick_params(axis="x", rotation=45)
-        ax.figure.tight_layout()
 
     # graphique volume de la sessions
 
