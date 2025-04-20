@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddAvailableMovementWidget</class>
+ <widget class="QWidget" name="AddAvailableMovementWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tracker2Perf - Ajouter Mouvement Disponible</string>
+  </property>
+  <property name="styleSheet">
+   <string>/* === Main Widget === */
+#AddAvailableMovementWidget {
+    background-color: #F0F0F0;
+}
+
+/* === Labels === */
+QLabel {
+    font-size: 11pt;
+    color: #333333;
+    /* font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; */
+    padding-bottom: 2px; /* Small space below labels */
+}
+
+#titleLabel {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c1c1e;
+    padding-bottom: 15px;
+}
+
+/* Labels used in Form Layouts */
+QFormLayout QLabel {
+    padding-top: 5px; /* Align nicely */
+}
+
+/* Specific labels */
+#musclesLabel, #typeLabel {
+    font-weight: bold; /* Make section headers bold */
+    padding-top: 8px; /* Space above section label */
+}
+
+
+/* === Line Edits === */
+QLineEdit {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 6px 10px;
+    min-height: 22px;
+    font-size: 11pt;
+    color: #333333;
+}
+QLineEdit:focus {
+    border: 1px solid #007AFF;
+}
+QLineEdit[placeholderText] {
+    color: #AAAAAA;
+}
+
+/* === Text Edit === */
+QTextEdit {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 11pt;
+    color: #333333;
+}
+QTextEdit:focus {
+    border: 1px solid #007AFF;
+}
+
+/* === Check Boxes === */
+QCheckBox {
+    font-size: 10pt; /* Slightly smaller for list */
+    color: #333333;
+    spacing: 6px; /* Space between indicator and text */
+    padding: 3px 0px; /* Vertical padding */
+}
+QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+}
+QCheckBox::indicator:unchecked {
+    /* Optional: Add custom image */
+    border: 1px solid #BDBDBD;
+    border-radius: 4px; /* Squared look */
+    background-color: #FFFFFF;
+}
+QCheckBox::indicator:unchecked:hover {
+    border: 1px solid #888888;
+}
+QCheckBox::indicator:checked {
+    /* Optional: Add custom checkmark image */
+    border: 1px solid #007AFF;
+    border-radius: 4px;
+    background-color: #007AFF;
+    /* image: url(:/icons/checkmark.png); */ /* Example */
+}
+QCheckBox::indicator:checked:hover {
+    border: 1px solid #005ECB;
+    background-color: #005ECB;
+}
+
+/* === Radio Buttons === */
+QRadioButton {
+    font-size: 11pt;
+    color: #333333;
+    spacing: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+QRadioButton::indicator {
+    width: 16px;
+    height: 16px;
+}
+QRadioButton::indicator:unchecked {
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+QRadioButton::indicator:unchecked:hover { border: 1px solid #888888; }
+QRadioButton::indicator:checked {
+    border: 1px solid #007AFF;
+    border-radius: 8px;
+    background-color: qradialgradient(cx:0.5, cy:0.5, radius:0.4, fx:0.5, fy:0.5, stop:0 #007AFF, stop:1 #FFFFFF);
+}
+
+
+/* === Scroll Area === */
+QScrollArea {
+  border: 1px solid #DCDCDC; /* Border around the scroll area */
+  border-radius: 6px;
+  background-color: #FFFFFF; /* White background inside */
+}
+QWidget#musclesScrollAreaContents { /* Target the inner widget */
+    background-color: #FFFFFF;
+}
+
+/* === Scroll Bar Styling (macOS like, adapted) === */
+QScrollBar:vertical {
+    border: none;
+    background: #FFFFFF; /* Match scroll area background */
+    width: 8px;
+    margin: 1px 1px 1px 1px; /* Small margin */
+}
+QScrollBar::handle:vertical {
+    background: #CFCFCF; /* Gray handle */
+    min-height: 25px;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #B0B0B0; /* Darker handle on hover */
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px; width: 0px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+/* === Action Buttons === */
+QPushButton#addButton { /* Renamed from saveButton */
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    min-height: 24px;
+    font-size: 11pt;
+    font-weight: 500;
+}
+QPushButton#addButton:hover { background-color: #3395FF; }
+QPushButton#addButton:pressed { background-color: #005ECB; }
+QPushButton#addButton:disabled { background-color: #DCDCDC; color: #A0A0A0; }
+
+QPushButton#cancelButton {
+    background-color: #E9E9ED;
+    color: #333333;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 8px 20px;
+    min-height: 24px;
+    font-size: 11pt;
+    font-weight: normal;
+}
+QPushButton#cancelButton:hover { background-color: #DDDDDF; border-color: #CFCFCF; }
+QPushButton#cancelButton:pressed { background-color: #D5D5D7; }
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="mainVLayout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="text">
+      <string>Ajouter Mouvement à la Liste</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="nameDescFormLayout">
+     <property name="labelAlignment">
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <property name="horizontalSpacing">
+      <number>10</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>10</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="nomLabel">
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="nomLineEdit">
+       <property name="placeholderText">
+        <string>Nom unique du mouvement</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="descriptionLabel">
+       <property name="text">
+        <string>Description</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="descriptionTextEdit">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="placeholderText">
+        <string>Décrire le mouvement, points clés...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="musclesLabel">
+     <property name="text">
+      <string>Muscles Cibles</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QScrollArea" name="musclesScrollArea">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="musclesScrollAreaContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>408</width>
+        <height>98</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="musclesVLayout">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <item>
+        <spacer name="musclesVerticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>5</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="typeLabel">
+     <property name="text">
+      <string>Type d'Exercice</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="typeRadioWidget" native="true">
+     <layout class="QHBoxLayout" name="typeRadioHLayout">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QRadioButton" name="cardioRadioButton">
+        <property name="text">
+         <string>Cardio</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="musculationRadioButton">
+        <property name="text">
+         <string>Musculation</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="typeHorizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="mainVerticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>15</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonBoxHLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Annuler</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addButton">
+       <property name="text">
+        <string>Ajouter</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

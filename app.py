@@ -1,14 +1,14 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QDialog
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QDialog, QCheckBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pickle
 from datetime import datetime
 from Journee import Journee
-from Muscu import ExerciceMusculation
+from Muscu import ExerciceMusculation, Muscledispo, Exercice
 
-from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
@@ -18,6 +18,52 @@ info_utilisateur = goodgraph.info
 with open("mouvement_disponible.pkl", "rb") as f:
     mouvement_disponible = pickle.load(f)
 #test
+
+
+class ajouter_mouvement_disponible_muscu(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_AddAvailableMovementWidget()
+        self.ui.setupUi(self)
+        self.ajouter_les_muscles()
+
+        #bouton utilisateurs
+        self.ui.cardioRadioButton
+        self.ui.musculationRadioButton
+        self.ui.addButton.clicked.connect(self.cree_mouvement_a_liste)
+        print(self.ui.descriptionTextEdit.toPlainText())
+
+    def cree_mouvement_a_liste(self):
+
+        Exercice.ajouter_mouvement_disponible(self.ui.nomLineEdit.text(),self.ui.descriptionTextEdit.toPlainText(),self.regarder_si_cocher(),self.regarder_type_cocher())
+        print("le mouvement a été ajouter")
+    def ajouter_mouvement(self):
+        self.ui.nomLineEdit.text()
+        self.ui.descriptionTextEdit.text()
+        self.ui.musclesScrollAreaContents
+
+    def ajouter_les_muscles(self):
+        for muscle in Muscledispo:
+            my_new_checkbox = QCheckBox(muscle.value)
+
+            self.ui.musclesScrollAreaContents.layout().addWidget(my_new_checkbox)
+    def regarder_si_cocher(self):
+        muscle_exercice = []
+        layout = self.ui.musclesScrollAreaContents.layout()
+        for i in range(layout.count()):
+            # Get the widget at index 'i' in the layout
+            widget = layout.itemAt(i).widget()
+
+            if isinstance(widget, QCheckBox):  # Ensure it's a QCheckBox
+                if widget.isChecked():
+                    muscle_exercice.append(widget.text())
+        return muscle_exercice
+
+    def regarder_type_cocher(self):
+        if self.ui.cardioRadioButton.isChecked() == True:
+            return "musculation"
+        else:
+            return "cardio"
 
 
 class afficher_tous_exercice(QDialog):
@@ -363,6 +409,6 @@ if __name__ == "__main__":
 
 
     app = QApplication(sys.argv)
-    window = Dashboard()
+    window = ajouter_mouvement_disponible_muscu()
     window.show()
     sys.exit(app.exec())

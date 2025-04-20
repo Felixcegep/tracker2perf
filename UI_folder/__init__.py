@@ -3,3 +3,4 @@ from .journee1_ui1 import Ui_DayView
 from .cree_journee_ui1 import Ui_CreateJourneeWidget
 from .create_exercices_ui import Ui_ExerciseCreator
 from .afficher_exercice_valide import Ui_AvailableExercisesDialog
+from .add_exercice_available_ui import Ui_AddAvailableMovementWidget
