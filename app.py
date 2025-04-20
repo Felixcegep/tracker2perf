@@ -21,7 +21,7 @@ with open("mouvement_disponible.pkl", "rb") as f:
 
 
 class ajouter_mouvement_disponible_muscu(QWidget):
-    def __init__(self):
+    def __init__(self,parent = None):
         super().__init__()
         self.ui = Ui_AddAvailableMovementWidget()
         self.ui.setupUi(self)
@@ -31,7 +31,12 @@ class ajouter_mouvement_disponible_muscu(QWidget):
         self.ui.cardioRadioButton
         self.ui.musculationRadioButton
         self.ui.addButton.clicked.connect(self.cree_mouvement_a_liste)
+        self.ui.cancelButton.clicked.connect(lambda : self.menu_exercice(parent))
         print(self.ui.descriptionTextEdit.toPlainText())
+    def menu_exercice(self,parent):
+        self.aller_exerice = cree_exercice(parent)
+        self.aller_exerice.show()
+        self.close()
 
     def cree_mouvement_a_liste(self):
 
@@ -101,7 +106,7 @@ class cree_exercice(QWidget):
         self.musculationButton.clicked.connect(lambda: self.inputStackedWidget.setCurrentWidget(self.musculationPage))
         self.ui.cancelButton.clicked.connect(lambda :self.retourner_journee(parent))
 
-        self.ui.addNewMovementButton.clicked.connect(self.aller_nouveau_mouvement)
+        self.ui.addNewMovementButton.clicked.connect(lambda :self.aller_nouveau_mouvement(parent))
 
         #EXTRAIRE CARDIO
         self.ui.nomExerciceComboBox
@@ -120,9 +125,10 @@ class cree_exercice(QWidget):
         self.ui.cancelButton
         self.ui.addNewMovementButton
 
-    def aller_nouveau_mouvement(self):
-        self.afficher_mouvement = ajouter_mouvement_disponible_muscu()
+    def aller_nouveau_mouvement(self,parent):
+        self.afficher_mouvement = ajouter_mouvement_disponible_muscu(parent)
         self.afficher_mouvement.show()
+        self.close()
 
     def enregister_exercice(self):
         exercice_type = self.ui.inputStackedWidget.currentWidget()
