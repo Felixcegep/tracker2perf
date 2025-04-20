@@ -101,6 +101,8 @@ class cree_exercice(QWidget):
         self.musculationButton.clicked.connect(lambda: self.inputStackedWidget.setCurrentWidget(self.musculationPage))
         self.ui.cancelButton.clicked.connect(lambda :self.retourner_journee(parent))
 
+        self.ui.addNewMovementButton.clicked.connect(self.aller_nouveau_mouvement)
+
         #EXTRAIRE CARDIO
         self.ui.nomExerciceComboBox
         self.ui.dureeLineEdit
@@ -118,6 +120,9 @@ class cree_exercice(QWidget):
         self.ui.cancelButton
         self.ui.addNewMovementButton
 
+    def aller_nouveau_mouvement(self):
+        self.afficher_mouvement = ajouter_mouvement_disponible_muscu()
+        self.afficher_mouvement.show()
 
     def enregister_exercice(self):
         exercice_type = self.ui.inputStackedWidget.currentWidget()
@@ -409,6 +414,6 @@ if __name__ == "__main__":
 
 
     app = QApplication(sys.argv)
-    window = ajouter_mouvement_disponible_muscu()
+    window = Dashboard()
     window.show()
     sys.exit(app.exec())
