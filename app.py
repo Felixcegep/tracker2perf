@@ -54,6 +54,7 @@ class cree_exercice(QWidget):
         self.ui.cancelButton
         self.ui.addNewMovementButton
 
+
     def enregister_exercice(self):
         exercice_type = self.ui.inputStackedWidget.currentWidget()
         if exercice_type:
