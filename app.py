@@ -6,7 +6,7 @@ from matplotlib.figure import Figure
 import pickle
 from datetime import datetime
 from Journee import Journee
-
+from Muscu import ExerciceMusculation
 
 from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator
 from graphic_utilisateur import GraphicUtilisateur
@@ -21,7 +21,7 @@ with open("mouvement_disponible.pkl", "rb") as f:
 
 class cree_exercice(QWidget):
     #ajouter les erreur possible
-    def __init__(self):
+    def __init__(self,parent = None):
         super().__init__()
         self.ui = Ui_ExerciseCreator()
         self.ui.setupUi(self)
@@ -35,7 +35,7 @@ class cree_exercice(QWidget):
         #changer l'affichage
         self.cardioButton.clicked.connect(lambda: self.inputStackedWidget.setCurrentWidget(self.cardioPage))
         self.musculationButton.clicked.connect(lambda: self.inputStackedWidget.setCurrentWidget(self.musculationPage))
-
+        self.ui.cancelButton.clicked.connect(lambda :self.retourner_journee(parent))
 
         #EXTRAIRE CARDIO
         self.ui.nomExerciceComboBox
@@ -49,7 +49,7 @@ class cree_exercice(QWidget):
         self.ui.poidsLineEdit
         self.ajouter_exercice_deroulant()
         # les bouton du bas
-        self.ui.saveButton.clicked.connect(self.enregister_exercice)
+        self.ui.saveButton.clicked.connect(lambda :self.ajouter_muscu(parent))
 
         self.ui.cancelButton
         self.ui.addNewMovementButton
@@ -61,6 +61,27 @@ class cree_exercice(QWidget):
             print(exercice_type.objectName())
             # si exercice page faire objet exercicemuscu
             #sinon faire exercicecardio
+    def ajouter_muscu(self,parent):
+        #pas de sauvegarde
+        #info_utilisateur
+
+        for index, journee in enumerate(info_utilisateur.historique_journee):
+            formatted_date = journee.date.strftime("%m/%d/%Y")
+            if parent == formatted_date:
+                index_valide = index
+                print(self.ui.nomExerciceComboBox.currentText())
+                exercice = ExerciceMusculation(self.ui.nomExerciceComboBox.currentText(),int(self.ui.rpeLineEdit.text()),int(self.ui.setsLineEdit.text()),int(self.ui.repsLineEdit.text()),int(self.ui.poidsLineEdit.text()))
+
+                info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
+                self.retourner_journee(parent)
+    def retourner_journee(self,parent):
+        self.journeemodif = journeemodif(parent)
+        self.journeemodif.show()
+        self.close()
+
+    def ajouter_cardio(self):
+        pass
+
 
     def ajouter_exercice_deroulant(self):
         #TODO FAIRE QUE QUAND TU EST DANS CARDIO TU N'AS PAS LES MEME CHOIX QUE SI TU ES DAnS MUSCU
@@ -118,7 +139,9 @@ class journeemodif(QWidget):
 
         #bouton exercice et affichage
         self.ui.exercisesList
-        self.ui.addExerciseButton
+        #addexercice renvois a la page cree exercice
+        self.ui.addExerciseButton.clicked.connect(lambda: self.menu_exercice(journee_specifique))
+
         self.ui.removeExerciseButton.clicked.connect(self.supprimer_exercices)
         #
         #trouver l'index de la journee dans la liste
@@ -132,6 +155,12 @@ class journeemodif(QWidget):
 
                     break
         self.afficher_exercices(index_valide)
+    def menu_exercice(self,journee_specifique):
+        self.aller_exerice = cree_exercice(journee_specifique)
+        self.aller_exerice.show()
+        self.close()
+
+
     def supprimer_journeee(self,journee_specifique):
         print(journee_specifique)
         for index, journee in enumerate(info_utilisateur.historique_journee):
@@ -311,6 +340,6 @@ if __name__ == "__main__":
 
 
     app = QApplication(sys.argv)
-    window = cree_exercice()
+    window = Dashboard()
     window.show()
     sys.exit(app.exec())
