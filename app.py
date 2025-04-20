@@ -17,7 +17,7 @@ goodgraph = GraphicUtilisateur()
 info_utilisateur = goodgraph.info
 with open("mouvement_disponible.pkl", "rb") as f:
     mouvement_disponible = pickle.load(f)
-
+#test
 
 class cree_exercice(QWidget):
     #ajouter les erreur possible
