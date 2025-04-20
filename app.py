@@ -6,7 +6,7 @@ from matplotlib.figure import Figure
 import pickle
 from datetime import datetime
 from Journee import Journee
-from Muscu import ExerciceMusculation, Muscledispo, Exercice
+from Muscu import ExerciceMusculation, Muscledispo, Exercice, Seance
 
 from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget
 from graphic_utilisateur import GraphicUtilisateur
@@ -144,7 +144,11 @@ class cree_exercice(QWidget):
                     info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
                     self.retourner_journee(parent)
                 else:
-                    print("il ny a pas de seance :(")
+                    info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
+                    print("seance creee :)")
+                    info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
+                    self.retourner_journee(parent)
+                    print("ajout a la seance ")
     def retourner_journee(self,parent):
         self.journeemodif = journeemodif(parent)
         self.journeemodif.show()
