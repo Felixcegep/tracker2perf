@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QDialog
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pickle
@@ -8,7 +8,7 @@ from datetime import datetime
 from Journee import Journee
 from Muscu import ExerciceMusculation
 
-from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
@@ -18,6 +18,24 @@ info_utilisateur = goodgraph.info
 with open("mouvement_disponible.pkl", "rb") as f:
     mouvement_disponible = pickle.load(f)
 #test
+
+
+class afficher_tous_exercice(QDialog):
+    #ajouter les erreur possible
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_AvailableExercisesDialog()
+        self.ui.setupUi(self)
+        self.ui.availableExercisesList.clear()
+        self.afficher_exercice()
+
+    def afficher_exercice(self):
+        liste_exercices = []
+
+        for exercice in mouvement_disponible.keys():
+            print(exercice)
+            liste_exercices.append(exercice)
+        self.ui.availableExercisesList.addItems(liste_exercices)
 
 class cree_exercice(QWidget):
     #ajouter les erreur possible
@@ -155,6 +173,11 @@ class journeemodif(QWidget):
 
                     break
         self.afficher_exercices(index_valide)
+
+        self.ui.pushButton.clicked.connect(self.afficher_tous_exercice_dispo)
+    def afficher_tous_exercice_dispo(self):
+        self.afficher_lesexercice = afficher_tous_exercice()
+        self.afficher_lesexercice.show()
     def menu_exercice(self,journee_specifique):
         self.aller_exerice = cree_exercice(journee_specifique)
         self.aller_exerice.show()
