@@ -140,9 +140,11 @@ class cree_exercice(QWidget):
                 index_valide = index
                 print(self.ui.nomExerciceComboBox.currentText())
                 exercice = ExerciceMusculation(self.ui.nomExerciceComboBox.currentText(),int(self.ui.rpeLineEdit.text()),int(self.ui.setsLineEdit.text()),int(self.ui.repsLineEdit.text()),int(self.ui.poidsLineEdit.text()))
-
-                info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
-                self.retourner_journee(parent)
+                if len(info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
+                    info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
+                    self.retourner_journee(parent)
+                else:
+                    print("il ny a pas de seance :(")
     def retourner_journee(self,parent):
         self.journeemodif = journeemodif(parent)
         self.journeemodif.show()
