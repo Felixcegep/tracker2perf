@@ -18,4 +18,4 @@ class TemplateAliment:
 
             self._calories = calories
         else:
-            raise ValueError("les calories doivent être superieur a 0")
+            raise ValueError("Les calories doivent être superieur a 0")
