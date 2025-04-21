@@ -29,12 +29,15 @@ class NutritionQuotidien:
         else:
             raise TypeError("Cet objet n'est pas valide.")
 
-    def supprimer_aliment_ajourdhui(self):
+    def supprimer_aliment_ajourdhui(self, nom: str):
         """
         #TODO
         :return:
         """
-        pass
+        for aliment in self.aliment_ajourdhui:
+            if aliment.nom == nom:
+                self.aliment_ajourdhui.remove(aliment)
+                break
 
 
 
