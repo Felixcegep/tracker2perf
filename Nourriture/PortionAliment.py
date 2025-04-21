@@ -33,7 +33,6 @@ class PortionAliment:
         value = float(value)
         if isinstance(value,float) and value > 0:
             self._par_100_grammes = value
-        #rajouter un elif pour raise les probleme plus clairement
         else:
             raise ValueError("La valeur par 100 grammes doit etre un nombre positif. ")
 

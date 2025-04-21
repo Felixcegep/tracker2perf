@@ -39,6 +39,9 @@ class Journee:
     def ajouter_nutrition_quotidienne(self, nutrition_quotidienne):
         self.nutrition_aujourdhui.append(nutrition_quotidienne)
 
+    def supprimer_nutrition_quotidienne(self, nutrition_quotidienne):
+        self.nutrition_aujourdhui.remove(nutrition_quotidienne)
+
     def ajouter_seance(self, seance: Seance):
         self.seances_ajourdhui.append(seance)
 

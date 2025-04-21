@@ -19,7 +19,7 @@ class NutritionQuotidien:
 
     def ajouter_aliment_ajourdhui(self,aliment_toutseul:PortionAliment):
         """
-        #TODO
+        Ajoute un aliment a la liste d'aliments consommés aujourdhui
         :param aliment_toutseul:
         :return:
         """
@@ -31,18 +31,10 @@ class NutritionQuotidien:
 
     def supprimer_aliment_ajourdhui(self, nom: str):
         """
-        #TODO
+        Retire un aliment de la liste d'aliments consommés aujourdhui
         :return:
         """
         for aliment in self.aliment_ajourdhui:
             if aliment.nom == nom:
                 self.aliment_ajourdhui.remove(aliment)
                 break
-
-
-
-
-
-
-
-
