@@ -6,7 +6,7 @@ from matplotlib.figure import Figure
 import pickle
 from datetime import datetime
 from Journee import Journee
-from Muscu import ExerciceMusculation, Muscledispo, Exercice, Seance
+from Muscu import ExerciceMusculation, Muscledispo, Exercice, Seance, ExerciceCardio
 
 from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget
 from graphic_utilisateur import GraphicUtilisateur
@@ -147,16 +147,35 @@ class cree_exercice(QWidget):
             if parent == formatted_date:
                 index_valide = index
                 print(self.ui.nomExerciceComboBox.currentText())
-                exercice = ExerciceMusculation(self.ui.nomExerciceComboBox.currentText(),int(self.ui.rpeLineEdit.text()),int(self.ui.setsLineEdit.text()),int(self.ui.repsLineEdit.text()),int(self.ui.poidsLineEdit.text()))
-                if len(info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
-                    info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
-                    self.retourner_journee(parent)
+                if self.ui.musculationButton.isChecked():
+
+                    exercice = ExerciceMusculation(self.ui.nomExerciceComboBox.currentText(),int(self.ui.rpeLineEdit.text()),int(self.ui.setsLineEdit.text()),int(self.ui.repsLineEdit.text()),int(self.ui.poidsLineEdit.text()))
+                    if len(info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
+                        info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
+                        self.retourner_journee(parent)
+                    else:
+                        info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
+                        print("seance creee :)")
+                        info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
+                        self.retourner_journee(parent)
+                        print("ajout a la seance et exercice muscu ")
                 else:
-                    info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
-                    print("seance creee :)")
-                    info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
-                    self.retourner_journee(parent)
-                    print("ajout a la seance ")
+                    exercice = ExerciceCardio(self.ui.nomExerciceComboBox.currentText(),
+                                              int(self.ui.dureeLineEdit.text()), int(self.ui.distanceLineEdit.text()),
+                                              int(self.ui.intensiteLineEdit.text()))
+                    if len(info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
+                        info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(
+                            exercice)
+                        self.retourner_journee(parent)
+                    else:
+                        info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
+                        print("seance creee :)")
+                        info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(
+                            exercice)
+                        self.retourner_journee(parent)
+                        print("ajout a la seance et exercice cardio ")
+
+
     def retourner_journee(self,parent):
         self.journeemodif = journeemodif(parent)
         self.journeemodif.show()
@@ -272,7 +291,10 @@ class journeemodif(QWidget):
 
         exercice_liste_scrollbar = []
         for exercice in info_utilisateur.historique_journee[index_valide].obtenir_exercices_info():
+
+
             exercice_liste_scrollbar.append(exercice["nom"])
+
 
         self.ui.exercisesList.addItems(exercice_liste_scrollbar)
     def supprimer_exercices(self,index_valide):

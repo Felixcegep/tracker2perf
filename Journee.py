@@ -1,4 +1,4 @@
-from Muscu import Seance
+from Muscu import Seance, Exercice, ExerciceMusculation
 from datetime import datetime
 
 
@@ -54,15 +54,23 @@ class Journee:
 
         for seance in self.seances_ajourdhui:
             for exercice in seance.exercice_seaces:
-                exercice_individuel = {
-                    "nom" : exercice.nomexercice,
-                    "rpe" : exercice.rpe,
-                    "set" : exercice.set,
-                    "rep" : exercice.rep,
-                    "poid_kg" : exercice.poid_kg,
-                        
+                if isinstance(exercice, ExerciceMusculation):
+                    exercice_individuel = {
+                        "nom" : exercice.nomexercice,
+                        "rpe" : exercice.rpe,
+                        "set" : exercice.set,
+                        "rep" : exercice.rep,
+                        "poid_kg" : exercice.poid_kg,
+
+                        }
+                else:
+                    exercice_individuel = {
+                        "nom" : exercice.nomexercice,
+                        "duree" : exercice.duree,
+                        "distance" : exercice.distance,
+                        "intensite" : exercice.intensite,
                     }
-    
+
 
                 exercices_liste.append(exercice_individuel)
         return exercices_liste
