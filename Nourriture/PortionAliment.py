@@ -2,9 +2,8 @@ import pickle
 from pathlib import Path
 from .TemplateAliment import TemplateAliment
 class PortionAliment:
-
+    file_path = Path(__file__).resolve().parent.parent / "aliment_disponible.pkl"
     try:
-        file_path = Path(__file__).resolve().parent.parent / "mouvement_disponible.pkl"
 
         with open(file_path, "rb") as f:
             ALIMENT_dispo = pickle.load(f)
