@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QDialog, QCheckBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QDialog, QCheckBox, QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pickle
@@ -136,25 +136,135 @@ class cree_exercice(QWidget):
             print(exercice_type.objectName())
             # si exercice page faire objet exercicemuscu
             #sinon faire exercicecardio
-    def ajouter_muscu(self,parent):
-        #pas de sauvegarde
-        #info_utilisateur
 
-        for index, journee in enumerate(info_utilisateur.historique_journee):
-            formatted_date = journee.date.strftime("%m/%d/%Y")
-            if parent == formatted_date:
-                index_valide = index
-                print(self.ui.nomExerciceComboBox.currentText())
-                exercice = ExerciceMusculation(self.ui.nomExerciceComboBox.currentText(),int(self.ui.rpeLineEdit.text()),int(self.ui.setsLineEdit.text()),int(self.ui.repsLineEdit.text()),int(self.ui.poidsLineEdit.text()))
-                if len(info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
-                    info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
-                    self.retourner_journee(parent)
-                else:
-                    info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
-                    print("seance creee :)")
-                    info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
-                    self.retourner_journee(parent)
-                    print("ajout a la seance ")
+    def ajouter_muscu(self, parent):
+        try:
+            # --- 1. Get Input ---
+            nom_exercice = self.ui.nomExerciceComboBox.currentText()
+            rpe_text = self.ui.rpeLineEdit.text().strip()
+            sets_text = self.ui.setsLineEdit.text().strip()
+            reps_text = self.ui.repsLineEdit.text().strip()
+            poids_text = self.ui.poidsLineEdit.text().strip()  # Assuming poids is int for now
+            #erreur de chatgpt
+
+            # --- 2. Validate Input (Stop on first error) ---
+            if not nom_exercice:
+                QMessageBox.warning(self, "Champ Requis", "Veuillez sélectionner un nom d'exercice.")
+                return  # STOP execution
+
+            try:
+                if not rpe_text:
+                    QMessageBox.warning(self, "Champ Requis", "Le RPE ne peut pas être vide.")
+                    return  # STOP execution
+                rpe_value = int(rpe_text)
+                if rpe_value < 0:  # Optional: Add domain validation
+                    QMessageBox.warning(self, "Valeur Invalide", "Le RPE ne peut pas être négatif.")
+                    return  # STOP execution
+            except ValueError:
+                QMessageBox.warning(self, "Format Invalide", f"Le RPE '{rpe_text}' doit être un nombre entier.")
+                return  # STOP execution
+
+            try:
+                if not sets_text:
+                    QMessageBox.warning(self, "Champ Requis", "Le nombre de séries ne peut pas être vide.")
+                    return  # STOP execution
+                sets_value = int(sets_text)
+                if sets_value <= 0:  # Optional: Add domain validation
+                    QMessageBox.warning(self, "Valeur Invalide", "Le nombre de séries doit être positif.")
+                    return  # STOP execution
+            except ValueError:
+                QMessageBox.warning(self, "Format Invalide",
+                                    f"Le nombre de séries '{sets_text}' doit être un nombre entier.")
+                return  # STOP execution
+
+            try:
+                if not reps_text:
+                    QMessageBox.warning(self, "Champ Requis", "Le nombre de répétitions ne peut pas être vide.")
+                    return  # STOP execution
+                reps_value = int(reps_text)
+                if reps_value <= 0:  # Optional: Add domain validation
+                    QMessageBox.warning(self, "Valeur Invalide", "Le nombre de répétitions doit être positif.")
+                    return  # STOP execution
+            except ValueError:
+                QMessageBox.warning(self, "Format Invalide",
+                                    f"Le nombre de répétitions '{reps_text}' doit être un nombre entier.")
+                return  # STOP execution
+
+            try:
+                if not poids_text:
+                    QMessageBox.warning(self, "Champ Requis", "Le poids ne peut pas être vide.")
+                    return  # STOP execution
+                # If poids can be float, use float() here and adjust messages
+                poids_value = int(poids_text)  # Or float(poids_text.replace(',', '.')) if float allowed
+                if poids_value < 0:  # Optional: Add domain validation
+                    QMessageBox.warning(self, "Valeur Invalide", "Le poids ne peut pas être négatif.")
+                    return  # STOP execution
+            except ValueError:
+                # Adjust message if using float
+                QMessageBox.warning(self, "Format Invalide", f"Le poids '{poids_text}' doit être un nombre entier.")
+                return  # STOP execution
+
+            # --- 3. Find the Correct Journée ---
+            index_valide = -1  # Initialize to an invalid index
+            # Ensure 'parent' format matches strftime. If 'parent' IS a date object, format it.
+            # If 'parent' IS ALREADY the correct string format "mm/dd/YYYY", use it directly.
+            # Example: Assuming parent is a string "mm/dd/YYYY"
+            target_date_str = parent
+
+            for index, journee in enumerate(info_utilisateur.historique_journee):
+                # Make sure the date comparison is reliable
+                # Ensure journee.date is a datetime.date or datetime.datetime object
+                try:
+                    formatted_date = journee.date.strftime("%m/%d/%Y")
+                    if formatted_date == target_date_str:
+                        index_valide = index
+                        break  # Found the correct journée, exit the loop
+                except AttributeError:
+                    print(
+                        f"Warning: Item at index {index} in historique_journee doesn't have a valid 'date' attribute or strftime method.")
+                    continue  # Skip this item
+
+            # --- 4. Check if Journée was Found ---
+            if index_valide == -1:
+                QMessageBox.critical(self, "Erreur",
+                                     f"Impossible de trouver la journée correspondante à la date '{target_date_str}'.")
+                return  # STOP execution
+
+            # --- 5. Create Exercice Object (using validated values) ---
+            # USE THE VALIDATED *_value variables, NOT the UI text fields again!
+            exercice = ExerciceMusculation(nom_exercice, rpe_value, sets_value, reps_value, poids_value)
+
+            # --- 6. Add Exercice to Séance ---
+            target_journee = info_utilisateur.historique_journee[index_valide]
+
+            if not target_journee.seances_ajourdhui:  # Check if list is empty
+                # If no séances exist for the day, create one first
+                print("Aucune séance trouvée pour aujourd'hui, création d'une nouvelle séance.")
+                # Consider if "Musculation" or similar should be the name
+                nouvelle_seance = Seance("Musculation")  # Use a meaningful name
+                target_journee.ajouter_seance(nouvelle_seance)
+                print("Nouvelle séance créée.")
+                # Now add the exercice to this new séance (which is now the first/only one)
+                target_journee.seances_ajourdhui[0].ajouter_exercice(exercice)
+                print(f"Exercice '{nom_exercice}' ajouté à la nouvelle séance.")
+            else:
+                # If séance(s) exist, add to the first one (index 0)
+                # Assumption: You always add to the first séance if multiple exist.
+                target_journee.seances_ajourdhui[0].ajouter_exercice(exercice)
+                print(f"Exercice '{nom_exercice}' ajouté à la séance existante.")
+
+            # --- 7. Success Feedback and Navigation ---
+            QMessageBox.information(self, "Succès",
+                                    f"L'exercice '{nom_exercice}' a été ajouté à la journée du {target_date_str}.")
+            self.retourner_journee(parent)  # Navigate back
+
+        # --- 8. Catch Any Other Unexpected Errors ---
+        except Exception as e:
+            print(f"An unexpected error occurred in ajouter_muscu: {e}")  # Log for debugging
+            import traceback
+            traceback.print_exc()  # Print detailed traceback for debugging
+            QMessageBox.critical(self, "Erreur Inattendue",
+                                 f"Une erreur imprévue est survenue:\n{e}")
     def retourner_journee(self,parent):
         self.journeemodif = journeemodif(parent)
         self.journeemodif.show()
@@ -196,7 +306,15 @@ class cree_journee(QWidget):
         bon_datetime = datetime.strptime(self.date.text(), "%Y-%m-%d")
         return bon_datetime
     def ajouter_journee(self):
-        info_utilisateur.ajouter_journee(Journee(self.nomjournee.text(),self.convertir_date(),float(self.poid.text())))
+        try:
+            info_utilisateur.ajouter_journee(Journee(self.nomjournee.text(),self.convertir_date(),float(self.poid.text())))
+
+        except Exception as e:
+        # Catch any other unexpected errors during add/save
+            print(f"erreur de formulaire: {e}")  # Log for debugging
+            QMessageBox.critical(self, "Erreur Inattendue",
+                                f"Une erreur est survenue lors de l'ajout ou de la sauvegarde. Veuillez vérifier vos données dans le formulaire :\n\nVeuillez réessayer.")
+
         info_utilisateur.sauvegarder_utilisateur()
         self.retourner_dashboard()
 
