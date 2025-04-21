@@ -15,8 +15,7 @@ from graphic_utilisateur import GraphicUtilisateur
 goodgraph = GraphicUtilisateur()
 #info de l'utilsateur
 info_utilisateur = goodgraph.info
-with open("mouvement_disponible.pkl", "rb") as f:
-    mouvement_disponible = pickle.load(f)
+
 #test
 
 
@@ -30,7 +29,7 @@ class ajouter_mouvement_disponible_muscu(QWidget):
         #bouton utilisateurs
         self.ui.cardioRadioButton
         self.ui.musculationRadioButton
-        self.ui.addButton.clicked.connect(self.cree_mouvement_a_liste)
+        self.ui.addButton.clicked.connect(lambda :self.cree_mouvement_a_liste(parent))
         self.ui.cancelButton.clicked.connect(lambda : self.menu_exercice(parent))
         print(self.ui.descriptionTextEdit.toPlainText())
     def menu_exercice(self,parent):
@@ -38,10 +37,11 @@ class ajouter_mouvement_disponible_muscu(QWidget):
         self.aller_exerice.show()
         self.close()
 
-    def cree_mouvement_a_liste(self):
-
+    def cree_mouvement_a_liste(self,parent):
+        print(self.regarder_type_cocher())
         Exercice.ajouter_mouvement_disponible(self.ui.nomLineEdit.text(),self.ui.descriptionTextEdit.toPlainText(),self.regarder_si_cocher(),self.regarder_type_cocher())
-        print("le mouvement a été ajouter")
+        Exercice.sauvegarder_mouvement_disponible()
+        self.menu_exercice(parent)
     def ajouter_mouvement(self):
         self.ui.nomLineEdit.text()
         self.ui.descriptionTextEdit.text()
@@ -66,9 +66,9 @@ class ajouter_mouvement_disponible_muscu(QWidget):
 
     def regarder_type_cocher(self):
         if self.ui.cardioRadioButton.isChecked() == True:
-            return "musculation"
-        else:
             return "cardio"
+        else:
+            return "musculation"
 
 
 class afficher_tous_exercice(QDialog):
@@ -82,6 +82,8 @@ class afficher_tous_exercice(QDialog):
 
     def afficher_exercice(self):
         liste_exercices = []
+        with open("mouvement_disponible.pkl", "rb") as f:
+            mouvement_disponible = pickle.load(f)
 
         for exercice in mouvement_disponible.keys():
             print(exercice)
