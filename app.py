@@ -8,7 +8,7 @@ from datetime import datetime
 from Journee import Journee
 from Muscu import ExerciceMusculation, Muscledispo, Exercice, Seance, ExerciceCardio
 from Nourriture import TemplateAliment, PortionAliment, NutritionQuotidien
-from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget, Ui_AddFoodWidget, Ui_AvailableNourritureDialog
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget, Ui_AddFoodWidget, Ui_AvailableNourritureDialog, Ui_AddAvailableFoodWidget
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
@@ -28,8 +28,12 @@ class ajouter_nourriture(QWidget):
 
         self.ui.cancelButton.clicked.connect(lambda: self.retourner_journee(parent))
         self.ui.saveButton.clicked.connect(lambda: self.cree_obj_nourriture(parent))
+        self.ui.addAvailableFoodButton.clicked.connect(lambda :self.aller_nouveau_nutrition(parent))
 
-
+    def aller_nouveau_nutrition(self,parent):
+        self.afficher_nutrition = ajouter_aliment_disponible(parent)
+        self.afficher_nutrition.show()
+        self.close()
     def afficher_nom_combobox(self):
         self.ui.nomComboBox.clear()
         with open("aliment_disponible.pkl", "rb") as f:
@@ -55,10 +59,27 @@ class ajouter_nourriture(QWidget):
 
 
 
+class ajouter_aliment_disponible(QWidget):
+    def __init__(self,parent = None):
+        super().__init__()
+        self.ui = Ui_AddAvailableFoodWidget()
+        self.ui.setupUi(self)
+        self.ui.cancelButton.clicked.connect(lambda : self.menu_nourriture(parent))
+        self.ui.addButton.clicked.connect(lambda :self.ajouter_nouveau_aliment_disponible(parent) )
 
+    def menu_nourriture(self,parent):
+        self.aller_exerice = ajouter_nourriture(parent)
+        self.aller_exerice.show()
+        self.close()
+    def ajouter_nouveau_aliment_disponible(self,parent):
+        self.ui.nomLineEdit.text()
+        self.ui.proteinesLineEdit.text()
+        self.ui.caloriesLineEdit.text()
 
-
-
+        PortionAliment.ajouter_aliment_disponible(str(self.ui.nomLineEdit.text()),int(self.ui.proteinesLineEdit.text()),int(self.ui.caloriesLineEdit.text()))
+        PortionAliment.sauvegarder_aliment_disponible()
+        print("element a été ajouter")
+        self.menu_nourriture(parent)
 
 
 class ajouter_mouvement_disponible_muscu(QWidget):
