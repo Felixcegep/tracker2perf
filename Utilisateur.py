@@ -2,6 +2,10 @@ from datetime import date
 
 from Journee import Journee
 import pickle
+
+from Muscu import Exercice, ExerciceMusculation
+
+
 # Todo: changer les methode d'instance pour avor le format
 # Todo: ajout de jsonpickle pour sauvegarder les progrès de l'utilisateur
 # Todo: verifier snake_case pour nom de variable
@@ -88,17 +92,18 @@ class Utilisateur:
         for journee in self.historique_journee:
             for seance in journee.seances_ajourdhui:
                 for exercice in seance.exercice_seaces:
-                    exercice_individuel = {
-                       "nom" : exercice.nomexercice,
-                       "rpe" : exercice.rpe,
-                       "set" : exercice.set,
-                       "rep" : exercice.rep,
-                       "poid_kg" : exercice.poid_kg,
+                    if isinstance(exercice, ExerciceMusculation):
+                        exercice_individuel = {
+                           "nom" : exercice.nomexercice,
+                           "rpe" : exercice.rpe,
+                           "set" : exercice.set,
+                           "rep" : exercice.rep,
+                           "poid_kg" : exercice.poid_kg,
 
-                    }
+                        }
 
 
-                    exercices_liste.append(exercice_individuel)
+                        exercices_liste.append(exercice_individuel)
         return exercices_liste
     def sauvegarder_utilisateur(self):
         with open("Utilisateurs.pkl", "wb") as f:
