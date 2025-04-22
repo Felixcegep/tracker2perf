@@ -269,6 +269,10 @@ class journeemodif(QWidget):
         self.ui.addExerciseButton.clicked.connect(lambda: self.menu_exercice(journee_specifique))
 
         self.ui.removeExerciseButton.clicked.connect(self.supprimer_exercices)
+
+        #volume total
+
+
         #
         #trouver l'index de la journee dans la liste
 
@@ -364,6 +368,19 @@ class Dashboard(QMainWindow):
         welcometext.setText("bienvenue " + self.creationcompte.nom)
         self.actualiser_SCROLLBAR()
         self.afficher_muscu_graph()
+
+        #afficher volume total
+        self.volume_total()
+    def volume_total(self):
+        total_volume_debut = 0
+        tous_exercice = info_utilisateur.obtenir_exercices_info()
+        for exerce in tous_exercice:
+            total_volume_debut +=(int(exerce["set"]) * int(exerce["rep"]) * int(exerce["poid_kg"]))
+        print(total_volume_debut)
+        texte_formater_volume = "volume total " + str(total_volume_debut)
+        self.ui.description_1.setText(texte_formater_volume)
+
+
 
     def selection_scrollbar(self, item):
         date = item.text()
