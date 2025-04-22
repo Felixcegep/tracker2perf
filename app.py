@@ -7,8 +7,8 @@ import pickle
 from datetime import datetime
 from Journee import Journee
 from Muscu import ExerciceMusculation, Muscledispo, Exercice, Seance, ExerciceCardio
-
-from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget
+from Nourriture import TemplateAliment, PortionAliment, NutritionQuotidien
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget, Ui_AddFoodWidget
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
@@ -17,6 +17,42 @@ goodgraph = GraphicUtilisateur()
 info_utilisateur = goodgraph.info
 
 #test
+class ajouter_nourriture(QWidget):
+    def __init__(self,parent = None):
+        super().__init__()
+        self.ui = Ui_AddFoodWidget()
+        self.ui.setupUi(self)
+        self.ui.nomComboBox
+        self.ui.quantityLineEdit
+        self.afficher_nom_combobox()
+
+        self.ui.cancelButton.clicked.connect(lambda: self.retourner_journee(parent))
+        self.ui.saveButton.clicked.connect(lambda: self.cree_obj_nourriture(parent))
+    def afficher_nom_combobox(self):
+        self.ui.nomComboBox.clear()
+        with open("aliment_disponible.pkl", "rb") as f:
+            aliment_dispo = pickle.load(f)
+        liste_nourriture = []
+        for aliment in aliment_dispo.keys():
+            liste_nourriture.append(aliment)
+        self.ui.nomComboBox.addItems(liste_nourriture)
+
+    def retourner_journee(self,parent):
+        self.journeemodif = journeemodif(parent)
+        self.journeemodif.show()
+        self.close()
+    def cree_obj_nourriture(self,parent):
+        for index, journee in enumerate(info_utilisateur.historique_journee):
+            formatted_date = journee.date.strftime("%m/%d/%Y")
+            if parent == formatted_date:
+                index_valide = index
+                bouffe = PortionAliment(self.ui.nomComboBox.currentText(),float(self.ui.quantityLineEdit.text()))
+                info_utilisateur.historique_journee[index_valide].ajouter_nutrition_quotidienne(bouffe)
+                print("avant", info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui)
+                self.retourner_journee(parent)
+
+
+
 
 
 class ajouter_mouvement_disponible_muscu(QWidget):
@@ -250,12 +286,9 @@ class journeemodif(QWidget):
     def __init__(self,journee_specifique=None):
         super().__init__() # Call the QWidget constructor
 
-        # Create an instance of the UI generated class
+
         self.ui = Ui_DayView()
 
-        # Call the setupUi method from the generated class,
-        # passing 'self' (the QWidget instance) as the argument.
-        # This populates the QWidget with the UI elements.
         self.ui.setupUi(self)
         self.ui.backButton.clicked.connect(self.retourner_dashboard)
         self.texte_date = self.ui.headerLabel
@@ -264,11 +297,15 @@ class journeemodif(QWidget):
         self.ui.deleteDayButton.clicked.connect(lambda : self.supprimer_journeee(journee_specifique))
 
         #bouton exercice et affichage
-        self.ui.exercisesList
+
         #addexercice renvois a la page cree exercice
         self.ui.addExerciseButton.clicked.connect(lambda: self.menu_exercice(journee_specifique))
 
         self.ui.removeExerciseButton.clicked.connect(self.supprimer_exercices)
+        #bouton nourriture addFoodButton
+        self.ui.addFoodButton.clicked.connect(lambda :self.menu_nourriture(journee_specifique))
+
+
 
         #volume total
 
@@ -285,14 +322,20 @@ class journeemodif(QWidget):
 
                     break
         self.afficher_exercices(index_valide)
+        self.afficher_nourriture(index_valide)
 
         self.ui.pushButton.clicked.connect(self.afficher_tous_exercice_dispo)
+
     def afficher_tous_exercice_dispo(self):
         self.afficher_lesexercice = afficher_tous_exercice()
         self.afficher_lesexercice.show()
     def menu_exercice(self,journee_specifique):
         self.aller_exerice = cree_exercice(journee_specifique)
         self.aller_exerice.show()
+        self.close()
+    def menu_nourriture(self,journee_specifique):
+        self.aller_nourriture = ajouter_nourriture(journee_specifique)
+        self.aller_nourriture.show()
         self.close()
 
 
@@ -307,6 +350,7 @@ class journeemodif(QWidget):
 
     #TODO : def exercices pas terminer :(
     def afficher_exercices(self,index_valide):
+        print("ouioui")
         self.ui.exercisesList.clear()
 
         exercice_liste_scrollbar = []
@@ -317,6 +361,16 @@ class journeemodif(QWidget):
 
 
         self.ui.exercisesList.addItems(exercice_liste_scrollbar)
+    def afficher_nourriture(self,index_valide):
+        self.ui.foodList.clear()
+        nourriture_liste_scrollbar = []
+        print("ouioui", len(info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui))
+        for nourriture in info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui:
+            print("pendant ", nourriture.nom)
+            nourriture_liste_scrollbar.append(nourriture.nom)
+        self.ui.foodList.addItems(nourriture_liste_scrollbar)
+
+
     def supprimer_exercices(self,index_valide):
 
         element_selectionner = self.ui.exercisesList.currentItem()
@@ -332,11 +386,10 @@ class journeemodif(QWidget):
         else:
             print("No item selected.")
             #ajouter un message d'erreur aucun message
-    def supprimer_journee(self):
+    def supprimer_nourriture(self):
         pass
-    def ajouter_exercice(self,index_valide):
+    def ajouter_nourriture(self,index_valide):
         pass
-
 
     def retourner_dashboard(self):
         self.aller_dashboad = Dashboard()
