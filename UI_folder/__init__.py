@@ -5,3 +5,4 @@ from .create_exercices_ui import Ui_ExerciseCreator
 from .afficher_exercice_valide import Ui_AvailableExercisesDialog
 from .add_exercice_available_ui import Ui_AddAvailableMovementWidget
 from .create_food_ui import Ui_AddFoodWidget
+from . afficher_nourriture_valide_ui import Ui_AvailableNourritureDialog
