@@ -371,6 +371,7 @@ class Dashboard(QMainWindow):
 
         #afficher volume total
         self.volume_total()
+        self.nombre_defois_gym()
     def volume_total(self):
         total_volume_debut = 0
         tous_exercice = info_utilisateur.obtenir_exercices_info()
@@ -380,6 +381,12 @@ class Dashboard(QMainWindow):
         texte_formater_volume = "volume total " + str(total_volume_debut)
         self.ui.description_1.setText(texte_formater_volume)
 
+    def nombre_defois_gym(self):
+        total_gym = 0
+        test = 0
+        for journee in info_utilisateur.historique_journee:
+            total_gym += len(journee.seances_ajourdhui)
+        self.ui.description_2.setText("nombre de seance depuis le debut" + str(total_gym))
 
 
     def selection_scrollbar(self, item):
