@@ -108,7 +108,14 @@ class cree_exercice(QWidget):
         self.musculationButton.clicked.connect(lambda: self.inputStackedWidget.setCurrentWidget(self.musculationPage))
         self.ui.cancelButton.clicked.connect(lambda :self.retourner_journee(parent))
 
+
         self.ui.addNewMovementButton.clicked.connect(lambda :self.aller_nouveau_mouvement(parent))
+
+        #afficher dans la box de nom selon muscu ou cardio
+
+        self.ui.musculationButton.clicked.connect(self.ajouter_exercice_deroulant)
+        self.ui.cardioButton.clicked.connect(self.ajouter_cardio)
+
 
         #EXTRAIRE CARDIO
         self.ui.nomExerciceComboBox
@@ -120,7 +127,7 @@ class cree_exercice(QWidget):
         self.ui.setsLineEdit
         self.ui.repsLineEdit
         self.ui.poidsLineEdit
-        self.ajouter_exercice_deroulant()
+        self.ajouter_cardio()
         # les bouton du bas
         self.ui.saveButton.clicked.connect(lambda :self.ajouter_muscu(parent))
 
@@ -182,16 +189,25 @@ class cree_exercice(QWidget):
         self.close()
 
     def ajouter_cardio(self):
-        pass
+        self.ui.nomExerciceComboBox.clear()
 
-
-    def ajouter_exercice_deroulant(self):
-        #TODO FAIRE QUE QUAND TU EST DANS CARDIO TU N'AS PAS LES MEME CHOIX QUE SI TU ES DAnS MUSCU
         with open("mouvement_disponible.pkl", "rb") as f:
             mouvement_disponible = pickle.load(f)
         liste_exercice = []
-        for exercice in mouvement_disponible:
-            liste_exercice.append(exercice)
+        for exercice, obj in mouvement_disponible.items():
+            if obj.type == "cardio":
+                liste_exercice.append(exercice)
+        self.ui.nomExerciceComboBox.addItems(liste_exercice)
+
+    def ajouter_exercice_deroulant(self):
+        #TODO FAIRE QUE QUAND TU EST DANS CARDIO TU N'AS PAS LES MEME CHOIX QUE SI TU ES DAnS MUSCU
+        self.ui.nomExerciceComboBox.clear()
+        with open("mouvement_disponible.pkl", "rb") as f:
+            mouvement_disponible = pickle.load(f)
+        liste_exercice = []
+        for exercice,obj in mouvement_disponible.items():
+            if obj.type == "musculation":
+                liste_exercice.append(exercice)
 
         self.ui.nomExerciceComboBox.addItems(liste_exercice)
 class cree_journee(QWidget):
