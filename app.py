@@ -302,6 +302,7 @@ class journeemodif(QWidget):
         self.ui.addExerciseButton.clicked.connect(lambda: self.menu_exercice(journee_specifique))
 
         self.ui.removeExerciseButton.clicked.connect(self.supprimer_exercices)
+        self.ui.removeFoodButton.clicked.connect(self.supprimer_nourriture_person)
         #bouton nourriture addFoodButton
         self.ui.addFoodButton.clicked.connect(lambda :self.menu_nourriture(journee_specifique))
 
@@ -364,12 +365,20 @@ class journeemodif(QWidget):
     def afficher_nourriture(self,index_valide):
         self.ui.foodList.clear()
         nourriture_liste_scrollbar = []
-        print("ouioui", len(info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui))
         for nourriture in info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui:
-            print("pendant ", nourriture.nom)
+
             nourriture_liste_scrollbar.append(nourriture.nom)
         self.ui.foodList.addItems(nourriture_liste_scrollbar)
-
+    def supprimer_nourriture_person(self,index_valide):
+        element_selectionner = self.ui.foodList.currentItem()
+        if element_selectionner is not None:
+            element_selectionner = element_selectionner.text()
+            print(element_selectionner)
+            info_utilisateur.historique_journee[index_valide].supprimer_nutrition_quotidienne(element_selectionner)
+            print("supprimer avec succes")
+            self.afficher_nourriture(index_valide)
+        else:
+            print("rien n'a été selectionner")
 
     def supprimer_exercices(self,index_valide):
 
@@ -386,10 +395,7 @@ class journeemodif(QWidget):
         else:
             print("No item selected.")
             #ajouter un message d'erreur aucun message
-    def supprimer_nourriture(self):
-        pass
-    def ajouter_nourriture(self,index_valide):
-        pass
+
 
     def retourner_dashboard(self):
         self.aller_dashboad = Dashboard()
