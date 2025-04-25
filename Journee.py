@@ -40,10 +40,10 @@ class Journee:
         self.nutrition_aujourdhui.append(nutrition_quotidienne)
 
     def supprimer_nutrition_quotidienne(self, nom_nourriture):
-        for bouffe in self.nutrition_aujourdhui:
-            if bouffe.nom == nom_nourriture:
-                self.nutrition_aujourdhui.remove(bouffe)
-                break
+    for i, bouffe in enumerate(self.nutrition_aujourdhui):
+        if bouffe.nom == nom_nourriture:
+            del self.nutrition_aujourdhui[i]
+            break
 
     def ajouter_seance(self, seance: Seance):
         self.seances_ajourdhui.append(seance)
