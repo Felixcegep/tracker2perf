@@ -1,3 +1,4 @@
+import os.path
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QDialog, QCheckBox, QMessageBox
@@ -6,17 +7,68 @@ from matplotlib.figure import Figure
 import pickle
 from datetime import datetime
 from Journee import Journee
+from Utilisateur import Utilisateur
 from Muscu import ExerciceMusculation, Muscledispo, Exercice, Seance, ExerciceCardio
 from Nourriture import TemplateAliment, PortionAliment, NutritionQuotidien
-from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget, Ui_AddFoodWidget, Ui_AvailableNourritureDialog, Ui_AddAvailableFoodWidget
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget, Ui_AddFoodWidget, Ui_AvailableNourritureDialog, Ui_AddAvailableFoodWidget,Ui_FormCreationCompte
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
-goodgraph = GraphicUtilisateur()
+try:
+    goodgraph = GraphicUtilisateur()
 #info de l'utilsateur
-info_utilisateur = goodgraph.info
-
+    info_utilisateur = goodgraph.info
+except:
+    print("aucun utilisateur")
+    goodgraph = None
+    info_utilisateur = None
 #test
+
+class Fenetre_cree_Utilisateur(QWidget):
+    def __init__(self,parent = None):
+        super().__init__()
+        self.ui = Ui_FormCreationCompte()
+        self.ui.setupUi(self)
+        #user input
+        self.ui.lineEdit_Nom
+        self.ui.dateEdit_Naissance
+        self.ui.comboBox_Genre
+        self.ui.spinBox_Taille
+        self.ui.spinBox_Poids
+        self.ui.pushButton_Confirm.clicked.connect(self.cree_obj_utilisateur)
+    def afficher_info(self):
+        #def __init__(self, nom: str, taille: int, age: int, poid: float, genre: str):
+        print(self.ui.lineEdit_Nom.text())
+        print(self.ui.dateEdit_Naissance.text())
+        print(self.ui.spinBox_Taille.text())
+        print(self.ui.spinBox_Poids.text())
+
+    def cree_obj_utilisateur(self):
+        global goodgraph, info_utilisateur
+
+        user = Utilisateur(self.ui.lineEdit_Nom.text(),self.ui.spinBox_Taille.text(), self.caluculer_age_datenaissance(), self.ui.spinBox_Poids.text(), self.ui.comboBox_Genre.currentText())
+        user.sauvegarder_utilisateur()
+        goodgraph = GraphicUtilisateur()
+        info_utilisateur = goodgraph.info
+        print(info_utilisateur.nom)
+        self.aller_dashboard()
+
+
+    def caluculer_age_datenaissance(self):
+        date_aujourdhui = datetime.now()
+        date_naissance = datetime.strptime(self.ui.dateEdit_Naissance.text(), "%d/%m/%Y")
+        age = date_aujourdhui.year - date_naissance.year
+        if (date_aujourdhui.month, date_aujourdhui.day) < (date_naissance.month, date_naissance.day):
+            age -= 1
+        return age
+
+    def aller_dashboard(self):
+        self.afficher_dashboard = Dashboard()
+        self.afficher_dashboard.show()
+        self.close()
+
+
+
 class ajouter_nourriture(QWidget):
     def __init__(self,parent = None):
         super().__init__()
@@ -29,6 +81,7 @@ class ajouter_nourriture(QWidget):
         self.ui.cancelButton.clicked.connect(lambda: self.retourner_journee(parent))
         self.ui.saveButton.clicked.connect(lambda: self.cree_obj_nourriture(parent))
         self.ui.addAvailableFoodButton.clicked.connect(lambda :self.aller_nouveau_nutrition(parent))
+
 
     def aller_nouveau_nutrition(self,parent):
         self.afficher_nutrition = ajouter_aliment_disponible(parent)
@@ -603,9 +656,13 @@ class Dashboard(QMainWindow):
 
 if __name__ == "__main__":
 
-
-
-    app = QApplication(sys.argv)
-    window = Dashboard()
-    window.show()
-    sys.exit(app.exec())
+    if not os.path.exists("Utilisateurs.pkl"):
+        app = QApplication(sys.argv)
+        window = Fenetre_cree_Utilisateur()
+        window.show()
+        sys.exit(app.exec())
+    else:
+        app = QApplication(sys.argv)
+        window = Dashboard()
+        window.show()
+        sys.exit(app.exec())
