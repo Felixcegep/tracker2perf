@@ -10,7 +10,7 @@ from Journee import Journee
 from Utilisateur import Utilisateur
 from Muscu import ExerciceMusculation, Muscledispo, Exercice, Seance, ExerciceCardio
 from Nourriture import TemplateAliment, PortionAliment, NutritionQuotidien
-from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget, Ui_AddFoodWidget, Ui_AvailableNourritureDialog, Ui_AddAvailableFoodWidget,Ui_FormCreationCompte
+from UI_folder import Ui_dashboard, Ui_DayView, Ui_CreateJourneeWidget,Ui_ExerciseCreator, Ui_AvailableExercisesDialog,Ui_AddAvailableMovementWidget, Ui_AddFoodWidget, Ui_AvailableNourritureDialog, Ui_AddAvailableFoodWidget,Ui_FormCreationCompte, Ui_ModifyFoodView
 from graphic_utilisateur import GraphicUtilisateur
 
 #graphique
@@ -23,6 +23,47 @@ except:
     goodgraph = None
     info_utilisateur = None
 #test
+
+class modifier_nourriture_obj(QWidget):
+    def __init__(self,parent,nourriture):
+        super().__init__()
+
+        self.ui = Ui_ModifyFoodView()
+        self.ui.setupUi(self)
+
+        self.ui.cancelButton.clicked.connect(lambda : self.retourner_journee(parent))
+        self.ui.saveButton.clicked.connect(lambda : self.changer_objet_exercice(parent,nourriture))
+        self.ui.nameLineEdit
+        print(parent,nourriture)
+
+    def retourner_journee(self, parent):
+        self.journeemodif = journeemodif(parent)
+        self.journeemodif.show()
+        self.close()
+    def changer_objet_exercice(self,parent,nourriture):
+        print("lancer")
+        for index, journee in enumerate(info_utilisateur.historique_journee):
+            formatted_date = journee.date.strftime("%m/%d/%Y")
+            if parent == formatted_date:
+                index_valide = index
+                for index_nourriture,nourrituree_obj in enumerate(info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui):
+                    print(index_nourriture,nourrituree_obj, nourriture)
+                    if nourriture == nourrituree_obj.nom:
+                        print("Oui")
+                        test = index_nourriture
+                        print("a l'interieur", info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[test].par_100_grammes)
+                        info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[test].par_100_grammes = float(self.ui.nameLineEdit.text())
+                        print(info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[test].par_100_grammes)
+                        info_utilisateur.sauvegarder_utilisateur()
+                        self.retourner_journee(parent)
+
+
+
+
+
+
+
+
 
 class Fenetre_cree_Utilisateur(QWidget):
     def __init__(self,parent = None):
@@ -403,6 +444,7 @@ class journeemodif(QWidget):
         #bouton nourriture addFoodButton
         self.ui.addFoodButton.clicked.connect(lambda :self.menu_nourriture(journee_specifique))
         self.ui.pushButton_2.clicked.connect(self.afficher_tous_nourriture_dispo)
+        self.ui.pushButton_3.clicked.connect(lambda : self.aller_modifier_nourriture_page(journee_specifique))
 
 
 
@@ -503,6 +545,15 @@ class journeemodif(QWidget):
         self.aller_dashboad = Dashboard()
         self.aller_dashboad.show()
         self.close()
+    def aller_modifier_nourriture_page(self,journee_specifique):
+        element_selectionner = self.ui.foodList.currentItem()
+        if element_selectionner is not None:
+            element_selectionner = element_selectionner.text()
+            self.aller_modif_nourriture = modifier_nourriture_obj(journee_specifique,element_selectionner)
+            self.aller_modif_nourriture.show()
+            self.close()
+        else:
+            print("No item selected.")
 class Dashboard(QMainWindow):
     def __init__(self):
         super().__init__()

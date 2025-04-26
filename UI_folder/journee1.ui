@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>749</height>
+    <width>566</width>
+    <height>757</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -301,7 +301,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>414</width>
+           <width>500</width>
            <height>150</height>
           </rect>
          </property>
@@ -428,7 +428,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>414</width>
+           <width>500</width>
            <height>150</height>
           </rect>
          </property>
@@ -484,6 +484,17 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
          <widget class="QPushButton" name="removeFoodButton">
           <property name="text">
            <string>− Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(232, 233, 236)
+</string>
+          </property>
+          <property name="text">
+           <string>changer nourriture</string>
           </property>
          </widget>
         </item>

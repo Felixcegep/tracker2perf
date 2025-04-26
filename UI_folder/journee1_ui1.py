@@ -23,7 +23,7 @@ class Ui_DayView(object):
     def setupUi(self, DayView):
         if not DayView.objectName():
             DayView.setObjectName(u"DayView")
-        DayView.resize(480, 749)
+        DayView.resize(566, 757)
         self.mainLayout = QVBoxLayout(DayView)
         self.mainLayout.setSpacing(15)
         self.mainLayout.setObjectName(u"mainLayout")
@@ -72,7 +72,7 @@ class Ui_DayView(object):
         self.exercisesScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 414, 150))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 500, 150))
         self.scrollAreaLayout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.scrollAreaLayout.setSpacing(0)
         self.scrollAreaLayout.setObjectName(u"scrollAreaLayout")
@@ -136,7 +136,7 @@ class Ui_DayView(object):
         self.foodScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 414, 150))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 500, 150))
         self.scrollAreaLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.scrollAreaLayout_2.setSpacing(0)
         self.scrollAreaLayout_2.setObjectName(u"scrollAreaLayout_2")
@@ -166,6 +166,13 @@ class Ui_DayView(object):
         self.removeFoodButton.setObjectName(u"removeFoodButton")
 
         self.foodBtnLayout.addWidget(self.removeFoodButton)
+
+        self.pushButton_3 = QPushButton(self.foodFrame)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setStyleSheet(u"background-color: rgb(232, 233, 236)\n"
+"")
+
+        self.foodBtnLayout.addWidget(self.pushButton_3)
 
         self.pushButton_2 = QPushButton(self.foodFrame)
         self.pushButton_2.setObjectName(u"pushButton_2")
@@ -392,6 +399,7 @@ class Ui_DayView(object):
         self.foodLabel.setText(QCoreApplication.translate("DayView", u"Food Intake", None))
         self.addFoodButton.setText(QCoreApplication.translate("DayView", u"+ Add", None))
         self.removeFoodButton.setText(QCoreApplication.translate("DayView", u"\u2212 Remove", None))
+        self.pushButton_3.setText(QCoreApplication.translate("DayView", u"changer nourriture", None))
         self.pushButton_2.setText(QCoreApplication.translate("DayView", u"afficher nourriture disponible", None))
         self.deleteDayButton.setText(QCoreApplication.translate("DayView", u"Delete Day", None))
     # retranslateUi
