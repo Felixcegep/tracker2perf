@@ -1,8 +1,12 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
 
 from UI_folder import Ui_DayView
-from app import cree_exercice, ajouter_nourriture, afficher_tous_exercice, modifier_nourriture_obj, \
-    afficher_tous_aliments
+from UI_cree_exercice import cree_exercice
+from UI_cree_nourriture import ajouter_nourriture
+from UI_modifier_nourriture import modifier_nourriture_obj
+from UI_afficher_tous_exercices import afficher_tous_exercice
+from UI_afficher_tous_aliments import afficher_tous_aliments
+
 
 from graphic_utilisateur import GraphicUtilisateur
 
@@ -67,11 +71,11 @@ class journeemodif(QWidget):
         self.afficher_lesexercice = afficher_tous_exercice()
         self.afficher_lesexercice.show()
     def menu_exercice(self,journee_specifique):
-        self.aller_exerice = cree_exercice(journee_specifique)
+        self.aller_exerice = cree_exercice(self.info_utilisateur,self.goodgraph,journee_specifique)
         self.aller_exerice.show()
         self.close()
     def menu_nourriture(self,journee_specifique):
-        self.aller_nourriture = ajouter_nourriture(journee_specifique)
+        self.aller_nourriture = ajouter_nourriture(self.info_utilisateur,self.goodgraph,journee_specifique)
         self.aller_nourriture.show()
         self.close()
 
@@ -170,7 +174,7 @@ class journeemodif(QWidget):
         element_selectionner = self.ui.foodList.currentItem()
         if element_selectionner is not None:
             element_selectionner = element_selectionner.text()
-            self.aller_modif_nourriture = modifier_nourriture_obj(journee_specifique,element_selectionner)
+            self.aller_modif_nourriture = modifier_nourriture_obj(self.info_utilisateur,self.goodgraph,journee_specifique,element_selectionner)
             self.aller_modif_nourriture.show()
             self.close()
         else:

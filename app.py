@@ -23,7 +23,7 @@ except:
     goodgraph = None
     info_utilisateur = None
 #test
-
+#
 class modifier_nourriture_obj(QWidget):
     def __init__(self,parent,nourriture):
         super().__init__()
@@ -109,7 +109,7 @@ class Fenetre_cree_Utilisateur(QWidget):
         self.close()
 
 
-
+#
 class ajouter_nourriture(QWidget):
     def __init__(self,parent = None):
         super().__init__()
@@ -152,7 +152,7 @@ class ajouter_nourriture(QWidget):
                 self.retourner_journee(parent)
 
 
-
+#
 class ajouter_aliment_disponible(QWidget):
     def __init__(self,parent = None):
         super().__init__()
@@ -175,7 +175,7 @@ class ajouter_aliment_disponible(QWidget):
         print("element a été ajouter")
         self.menu_nourriture(parent)
 
-
+#
 class ajouter_mouvement_disponible_muscu(QWidget):
     def __init__(self,parent = None):
         super().__init__()
@@ -227,7 +227,7 @@ class ajouter_mouvement_disponible_muscu(QWidget):
         else:
             return "musculation"
 
-
+#
 class afficher_tous_exercice(QDialog):
     #ajouter les erreur possible
     def __init__(self):
@@ -263,7 +263,7 @@ class afficher_tous_aliments(QDialog):
             print(aliment)
             liste_aliments.append(aliment)
         self.ui.availableExercisesList.addItems(liste_aliments)
-
+#
 class cree_exercice(QWidget):
     #ajouter les erreur possible
     def __init__(self,parent = None):
@@ -384,6 +384,7 @@ class cree_exercice(QWidget):
                 liste_exercice.append(exercice)
 
         self.ui.nomExerciceComboBox.addItems(liste_exercice)
+#
 class cree_journee(QWidget):
     #ajouter les erreur possible
     def __init__(self):
@@ -419,7 +420,7 @@ class cree_journee(QWidget):
         info_utilisateur.sauvegarder_utilisateur()
         self.retourner_dashboard()
 
-
+#
 class journeemodif(QWidget):
     def __init__(self,journee_specifique=None):
         super().__init__() # Call the QWidget constructor
@@ -581,6 +582,7 @@ class journeemodif(QWidget):
             self.close()
         else:
             print("No item selected.")
+#
 class Dashboard(QMainWindow):
     def __init__(self):
         super().__init__()
