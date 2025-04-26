@@ -540,7 +540,7 @@ class journeemodif(QWidget):
             confirm_msg.setText(f"es tu certain de vouloir supprimer '{element_selectionner_text}'?")
             confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             confirm_msg.setDefaultButton(QMessageBox.No)
-            reply = confirm_msg.exec_()
+            reply = confirm_msg.exec()
             # -------------------------
 
             if reply == QMessageBox.Yes:
