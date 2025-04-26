@@ -524,24 +524,51 @@ class journeemodif(QWidget):
         else:
             print("rien n'a été selectionner")
 
-    def supprimer_exercices(self,index_valide):
+    def supprimer_exercices(self, index_valide):
+        if index_valide == -1:
+             print("Cannot delete exercise: invalid day index.")
+             return # Prevent error if index wasn't found in init
 
         element_selectionner = self.ui.exercisesList.currentItem()
         if element_selectionner is not None:
-            element_selectionner = element_selectionner.text()
-            #ajouter une pop up avant de supprimer pour assurer que c'est correcte
+            element_selectionner_text = element_selectionner.text()
 
-            info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].supprimer_exercice(element_selectionner)
-            self.afficher_exercices(index_valide)
+            # --- Confirmation Dialog ---
+            confirm_msg = QMessageBox()
+            confirm_msg.setIcon(QMessageBox.Warning)
+            confirm_msg.setWindowTitle("Confirm Deletion")
+            confirm_msg.setText(f"es tu certain de vouloir supprimer '{element_selectionner_text}'?")
+            confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            confirm_msg.setDefaultButton(QMessageBox.No)
+            reply = confirm_msg.exec_()
+            # -------------------------
 
-            #TODO : ajout que quand il quitte la page si il a modifier le fichier il doit sauvegarder
+            if reply == QMessageBox.Yes:
+                try:
+                    # Make sure the structure is correct for deletion
+                    # Assuming seances_aujourdhui is a list and has at least one element
+                    if info_utilisateur.historique_journee[index_valide].seances_ajourdhui:
+                         info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].supprimer_exercice(element_selectionner_text)
+                         self.afficher_exercices(index_valide)
+                         print(f"Exercise '{element_selectionner_text}' deleted successfully.")
+                         # Consider adding save logic here too if needed immediately
+                    else:
+                         print("Error: No workout session found for today to delete exercise from.")
+
+                except IndexError:
+                    print(f"Error: Invalid index {index_valide} for historique_journee.")
+                except Exception as e:
+                    print(f"An error occurred during exercise deletion: {e}")
+            else:
+                print("Deletion cancelled.")
 
         else:
+            QMessageBox.warning(self, "Selection Error", "No exercise selected to delete.") # Use QMessageBox for user feedback
             print("No item selected.")
-            #ajouter un message d'erreur aucun message
 
 
     def retourner_dashboard(self):
+        info_utilisateur.sauvegarder_utilisateur()
         self.aller_dashboad = Dashboard()
         self.aller_dashboad.show()
         self.close()
