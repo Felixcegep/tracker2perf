@@ -6,14 +6,6 @@ from Journee import Journee
 from UI_folder import Ui_CreateJourneeWidget
 from graphic_utilisateur import GraphicUtilisateur
 
-try:
-    goodgraph = GraphicUtilisateur()
-#info de l'utilsateur
-    info_utilisateur = goodgraph.info
-except:
-    print("aucun utilisateur")
-    goodgraph = None
-    info_utilisateur = None
 
 class cree_journee(QWidget):
     #ajouter les erreur possible
@@ -35,8 +27,7 @@ class cree_journee(QWidget):
         self.accepter.clicked.connect(self.ajouter_journee)
     def retourner_dashboard(self):
         from UI_Dashboard import Dashboard
-        self.aller_dashboad = Dashboard(info_utilisateur,goodgraph)
-        self.aller_dashboad.actualiser_SCROLLBAR()
+        self.aller_dashboad = Dashboard(self.info_utilisateur,self.goodgraph)
         self.aller_dashboad.show()
         self.close()
     def convertir_date(self):
