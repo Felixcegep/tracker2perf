@@ -8,7 +8,7 @@ from matplotlib.figure import Figure
 from UI_folder import Ui_dashboard
 from UI_journeemodif import journeemodif
 from UI_cree_journee import cree_journee
-from app import Fenetre_cree_Utilisateur
+from UI_cree_utilisateur import Fenetre_cree_Utilisateur
 from graphic_utilisateur import GraphicUtilisateur
 
 
@@ -165,9 +165,7 @@ class Dashboard(QMainWindow):
         except Exception as e:
             print(f"Error updating graph 2: {e}")
 if __name__ == "__main__":
-    goodgraph = GraphicUtilisateur()
-    # info de l'utilsateur
-    info_utilisateur = goodgraph.info
+
 
     if not os.path.exists("Utilisateurs.pkl"):
         app = QApplication(sys.argv)
@@ -175,6 +173,9 @@ if __name__ == "__main__":
         window.show()
         sys.exit(app.exec())
     else:
+        goodgraph = GraphicUtilisateur()
+        # info de l'utilsateur
+        info_utilisateur = goodgraph.info
         app = QApplication(sys.argv)
         window = Dashboard(info_utilisateur,goodgraph)
         window.show()
