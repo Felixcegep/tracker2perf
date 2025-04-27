@@ -76,32 +76,52 @@ class cree_exercice(QWidget):
                 index_valide = index
                 print(self.ui.nomExerciceComboBox.currentText())
                 if self.ui.musculationButton.isChecked():
+                    try:
+                        exercice = ExerciceMusculation(self.ui.nomExerciceComboBox.currentText(),int(self.ui.rpeLineEdit.text()),int(self.ui.setsLineEdit.text()),int(self.ui.repsLineEdit.text()),int(self.ui.poidsLineEdit.text()))
+                    except ValueError as e:
+                        error_message = "erreur lors de la creation de l'exercice\nVeuillez vous assurer que RPE, Séries, Répétitions et Poids sont des nombres entiers valides."
+                        msgBox = QMessageBox(self)
+                        msgBox.setIcon(QMessageBox.Warning)
+                        msgBox.setWindowTitle("Input Error")
+                        msgBox.setText(error_message)
+                        msgBox.setStandardButtons(QMessageBox.Ok)
+                        msgBox.exec()
+                    else:
 
-                    exercice = ExerciceMusculation(self.ui.nomExerciceComboBox.currentText(),int(self.ui.rpeLineEdit.text()),int(self.ui.setsLineEdit.text()),int(self.ui.repsLineEdit.text()),int(self.ui.poidsLineEdit.text()))
-                    if len(self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
-                        self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
-                        self.retourner_journee(parent)
-                    else:
-                        self.info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
-                        print("seance creee :)")
-                        self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
-                        self.retourner_journee(parent)
-                        print("ajout a la seance et exercice muscu ")
+
+                        if len(self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
+                            self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
+                            self.retourner_journee(parent)
+                        else:
+                            self.info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
+                            print("seance creee :)")
+                            self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(exercice)
+                            self.retourner_journee(parent)
+                            print("ajout a la seance et exercice muscu ")
                 else:
-                    exercice = ExerciceCardio(self.ui.nomExerciceComboBox.currentText(),
-                                              int(self.ui.dureeLineEdit.text()), int(self.ui.distanceLineEdit.text()),
-                                              int(self.ui.intensiteLineEdit.text()))
-                    if len(self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
-                        self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(
-                            exercice)
-                        self.retourner_journee(parent)
+                    try:
+                        exercice = ExerciceCardio(self.ui.nomExerciceComboBox.currentText(),int(self.ui.dureeLineEdit.text()), int(self.ui.distanceLineEdit.text()),int(self.ui.intensiteLineEdit.text()))
+                    except ValueError as e:
+                        error_message = "erreur lors de la creation de l'exercice\nVeuillez vous assurer que durée, distance et intensité sont des nombres entiers valides."
+                        msgBox = QMessageBox(self)
+                        msgBox.setIcon(QMessageBox.Warning)
+                        msgBox.setWindowTitle("Input Error")
+                        msgBox.setText(error_message)
+                        msgBox.setStandardButtons(QMessageBox.Ok)
+                        msgBox.exec()
                     else:
-                        self.info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
-                        print("seance creee :)")
-                        self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(
-                            exercice)
-                        self.retourner_journee(parent)
-                        print("ajout a la seance et exercice cardio ")
+
+                        if len(self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui) != 0:
+                            self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(
+                                exercice)
+                            self.retourner_journee(parent)
+                        else:
+                            self.info_utilisateur.historique_journee[index_valide].ajouter_seance(Seance("test"))
+                            print("seance creee :)")
+                            self.info_utilisateur.historique_journee[index_valide].seances_ajourdhui[0].ajouter_exercice(
+                                exercice)
+                            self.retourner_journee(parent)
+                            print("ajout a la seance et exercice cardio ")
 
 
     def retourner_journee(self,parent):

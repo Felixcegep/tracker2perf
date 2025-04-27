@@ -82,13 +82,22 @@ class journeemodif(QWidget):
 
     def supprimer_journeee(self,journee_specifique):
         print(journee_specifique)
-        for index, journee in enumerate(self.info_utilisateur.historique_journee):
-            if journee.date.strftime("%m/%d/%Y") == journee_specifique:
-                del self.info_utilisateur.historique_journee[index]
-                self.info_utilisateur.sauvegarder_utilisateur()
-                self.retourner_dashboard()
-                break
-
+        confirm_msg = QMessageBox()
+        confirm_msg.setIcon(QMessageBox.Warning)
+        confirm_msg.setWindowTitle("Confirm Deletion")
+        confirm_msg.setText(f"es tu certain de vouloir supprimer la journee'?")
+        confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        confirm_msg.setDefaultButton(QMessageBox.No)
+        reply = confirm_msg.exec()
+        if reply == QMessageBox.Yes:
+            for index, journee in enumerate(self.info_utilisateur.historique_journee):
+                if journee.date.strftime("%m/%d/%Y") == journee_specifique:
+                    del self.info_utilisateur.historique_journee[index]
+                    self.info_utilisateur.sauvegarder_utilisateur()
+                    self.retourner_dashboard()
+                    break
+        else:
+            print("non annulation de suppresion")
 
     #TODO : def exercices pas terminer :(
     def afficher_exercices(self,index_valide):
