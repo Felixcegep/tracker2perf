@@ -1,6 +1,6 @@
 import pickle
 
-from PySide6.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget, QMessageBox
 
 from Nourriture import PortionAliment
 from UI_folder import Ui_AddFoodWidget
@@ -21,7 +21,7 @@ class ajouter_nourriture(QWidget):
         self.ui.quantityLineEdit
         self.afficher_nom_combobox()
 
-        self.ui.cancelButton.clicked.connect(lambda: self.retourner_journee(parent))
+        self.ui.cancelButton.clicked.connect(lambda: self.retourner_journee_cancel(parent))
         self.ui.saveButton.clicked.connect(lambda: self.cree_obj_nourriture(parent))
         self.ui.addAvailableFoodButton.clicked.connect(lambda :self.aller_nouveau_nutrition(parent))
 
@@ -38,6 +38,21 @@ class ajouter_nourriture(QWidget):
         for aliment in aliment_dispo.keys():
             liste_nourriture.append(aliment)
         self.ui.nomComboBox.addItems(liste_nourriture)
+    def retourner_journee_cancel(self,parent):
+        from UI_journeemodif import journeemodif
+        confirm_msg = QMessageBox()
+        confirm_msg.setIcon(QMessageBox.Warning)
+        confirm_msg.setWindowTitle("Confirm Deletion")
+        confirm_msg.setText(f"es tu certain de vouloir quitter ?")
+        confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        confirm_msg.setDefaultButton(QMessageBox.No)
+        reply = confirm_msg.exec()
+        if reply == QMessageBox.Yes:
+            self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,parent)
+            self.journeemodif.show()
+            self.close()
+        else:
+            print("non annuler quitter ...")
 
     def retourner_journee(self,parent):
         from UI_journeemodif import journeemodif

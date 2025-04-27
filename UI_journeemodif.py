@@ -114,10 +114,20 @@ class journeemodif(QWidget):
         element_selectionner = self.ui.foodList.currentItem()
         if element_selectionner is not None:
             element_selectionner = element_selectionner.text()
-            print(element_selectionner)
-            self.info_utilisateur.historique_journee[index_valide].supprimer_nutrition_quotidienne(element_selectionner)
-            print("supprimer avec succes")
-            self.afficher_nourriture(index_valide)
+            confirm_msg = QMessageBox()
+            confirm_msg.setIcon(QMessageBox.Warning)
+            confirm_msg.setWindowTitle("Confirm Deletion")
+            confirm_msg.setText(f"es tu certain de vouloir supprimer '{element_selectionner}'?")
+            confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            confirm_msg.setDefaultButton(QMessageBox.No)
+            reply = confirm_msg.exec()
+            if reply == QMessageBox.Yes:
+                print(element_selectionner)
+                self.info_utilisateur.historique_journee[index_valide].supprimer_nutrition_quotidienne(element_selectionner)
+                print("supprimer avec succes")
+                self.afficher_nourriture(index_valide)
+            else:
+                print("non annuler")
         else:
             print("rien n'a été selectionner")
 
