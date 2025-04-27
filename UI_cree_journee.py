@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from PySide6.QtCore import QDate
 from PySide6.QtWidgets import QWidget, QMessageBox
 
 from Journee import Journee
@@ -19,6 +21,9 @@ class cree_journee(QWidget):
         #info a extraire de l'utilisateur
         self.nomjournee = self.ui.nomJourneeLineEdit
         self.date = self.ui.dateEdit
+        current_date = QDate.currentDate()
+        self.ui.dateEdit.setDate(current_date)
+        self.ui.dateEdit.setCalendarPopup(True)
         self.poid = self.ui.poidsAujourdhuiLineEdit
         #bouton annuler et accepter
         self.annuler = self.ui.cancelButton
