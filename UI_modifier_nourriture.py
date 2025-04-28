@@ -29,13 +29,8 @@ class modifier_nourriture_obj(QWidget):
             formatted_date = journee.date.strftime("%m/%d/%Y")
             if parent == formatted_date:
                 index_valide = index
-                for index_nourriture,nourrituree_obj in enumerate(self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui):
-                    print(index_nourriture,nourrituree_obj, nourriture)
-                    if nourriture == nourrituree_obj.nom:
-                        print("Oui")
-                        test = index_nourriture
-                        print("a l'interieur", self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[test].par_100_grammes)
-                        self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[test].par_100_grammes = float(self.ui.nameLineEdit.text())
-                        print(self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[test].par_100_grammes)
-                        self.info_utilisateur.sauvegarder_utilisateur()
-                        self.retourner_journee(parent)
+                print("a l'interieur", self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[nourriture].par_100_grammes)
+                self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[nourriture].par_100_grammes = float(self.ui.nameLineEdit.text())
+                print(self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[nourriture].par_100_grammes)
+                self.info_utilisateur.sauvegarder_utilisateur()
+                self.retourner_journee(parent)
