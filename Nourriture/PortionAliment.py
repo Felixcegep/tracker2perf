@@ -70,6 +70,5 @@ class PortionAliment:
         """
         with open(cls.file_path, "wb") as f:
             pickle.dump(cls.ALIMENT_dispo, f)
-    def __str__(self):
-        return f"L'aliment : {self.nom} contient {self.par_100_grammes} grammes par 100 grammes."
+
 
