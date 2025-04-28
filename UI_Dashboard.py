@@ -64,6 +64,7 @@ class Dashboard(QMainWindow):
 
     def selection_scrollbar(self, item):
         date = item.text()
+        print("la donne selectionner ",self.ui.listejourney.currentRow())
         self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,date)
         self.journeemodif.show()
         self.close()
