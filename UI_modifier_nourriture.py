@@ -23,14 +23,14 @@ class modifier_nourriture_obj(QWidget):
         self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,parent)
         self.journeemodif.show()
         self.close()
-    def changer_objet_exercice(self,parent,nourriture):
+    def changer_objet_exercice(self,parent,index_nourriture):
         print("lancer")
         for index, journee in enumerate(self.info_utilisateur.historique_journee):
             formatted_date = journee.date.strftime("%m/%d/%Y")
             if parent == formatted_date:
                 index_valide = index
-                print("a l'interieur", self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[nourriture].par_100_grammes)
-                self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[nourriture].par_100_grammes = float(self.ui.nameLineEdit.text())
-                print(self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[nourriture].par_100_grammes)
+                print("a l'interieur", self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[index_nourriture].par_100_grammes)
+                self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[index_nourriture].par_100_grammes = float(self.ui.nameLineEdit.text())
+                print(self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui[index_nourriture].par_100_grammes)
                 self.info_utilisateur.sauvegarder_utilisateur()
                 self.retourner_journee(parent)
