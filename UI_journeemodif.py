@@ -192,9 +192,9 @@ class journeemodif(QWidget):
         self.close()
     def aller_modifier_nourriture_page(self,journee_specifique):
         element_selectionner = self.ui.foodList.currentItem()
+        print(self.ui.foodList.currentRow())
         if element_selectionner is not None:
-            element_selectionner = element_selectionner.text()
-            self.aller_modif_nourriture = modifier_nourriture_obj(self.info_utilisateur,self.goodgraph,journee_specifique,element_selectionner)
+            self.aller_modif_nourriture = modifier_nourriture_obj(self.info_utilisateur,self.goodgraph,journee_specifique,self.ui.foodList.currentRow())
             self.aller_modif_nourriture.show()
             self.close()
         else:
