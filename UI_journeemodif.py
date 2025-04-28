@@ -122,6 +122,7 @@ class journeemodif(QWidget):
     def supprimer_nourriture_person(self,index_valide):
         element_selectionner = self.ui.foodList.currentItem()
         if element_selectionner is not None:
+            print(self.ui.foodList.row(self.ui.foodList.currentItem()))
             element_selectionner = element_selectionner.text()
             confirm_msg = QMessageBox()
             confirm_msg.setIcon(QMessageBox.Warning)
