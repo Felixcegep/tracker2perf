@@ -62,10 +62,8 @@ class Dashboard(QMainWindow):
         self.ui.description_2.setText("nombre de seance depuis le debut" + str(total_gym))
 
 
-    def selection_scrollbar(self, item):
-        date = item.text()
-        print("la donne selectionner ",self.ui.listejourney.currentRow())
-        self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,date)
+    def selection_scrollbar(self):
+        self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,self.ui.listejourney.currentRow())
         self.journeemodif.show()
         self.close()
     def ajouter_journee(self,date):

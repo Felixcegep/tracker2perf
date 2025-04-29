@@ -9,11 +9,13 @@ from UI_ajouter_aliment_dispo import ajouter_aliment_disponible
 
 
 class ajouter_nourriture(QWidget):
-    def __init__(self,info_utilisateur,goodgraph,parent = None):
+    def __init__(self,info_utilisateur,goodgraph,index_journee = None):
         super().__init__()
         self.ui = Ui_AddFoodWidget()
         self.ui.setupUi(self)
         #
+        if index_journee is not None:
+            self.index_journee = index_journee
         self.goodgraph = goodgraph
         self.info_utilisateur = info_utilisateur
         #
@@ -21,13 +23,13 @@ class ajouter_nourriture(QWidget):
         self.ui.quantityLineEdit
         self.afficher_nom_combobox()
 
-        self.ui.cancelButton.clicked.connect(lambda: self.retourner_journee_cancel(parent))
-        self.ui.saveButton.clicked.connect(lambda: self.cree_obj_nourriture(parent))
-        self.ui.addAvailableFoodButton.clicked.connect(lambda :self.aller_nouveau_nutrition(parent))
+        self.ui.cancelButton.clicked.connect(lambda: self.retourner_journee_cancel())
+        self.ui.saveButton.clicked.connect(lambda: self.cree_obj_nourriture())
+        self.ui.addAvailableFoodButton.clicked.connect(lambda :self.aller_nouveau_nutrition())
 
 
-    def aller_nouveau_nutrition(self,parent):
-        self.afficher_nutrition = ajouter_aliment_disponible(self.info_utilisateur,self.goodgraph,parent)
+    def aller_nouveau_nutrition(self):
+        self.afficher_nutrition = ajouter_aliment_disponible(self.info_utilisateur,self.goodgraph,self.index_journee)
         self.afficher_nutrition.show()
         self.close()
     def afficher_nom_combobox(self):
@@ -38,7 +40,7 @@ class ajouter_nourriture(QWidget):
         for aliment in aliment_dispo.keys():
             liste_nourriture.append(aliment)
         self.ui.nomComboBox.addItems(liste_nourriture)
-    def retourner_journee_cancel(self,parent):
+    def retourner_journee_cancel(self):
         from UI_journeemodif import journeemodif
         confirm_msg = QMessageBox()
         confirm_msg.setIcon(QMessageBox.Warning)
@@ -48,23 +50,19 @@ class ajouter_nourriture(QWidget):
         confirm_msg.setDefaultButton(QMessageBox.No)
         reply = confirm_msg.exec()
         if reply == QMessageBox.Yes:
-            self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,parent)
+            self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,self.index_journee)
             self.journeemodif.show()
             self.close()
         else:
             print("non annuler quitter ...")
 
-    def retourner_journee(self,parent):
+    def retourner_journee(self):
         from UI_journeemodif import journeemodif
-        self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,parent)
+        self.journeemodif = journeemodif(self.info_utilisateur,self.goodgraph,self.index_journee)
         self.journeemodif.show()
         self.close()
-    def cree_obj_nourriture(self,parent):
-        for index, journee in enumerate(self.info_utilisateur.historique_journee):
-            formatted_date = journee.date.strftime("%m/%d/%Y")
-            if parent == formatted_date:
-                index_valide = index
-                bouffe = PortionAliment(self.ui.nomComboBox.currentText(),float(self.ui.quantityLineEdit.text()))
-                self.info_utilisateur.historique_journee[index_valide].ajouter_nutrition_quotidienne(bouffe)
-                print("avant", self.info_utilisateur.historique_journee[index_valide].nutrition_aujourdhui)
-                self.retourner_journee(parent)
+    def cree_obj_nourriture(self):
+        bouffe = PortionAliment(self.ui.nomComboBox.currentText(),float(self.ui.quantityLineEdit.text()))
+        self.info_utilisateur.historique_journee[self.index_journee].ajouter_nutrition_quotidienne(bouffe)
+        print("avant", self.info_utilisateur.historique_journee[self.index_journee].nutrition_aujourdhui)
+        self.retourner_journee()
