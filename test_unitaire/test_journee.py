@@ -16,7 +16,7 @@ def test_ajouter_seance():
     exercice1 = ExerciceMusculation("test", 5, 5, 5, 5)
 
     #cree seance et mettre exercice a l'interieur
-    seance1 = Seance("test")
+    seance1 = Seance("test",65)
     seance1.ajouter_exercice(exercice1)
 
     journee1 = Journee("test",datetime.today() - timedelta(minutes=1), 150)
@@ -30,9 +30,9 @@ def test_obtenir_exercices_info():
     #deuxieme
     exercice2 = ExerciceMusculation("wompwomp", 6, 6, 6, 6)
     # cree seance et mettre exercice a l'interieur
-    seance1 = Seance("test")
+    seance1 = Seance("test",65)
     seance1.ajouter_exercice(exercice1)
-    seance2 = Seance("test")
+    seance2 = Seance("test",56)
     seance2.ajouter_exercice(exercice2)
     journee1 = Journee("test", datetime.today() - timedelta(minutes=1), 150)
     journee1.ajouter_seance(seance1)

@@ -6,7 +6,7 @@ from Muscu.Seance import Seance
 def test_seanche_volume_par_seance():
     Exercice.ajouter_mouvement_disponible("test","test",["Pectoraux"], "musculation")
     exercice1 = ExerciceMusculation("test",5,5,5,5)
-    seance1 = Seance("test")
+    seance1 = Seance("test",65)
     seance1.ajouter_exercice(exercice1)
     assert seance1.volume_par_seance() == 125
     exercice2 = ExerciceMusculation("test", 5, 5, 5, 5)
@@ -15,7 +15,7 @@ def test_seanche_volume_par_seance():
 
 def test_ajouter_exercice():
     exercice1 = ExerciceMusculation("test", 5, 5, 5, 5)
-    seance1 = Seance("test")
+    seance1 = Seance("test",54)
     assert len(seance1.exercice_seaces) == 0
     seance1.ajouter_exercice(exercice1)
     assert len(seance1.exercice_seaces) == 1
@@ -23,7 +23,7 @@ def test_ajouter_exercice():
 
 def test_supprimer_exercice():
     exercice1 = ExerciceMusculation("test", 5, 5, 5, 5)
-    seance1 = Seance("test")
+    seance1 = Seance("test",54)
     assert len(seance1.exercice_seaces) == 0
     seance1.ajouter_exercice(exercice1)
     assert len(seance1.exercice_seaces) == 1
