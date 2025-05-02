@@ -38,15 +38,39 @@ class cree_journee(QWidget):
     def convertir_date(self):
         bon_datetime = datetime.strptime(self.date.text(), "%Y-%m-%d")
         return bon_datetime
+
     def ajouter_journee(self):
         try:
-            self.info_utilisateur.ajouter_journee(Journee(self.nomjournee.text(),self.convertir_date(),float(self.poid.text())))
+            self.info_utilisateur.ajouter_journee(
+                Journee(self.nomjournee.text(), self.convertir_date(), float(self.poid.text()))
+            )
 
         except Exception as e:
-        # Catch any other unexpected errors during add/save
-            print(f"erreur de formulaire: {e}")  # Log for debugging
-            QMessageBox.critical(self, "Erreur Inattendue",
-                                f"Une erreur est survenue lors de l'ajout ou de la sauvegarde verifier vos donner dans les formulaire:\n\nVeuillez réessayer")
+            print(f"erreur de formulaire: {e}")
+
+            # 👉 Créer le QMessageBox manuellement pour appliquer un style clair
+            msg = QMessageBox(self)
+            msg.setWindowTitle("Erreur Inattendue")
+            msg.setText(
+                "Une erreur est survenue lors de l'ajout ou de la sauvegarde.\n\nVérifiez vos données dans le formulaire et réessayez.")
+            msg.setIcon(QMessageBox.Critical)
+
+            # 🎨 Forcer mode clair
+            msg.setStyleSheet("""
+                QMessageBox {
+                    background-color: white;
+                    color: black;
+                }
+                QLabel {
+                    color: black;
+                }
+                QPushButton {
+                    background-color: #e0e0e0;
+                    color: black;
+                }
+            """)
+
+            msg.exec()
 
         self.info_utilisateur.sauvegarder_utilisateur()
         self.retourner_dashboard()
