@@ -1,3 +1,4 @@
+import pickle
 from time import strptime, strftime
 
 from PySide6.QtWidgets import QWidget, QMessageBox, QInputDialog, QDialog
@@ -27,6 +28,8 @@ class journeemodif(QWidget):
         ##
         self.info_utilisateur = info_utilisateur
         self.goodgraph = goodgraph
+        with open("aliment_disponible.pkl", "rb") as file:
+              self.aliment_info = pickle.load(file)
 
         self.ui.backButton.clicked.connect(self.retourner_dashboard)
 
@@ -133,8 +136,15 @@ class journeemodif(QWidget):
         self.ui.foodList.clear()
         nourriture_liste_scrollbar = []
         for nourriture in self.info_utilisateur.historique_journee[self.index_specifique].nutrition_aujourdhui:
+            nourriture_pour_100 = nourriture.par_100_grammes / 100
+            print(nourriture_pour_100,self.aliment_info[nourriture.nom].calories)
+            nombre_prot_total = str(self.aliment_info[nourriture.nom].proteines*nourriture_pour_100)
+            nombre_calories_total = str(self.aliment_info[nourriture.nom].calories*nourriture_pour_100)
+            nourriture_formater = nourriture.nom +""+" "+ str(nourriture.par_100_grammes) +"g"+" "+"Calories : "+nombre_calories_total+" "+ "Protéines : "+nombre_prot_total
 
-            nourriture_liste_scrollbar.append(nourriture.nom)
+            print(self.aliment_info[nourriture.nom].calories)
+
+            nourriture_liste_scrollbar.append(nourriture_formater)
         self.ui.foodList.addItems(nourriture_liste_scrollbar)
     def supprimer_nourriture_person(self):
         element_selectionner = self.ui.foodList.currentItem()
