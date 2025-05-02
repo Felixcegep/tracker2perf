@@ -1,22 +1,24 @@
 from time import strptime, strftime
 
-from PySide6.QtWidgets import QWidget, QMessageBox
+from PySide6.QtWidgets import QWidget, QMessageBox, QInputDialog, QDialog
 from datetime import datetime
+
+from Muscu import Seance
 from UI_folder import Ui_DayView
 from UI_cree_exercice import cree_exercice
 from UI_cree_nourriture import ajouter_nourriture
 from UI_modifier_nourriture import modifier_nourriture_obj
 from UI_afficher_tous_exercices import afficher_tous_exercice
 from UI_afficher_tous_aliments import afficher_tous_aliments
-
+from DialogSeanceUi import SeanceDialog
 
 from graphic_utilisateur import GraphicUtilisateur
-
 
 
 class journeemodif(QWidget):
     def __init__(self,info_utilisateur,goodgraph,index_specifique=None):
         super().__init__() # Call the QWidget constructor
+
 
 
         self.ui = Ui_DayView()
@@ -55,16 +57,8 @@ class journeemodif(QWidget):
             self.index_specifique = int(index_specifique)
             date = self.info_utilisateur.historique_journee[self.index_specifique].date.strftime("%d/%m/%Y")
             self.ui.headerLabel.setText(date)
-        """
-        if journee_specifique:
-            self.texte_date.setText(journee_specifique)
-            for index, journee in enumerate(self.info_utilisateur.historique_journee):
-                formatted_date = journee.date.strftime("%m/%d/%Y")
-                if journee_specifique == formatted_date:
-                    index_valide = index  # Store the index of the first match
 
-                    break
-        """
+
         self.afficher_exercices()
         self.afficher_nourriture()
 
@@ -78,9 +72,22 @@ class journeemodif(QWidget):
         self.afficher_lesexercice = afficher_tous_exercice()
         self.afficher_lesexercice.show()
     def menu_exercice(self):
-        self.aller_exerice = cree_exercice(self.info_utilisateur,self.goodgraph,self.index_specifique )
-        self.aller_exerice.show()
-        self.close()
+        if len(self.info_utilisateur.historique_journee[self.index_specifique].seances_ajourdhui) == 0:
+            print("il n'y a aucune seance dans la journee :(")
+
+            dialog = SeanceDialog(self)
+            if dialog.exec() == QDialog.Accepted:
+                nom, duree = dialog.get_values()
+                if nom.strip() and duree.strip().isdigit():
+                    print(f"Séance : {nom}, durée : {duree} minutes")
+                    # self.ajouter_seance(nom, int(duree))  # à adapter selon ta logique
+                    self.info_utilisateur.historique_journee[self.index_specifique].ajouter_seance(Seance(str(nom), int(duree)))
+
+                    self.aller_exerice = cree_exercice(self.info_utilisateur, self.goodgraph, self.index_specifique)
+                    self.aller_exerice.show()
+                    self.close()
+                else:
+                    QMessageBox.warning(self, "Erreur", "Veuillez entrer un nom et une durée valide.")
     def menu_nourriture(self):
         self.aller_nourriture = ajouter_nourriture(self.info_utilisateur,self.goodgraph,self.index_specifique )
         self.aller_nourriture.show()

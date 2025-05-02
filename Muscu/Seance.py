@@ -6,9 +6,10 @@ from .ExerciceMusculation import ExerciceMusculation
 
 class Seance:
     nbseancetotal = 0
-
-    def __init__(self, nom: str):
+# manque TEMPS PROPERTY
+    def __init__(self, nom: str, temps: float):
         self.nom = nom
+        self.temps = temps
         self.exercice_seaces = []
         Seance.nbseancetotal += 1
 

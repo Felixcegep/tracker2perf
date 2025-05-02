@@ -1,6 +1,7 @@
 import os
 import sys
 
+from PySide6.QtGui import QPalette
 from PySide6.QtWidgets import QApplication
 
 from UI_Dashboard import Dashboard
@@ -12,6 +13,7 @@ if __name__ == "__main__":
 
     if not os.path.exists("Utilisateurs.pkl"):
         app = QApplication(sys.argv)
+        app.setPalette(QPalette())
         window = Fenetre_cree_Utilisateur()
         window.show()
         sys.exit(app.exec())

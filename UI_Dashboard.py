@@ -53,6 +53,8 @@ class Dashboard(QMainWindow):
         print(total_volume_debut)
         texte_formater_volume = "volume total " + str(total_volume_debut)
         self.ui.description_1.setText(texte_formater_volume)
+    def intensite_moyenne(self):
+        self.ui.description_1.setText("intensite moyenne")
 
     def nombre_defois_gym(self):
         total_gym = 0

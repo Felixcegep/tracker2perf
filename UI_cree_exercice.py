@@ -100,7 +100,7 @@ class cree_exercice(QWidget):
                         exercice)
                     self.retourner_journee()
                 else:
-                    self.info_utilisateur.historique_journee[self.index_journee].ajouter_seance(Seance("test"))
+                    self.info_utilisateur.historique_journee[self.index_journee].ajouter_seance(Seance("test",60))
                     print("Séance créée :)")
                     self.info_utilisateur.historique_journee[self.index_journee].seances_ajourdhui[0].ajouter_exercice(
                         exercice)
@@ -131,7 +131,7 @@ class cree_exercice(QWidget):
                         exercice)
                     self.retourner_journee()
                 else:
-                    self.info_utilisateur.historique_journee[self.index_journee].ajouter_seance(Seance("test"))
+                    self.info_utilisateur.historique_journee[self.index_journee].ajouter_seance(Seance("test",60))
                     print("Séance créée :)")
                     self.info_utilisateur.historique_journee[self.index_journee].seances_ajourdhui[0].ajouter_exercice(
                         exercice)
