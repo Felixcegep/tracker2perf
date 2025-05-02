@@ -52,6 +52,12 @@ class Journee:
         for exercices in self.seances_ajourdhui:
             for exercice in exercices.exercice_seaces:
                 print(exercice.nomexercice)
+    def obtenir_seance_temps(self):
+        temps_total = 0
+        if len(self.seances_ajourdhui) != 0:
+            for seance in self.seances_ajourdhui:
+                temps_total += seance.temps
+        return temps_total
     def obtenir_exercices_info(self):
         exercices_liste = []
 

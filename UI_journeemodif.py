@@ -88,6 +88,10 @@ class journeemodif(QWidget):
                     self.close()
                 else:
                     QMessageBox.warning(self, "Erreur", "Veuillez entrer un nom et une durée valide.")
+        else:
+            self.aller_exerice = cree_exercice(self.info_utilisateur, self.goodgraph, self.index_specifique)
+            self.aller_exerice.show()
+            self.close()
     def menu_nourriture(self):
         self.aller_nourriture = ajouter_nourriture(self.info_utilisateur,self.goodgraph,self.index_specifique )
         self.aller_nourriture.show()
