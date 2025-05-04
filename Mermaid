@@ -1,0 +1,138 @@
+classDiagram
+
+    class MouvementType {
+        <<enumeration>>
+        Cardio
+        Musculation
+    }
+    class Muscledispo {
+        <<enumeration>>
+        Pectoraux
+        Biceps
+        ...
+        Avantbras
+    }
+    class Genre {
+        <<enumeration>>
+        HOMME
+        FEMME
+    }
+
+
+    class Mouvement {
+        +name: str
+        +description: str
+        +muscle: list[str]
+        +type: str
+    }
+
+    class Exercice {
+        -_nom_exercice: str
+        +nomexercice: str
+        +MOUVEMENT_dispo: dict[str,Mouvement]
+        +ajouter_mouvement_disponible(...)
+        +supprimer_mouvement_disponible(...)
+        +sauvegarder_mouvement_disponible()
+    }
+
+    class ExerciceCardio {
+        -_duree: int
+        -_distance: float
+        -_intensite: int
+        +duree: int
+        +distance: float
+        +intensite: int
+    }
+
+    class ExerciceMusculation {
+        -_rpe: int
+        -_set: int
+        -_rep: int
+        -_poid_kg: int
+        +volume: int   
+    }
+
+
+    class Seance {
+        -_nom: str
+        +temps: float
+        +exercice_seaces: list[Exercice]
+        +volume_par_seance()
+        +ajouter_exercice(...)
+        +supprimer_exercice(...)
+    }
+
+    class Journee {
+        +nom: str
+        +date: datetime
+        +poid_aujourdhui: float
+        +seances_ajourdhui: list[Seance]
+        +nutrition_aujourdhui: list[NutritionQuotidien]
+        +obtenir_seance_temps()
+        +obtenir_exercices_info()
+    }
+
+
+    class NutritionQuotidien {
+        +nom: str
+        +aliment_ajourdhui: list[PortionAliment]
+        +ajouter_aliment_ajourdhui(...)
+        +supprimer_aliment_ajourdhui(...)
+    }
+
+    class PortionAliment {
+        +nom: str
+        +par_100_grammes: float
+        +ALIMENT_dispo: dict[str,TemplateAliment]
+        +ajouter_aliment_disponible(...)
+        +supprimer_aliment_disponible(...)
+        +sauvegarder_aliment_disponible()
+    }
+
+    class TemplateAliment {
+        +nom: str
+        +calories: float
+        +proteines: float
+    }
+
+
+    class Utilisateur {
+        +nom: str
+        +taille: int
+        +age: int
+        +poid: float
+        +genre: Genre
+        +historique_journee: list[Journee]
+        +historique_poids_journee: list[tuple]
+        +personal_record: dict
+        +ajouter_journee(...)
+        +supprimer_journee(...)
+        +obtenir_exercices_info()
+        +sauvegarder_utilisateur()
+    }
+
+    class GraphicUtilisateur {
+        +info: Utilisateur
+        +volume_par_seance(...)
+        +poid_journee(...)
+    }
+
+
+    Exercice       <|-- ExerciceCardio
+    Exercice       <|-- ExerciceMusculation
+
+    Seance         "1" o-- "*" ExerciceCardio
+    Seance         "1" o-- "*" ExerciceMusculation
+
+    Journee        "1" o-- "*" Seance
+    Journee        "1" o-- "*" NutritionQuotidien
+
+    NutritionQuotidien "1" o-- "*" PortionAliment
+    PortionAliment      --> "1" TemplateAliment   
+    Utilisateur    "1" o-- "*" Journee
+    Utilisateur        --> "1" Genre
+    GraphicUtilisateur --> "1" Utilisateur
+
+    Exercice       --> "1" Mouvement            
+    Mouvement      --> "1" MouvementType
+    Mouvement      --> "*" Muscledispo
