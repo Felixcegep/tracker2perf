@@ -19,11 +19,16 @@ class ajouter_aliment_disponible(QWidget):
         self.ui.addButton.clicked.connect(lambda :self.ajouter_nouveau_aliment_disponible() )
 
     def menu_nourriture(self):
+        """
+        aller dans le menu ajouter nourriture
+        :return:
+        """
         from UI_cree_nourriture import ajouter_nourriture
         self.aller_exerice = ajouter_nourriture(self.info_utilisateur,self.goodgraph,self.index_journee)
         self.aller_exerice.show()
         self.close()
     def ajouter_nouveau_aliment_disponible(self):
+
         self.ui.nomLineEdit.text()
         self.ui.proteinesLineEdit.text()
         self.ui.caloriesLineEdit.text()

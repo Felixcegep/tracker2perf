@@ -23,6 +23,10 @@ class ajouter_mouvement_disponible_muscu(QWidget):
         self.ui.cancelButton.clicked.connect(lambda : self.menu_exercice())
         print(self.ui.descriptionTextEdit.toPlainText())
     def menu_exercice(self):
+        """
+        aller dans le menu exercice
+        :return:
+        """
         from UI_cree_exercice import cree_exercice
         self.aller_exerice = cree_exercice(self.info_utilisateur,self.goodgraph,self.index_journee)
         self.aller_exerice.show()
@@ -39,6 +43,9 @@ class ajouter_mouvement_disponible_muscu(QWidget):
         self.ui.musclesScrollAreaContents
 
     def ajouter_les_muscles(self):
+        """
+        :return:
+        """
         for muscle in Muscledispo:
             my_new_checkbox = QCheckBox(muscle.value)
 
