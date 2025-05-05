@@ -6,7 +6,7 @@
 class TemplateAliment:
     def __init__(self,nom,calories,proteines):
         self.nom = nom
-        self.calories = calories
+        self._calories = calories
         self.proteines = proteines
 
     @property
@@ -18,13 +18,3 @@ class TemplateAliment:
             self._calories = calories
         else:
             raise ValueError("Les calories doivent être superieur a 0")
-
-    @property
-    def proteines(self):
-        return self._proteines
-    @proteines.setter
-    def proteines(self, proteines):
-        if proteines >= 0:
-            self._proteines = proteines
-        else:
-            raise ValueError("Les protéines doivent être superieures a 0")
