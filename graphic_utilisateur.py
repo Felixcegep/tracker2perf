@@ -10,12 +10,23 @@ class GraphicUtilisateur:
             self.info = pickle.load(f)
         print(self.info)
     def afficher_utilisateur(self):
+        """
+        affiche l'utilisateur de la sessions
+        :return:
+        """
         print(self.info)
 
     from datetime import datetime, timedelta
     import matplotlib.dates as mdates
 
     def volume_par_seance(self, ax, date_filtre=60):
+        """
+        passe a travers toutes les journee et regarde le volume de chaque seance pour ensuite pouvoir faire un diagramme
+        de jours par jours
+        :param ax:
+        :param date_filtre:
+        :return: None
+        """
         print("Génération du graphique du volume par séance...")
 
         if not hasattr(self.info, 'historique_journee') or not self.info.historique_journee:
@@ -64,6 +75,13 @@ class GraphicUtilisateur:
         ax.figure.tight_layout()
 
     def poid_journee(self, ax, date_filtre=None):
+        """
+        regarde le poid a chaque jours a l'aide de la tupple dans utilisateurs et zip permet de cree un deux liste avec
+        premiers index liste journeee et deuxieme liste poids pour ensuite les mettre dans le graphique
+        :param ax:
+        :param date_filtre:
+        :return:
+        """
         print("Generating weight over time plot on provided axes...")
         date_limite = datetime.now() - timedelta(days=date_filtre)
 

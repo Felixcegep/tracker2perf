@@ -6,8 +6,6 @@ from pathlib import Path
 from collections import Counter
 
 class Exercice:
-    # Todo: faire des test unitaire
-    # TODO: faire que ca l'ouvre un fichier jsonpickle
 
     try:
         file_path = Path(__file__).resolve().parent.parent / "mouvement_disponible.pkl"
@@ -18,7 +16,6 @@ class Exercice:
     except FileNotFoundError:
         MOUVEMENT_dispo = {}
 
-    # Todo: ajout de sécuriter si il n'y a pas de fichier
     def __init__(self, nom_exercice: str):
         self.nomexercice = nom_exercice
     @property
@@ -34,7 +31,15 @@ class Exercice:
 
     @classmethod
     def ajouter_mouvement_disponible(cls, nom: str, description: str, muscle_cibles: list, type_exercice: str):
-        # Todo : dans liste muscles cibles existe
+        """
+        cree un nouveau mouvement disponible
+        :param nom:
+        :param description:
+        :param muscle_cibles:
+        :param type_exercice:
+        :return: None
+        """
+
         if nom in cls.MOUVEMENT_dispo.keys():
             raise ValueError("Le mouvement existe deja.")
         if len(muscle_cibles) < 1:
@@ -61,6 +66,11 @@ class Exercice:
 
     @classmethod
     def supprimer_mouvement_disponible(cls, nom: str):
+        """
+        supprime un mouvement a l'aide de son nom en regardant si il est dans la liste de mouvement
+        :param nom:
+        :return:
+        """
         if nom in cls.MOUVEMENT_dispo:
             del cls.MOUVEMENT_dispo[nom]
         else:
@@ -68,6 +78,10 @@ class Exercice:
 
     @classmethod
     def sauvegarder_mouvement_disponible(cls):
+        """
+        sauvegarde les mouvements disponibles
+        :return:
+        """
         with open(cls.file_path, "wb") as f:
             pickle.dump(cls.MOUVEMENT_dispo, f)
 
