@@ -7,11 +7,154 @@
     <x>0</x>
     <y>0</y>
     <width>628</width>
-    <height>348</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Création de Compte</string>
+  </property>
+  <property name="styleSheet">
+   <string>/* Apply base background to the main window widget */
+QWidget#FormCreationCompte {
+    background-color: #F5F5F7; /* Light gray background */
+}
+
+/* Global Styles */
+QWidget {
+    color: #333333; /* Default text color */
+    /* font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; */
+}
+
+/* Input Fields Styling */
+QLineEdit, QDateEdit, QSpinBox { /* Removed QComboBox from this generic rule */
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    padding: 6px 10px;
+    min-height: 24px; /* Consistent height */
+}
+
+QLineEdit:focus, QDateEdit:focus, QSpinBox:focus {
+    border: 1px solid #007AFF; /* Blue border on focus */
+}
+
+/* Specific adjustments for SpinBox/DateEdit padding */
+QSpinBox { padding: 6px 5px; }
+QDateEdit { padding: 6px 5px; }
+
+/* QDateEdit Dropdown Styling (Kept simpler) */
+QDateEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 18px;
+    border-left-width: 1px;
+    border-left-color: #DCDCDC;
+    border-left-style: solid;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+QDateEdit::down-arrow {
+    image: url(:/qt-project.org/styles/commonstyle/images/down_arrow_16x16.png); /* Example path */
+    width: 12px;
+    height: 12px;
+}
+
+
+/* --- Enhanced QComboBox Styling --- */
+QComboBox {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    padding: 6px 28px 6px 10px; /* Increased right padding to avoid text overlapping arrow area */
+    min-height: 24px;
+    color: #333333; /* Ensure text color is set */
+}
+
+QComboBox:focus {
+    border: 1px solid #007AFF;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding; /* Position relative to padding box */
+    subcontrol-position: top right; /* Position in top-right */
+    width: 25px; /* Width of the dropdown area */
+
+    border-left-width: 1px; /* Separator line */
+    border-left-color: #C0C0C0; /* Slightly darker separator */
+    border-left-style: solid;
+
+    border-top-right-radius: 5px; /* Match main border radius */
+    border-bottom-right-radius: 5px;
+
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, /* Subtle gradient */
+                                      stop: 0 #F8F8F8, stop: 1 #EAEAEA);
+
+    margin: 1px; /* Small margin to inset the button slightly */
+}
+
+QComboBox::drop-down:hover {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #FFFFFF, stop: 1 #E0E0E0); /* Lighter on hover */
+    border-left-color: #A0A0A0;
+}
+
+QComboBox::down-arrow {
+    image: url(:/qt-project.org/styles/commonstyle/images/down_arrow_16x16.png); /* Example path */
+    width: 12px;
+    height: 12px;
+    /* Position handled by subcontrol-position and width/padding */
+}
+
+/* You might need this if the arrow isn't centered well enough by default */
+/* QComboBox::down-arrow {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    margin-top: -6px;
+} */
+
+
+QComboBox QAbstractItemView { /* Style the dropdown list */
+    border: 1px solid #A0A0A0; /* Slightly darker border for popup */
+    background-color: #FFFFFF;
+    selection-background-color: #007AFF;
+    selection-color: #FFFFFF;
+    padding: 4px; /* Add padding to the view */
+    outline: 0px; /* Remove focus outline from the popup */
+}
+/* --- End Enhanced QComboBox Styling --- */
+
+
+/* Button Styling */
+QPushButton#pushButton_Confirm {
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    min-height: 24px;
+    font-weight: 500;
+}
+QPushButton#pushButton_Confirm:hover { background-color: #3395FF; }
+QPushButton#pushButton_Confirm:pressed { background-color: #005ECB; }
+QPushButton#pushButton_Confirm:disabled { background-color: #DCDCDC; color: #A0A0A0; }
+
+/* Label Styling */
+QLabel { background-color: transparent; padding: 3px 0; }
+#label_Bienvenue { font-size: 16pt; font-weight: bold; color: #222222; padding-bottom: 15px; }
+#label_Nom, #label_DateNaissance, #label_Sexe, #label_Taille, #label_Poids { font-size: 10pt; color: #555555; }
+
+/* CheckBox Styling */
+QCheckBox { spacing: 8px; padding: 10px 0; }
+QCheckBox::indicator { width: 16px; height: 16px; border: 1px solid #B0B0B0; border-radius: 3px; background-color: #FFFFFF; }
+QCheckBox::indicator:hover { border: 1px solid #808080; }
+QCheckBox::indicator:checked { background-color: #007AFF; border: 1px solid #007AFF; /* image: url(:/icons/checkmark.png); */ }
+QCheckBox::indicator:checked:hover { background-color: #3395FF; border: 1px solid #3395FF; }
+
+/* Layout Spacing */
+#verticalLayout_Main { margin: 20px; }
+#gridLayout_Form { verticalSpacing: 10px; horizontalSpacing: 10px; }
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_Main">
    <item>
@@ -33,6 +176,19 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_Content">
      <item>
+      <spacer name="horizontalSpacer_FormLeft">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <layout class="QGridLayout" name="gridLayout_Form">
        <item row="0" column="1">
         <widget class="QLineEdit" name="lineEdit_Nom">
@@ -43,6 +199,9 @@
        </item>
        <item row="4" column="1">
         <widget class="QSpinBox" name="spinBox_Poids">
+         <property name="suffix">
+          <string> kg</string>
+         </property>
          <property name="minimum">
           <number>20</number>
          </property>
@@ -57,7 +216,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_Taille">
          <property name="text">
-          <string>Taille (cm) :</string>
+          <string>Taille :</string>
          </property>
          <property name="buddy">
           <cstring>spinBox_Taille</cstring>
@@ -86,12 +245,22 @@
            <string>Femme</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>Autre</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Préfère ne pas répondre</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_Poids">
          <property name="text">
-          <string>Poids (kg) :</string>
+          <string>Poids :</string>
          </property>
          <property name="buddy">
           <cstring>spinBox_Poids</cstring>
@@ -106,12 +275,19 @@
          <property name="calendarPopup">
           <bool>true</bool>
          </property>
+         <property name="date">
+          <date>
+           <year>2000</year>
+           <month>1</month>
+           <day>1</day>
+          </date>
+         </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_DateNaissance">
          <property name="text">
-          <string>Date de naissance :</string>
+          <string>Date de naissance* :</string>
          </property>
          <property name="buddy">
           <cstring>dateEdit_Naissance</cstring>
@@ -130,6 +306,9 @@
        </item>
        <item row="3" column="1">
         <widget class="QSpinBox" name="spinBox_Taille">
+         <property name="suffix">
+          <string> cm</string>
+         </property>
          <property name="minimum">
           <number>50</number>
          </property>
@@ -143,10 +322,26 @@
        </item>
       </layout>
      </item>
+     <item>
+      <spacer name="horizontalSpacer_FormRight">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
    <item>
     <widget class="QCheckBox" name="checkBox_Terms">
+     <property name="toolTip">
+      <string>Vous devez accepter les termes pour créer un compte</string>
+     </property>
      <property name="text">
       <string>J'accepte les Termes et Conditions d'Utilisation*</string>
      </property>
@@ -157,10 +352,13 @@
      <property name="orientation">
       <enum>Qt::Orientation::Vertical</enum>
      </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Expanding</enum>
+     </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>15</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -184,17 +382,23 @@
       <widget class="QPushButton" name="pushButton_Confirm">
        <property name="minimumSize">
         <size>
-         <width>150</width>
-         <height>0</height>
+         <width>180</width>
+         <height>40</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <bold>true</bold>
+         <fontweight>Medium</fontweight>
         </font>
+       </property>
+       <property name="toolTip">
+        <string>Finaliser la création de votre compte Tracker2Perf</string>
        </property>
        <property name="text">
         <string>Créer le compte</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

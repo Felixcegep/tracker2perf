@@ -11,7 +11,6 @@ class Fenetre_cree_Utilisateur(QWidget):
         self.ui = Ui_FormCreationCompte()
         self.ui.setupUi(self)
         #user input
-        self.ui.lineEdit_Nom
         self.ui.dateEdit_Naissance
         self.ui.comboBox_Genre
         self.ui.spinBox_Taille
