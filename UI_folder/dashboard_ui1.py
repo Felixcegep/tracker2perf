@@ -43,13 +43,18 @@ class Ui_dashboard(object):
 
         self.verticalLayout_sidebar.addWidget(self.searchLineEdit)
 
+        self.label = QLabel(self.leftSidebarWidget)
+        self.label.setObjectName(u"label")
+
+        self.verticalLayout_sidebar.addWidget(self.label)
+
         self.scrollArea_days = QScrollArea(self.leftSidebarWidget)
         self.scrollArea_days.setObjectName(u"scrollArea_days")
         self.scrollArea_days.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scrollArea_days.setWidgetResizable(True)
         self.scrollAreaWidgetContents_days = QWidget()
         self.scrollAreaWidgetContents_days.setObjectName(u"scrollAreaWidgetContents_days")
-        self.scrollAreaWidgetContents_days.setGeometry(QRect(0, 0, 196, 566))
+        self.scrollAreaWidgetContents_days.setGeometry(QRect(0, 0, 196, 540))
         self.verticalLayout_scroll_content = QVBoxLayout(self.scrollAreaWidgetContents_days)
         self.verticalLayout_scroll_content.setSpacing(0)
         self.verticalLayout_scroll_content.setObjectName(u"verticalLayout_scroll_content")
@@ -520,6 +525,7 @@ class Ui_dashboard(object):
 "\n"
 "   ", None))
         self.searchLineEdit.setPlaceholderText(QCoreApplication.translate("dashboard", u"Recherche jours...", None))
+        self.label.setText(QCoreApplication.translate("dashboard", u"appuyer sur les dates pour modifier", None))
 #if QT_CONFIG(tooltip)
         self.listejourney.setToolTip(QCoreApplication.translate("dashboard", u"Liste des jours", None))
 #endif // QT_CONFIG(tooltip)

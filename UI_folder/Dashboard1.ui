@@ -264,6 +264,13 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>appuyer sur les dates pour modifier</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QScrollArea" name="scrollArea_days">
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
@@ -277,7 +284,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
             <x>0</x>
             <y>0</y>
             <width>196</width>
-            <height>566</height>
+            <height>540</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_scroll_content">
