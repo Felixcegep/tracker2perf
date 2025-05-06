@@ -4,7 +4,7 @@ from time import strptime, strftime
 from PySide6.QtWidgets import QWidget, QMessageBox, QInputDialog, QDialog
 from datetime import datetime
 
-from Muscu import Seance
+from Muscu import Seance, Exercice, ExerciceMusculation
 from UI_folder import Ui_DayView
 from UI_cree_exercice import cree_exercice
 from UI_cree_nourriture import ajouter_nourriture
@@ -123,16 +123,32 @@ class journeemodif(QWidget):
     def afficher_exercices(self):
         print("ouioui")
         self.ui.exercisesList.clear()
-
         exercice_liste_scrollbar = []
-        for exercice in self.info_utilisateur.historique_journee[self.index_specifique].obtenir_exercices_info():
-            formatted_string = f'{exercice["nom"]} — {exercice["set"]} x {exercice["rep"]}  |  RPE: {exercice["rpe"]}'
 
+        journee = self.info_utilisateur.historique_journee[self.index_specifique]
+        for exercice in journee.obtenir_exercices_info():
+            try:
+                if "set" in exercice and "rep" in exercice and "rpe" in exercice:
+                    # Exercice de musculation
+                    formatted_string = (
+                        f'{exercice["nom"]} — {exercice["set"]} x {exercice["rep"]} | RPE: {exercice["rpe"]}'
+                    )
+                elif "duree" in exercice and "distance" in exercice and "intensite" in exercice:
+                    # Exercice cardio
+                    formatted_string = (
+                        f'{exercice["nom"]} — Durée : {exercice["duree"]} min | '
+                        f'Distance : {exercice["distance"]} km | Intensité : {exercice["intensite"]}/10'
+                    )
+                else:
+                    # Cas par défaut
+                    formatted_string = f'{exercice.get("nom", "Exercice inconnu")} — données incomplètes'
+            except Exception as e:
+                formatted_string = f'Erreur lors du formatage : {e}'
 
             exercice_liste_scrollbar.append(formatted_string)
 
-
         self.ui.exercisesList.addItems(exercice_liste_scrollbar)
+
     def afficher_nourriture(self):
         self.ui.foodList.clear()
         nourriture_liste_scrollbar = []
