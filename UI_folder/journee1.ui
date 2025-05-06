@@ -225,7 +225,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
-      <string>← Back to Dashboard</string>
+      <string>← retourner  au Dashboard</string>
      </property>
      <property name="flat">
       <bool>true</bool>
@@ -349,21 +349,21 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         <item>
          <widget class="QPushButton" name="addExerciseButton">
           <property name="text">
-           <string>+ Add</string>
+           <string>+ ajouter</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="removeExerciseButton">
           <property name="text">
-           <string>− Remove</string>
+           <string>− supprimer</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton">
           <property name="text">
-           <string>afficher exercices disponible</string>
+           <string>afficher exercices dispo</string>
           </property>
          </widget>
         </item>
@@ -399,7 +399,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       <item>
        <widget class="QLabel" name="foodLabel">
         <property name="text">
-         <string>Food Intake</string>
+         <string>nourritures</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
@@ -476,14 +476,14 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         <item>
          <widget class="QPushButton" name="addFoodButton">
           <property name="text">
-           <string>+ Add</string>
+           <string>+ ajouter</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="removeFoodButton">
           <property name="text">
-           <string>− Remove</string>
+           <string>- supprimer</string>
           </property>
          </widget>
         </item>
@@ -501,7 +501,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         <item>
          <widget class="QPushButton" name="pushButton_2">
           <property name="text">
-           <string>afficher nourriture disponible</string>
+           <string>afficher nourriture dispo</string>
           </property>
          </widget>
         </item>
@@ -532,7 +532,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
-      <string>Delete Day</string>
+      <string>ajouter journee</string>
      </property>
     </widget>
    </item>

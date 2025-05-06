@@ -228,7 +228,7 @@ class Ui_AvailableExercisesDialog(object):
 "    background: none;\n"
 "}\n"
 "   ", None))
-        self.headerLabel.setText(QCoreApplication.translate("AvailableExercisesDialog", u"Available Exercises", None))
+        self.headerLabel.setText(QCoreApplication.translate("AvailableExercisesDialog", u" Exercises Valides", None))
         self.exerciseListLabel.setText(QCoreApplication.translate("AvailableExercisesDialog", u"Exercises", None))
     # retranslateUi
 

@@ -390,17 +390,17 @@ class Ui_DayView(object):
 "    background: none;\n"
 "}\n"
 "   ", None))
-        self.backButton.setText(QCoreApplication.translate("DayView", u"\u2190 Back to Dashboard", None))
+        self.backButton.setText(QCoreApplication.translate("DayView", u"\u2190 retourner  au Dashboard", None))
         self.headerLabel.setText(QCoreApplication.translate("DayView", u"Tuesday, April 23, 2024", None))
         self.exercisesLabel.setText(QCoreApplication.translate("DayView", u"Exercises", None))
-        self.addExerciseButton.setText(QCoreApplication.translate("DayView", u"+ Add", None))
-        self.removeExerciseButton.setText(QCoreApplication.translate("DayView", u"\u2212 Remove", None))
-        self.pushButton.setText(QCoreApplication.translate("DayView", u"afficher exercices disponible", None))
-        self.foodLabel.setText(QCoreApplication.translate("DayView", u"Food Intake", None))
-        self.addFoodButton.setText(QCoreApplication.translate("DayView", u"+ Add", None))
-        self.removeFoodButton.setText(QCoreApplication.translate("DayView", u"\u2212 Remove", None))
+        self.addExerciseButton.setText(QCoreApplication.translate("DayView", u"+ ajouter", None))
+        self.removeExerciseButton.setText(QCoreApplication.translate("DayView", u"\u2212 supprimer", None))
+        self.pushButton.setText(QCoreApplication.translate("DayView", u"afficher exercices dispo", None))
+        self.foodLabel.setText(QCoreApplication.translate("DayView", u"nourritures", None))
+        self.addFoodButton.setText(QCoreApplication.translate("DayView", u"+ ajouter", None))
+        self.removeFoodButton.setText(QCoreApplication.translate("DayView", u"- supprimer", None))
         self.pushButton_3.setText(QCoreApplication.translate("DayView", u"changer nourriture", None))
-        self.pushButton_2.setText(QCoreApplication.translate("DayView", u"afficher nourriture disponible", None))
-        self.deleteDayButton.setText(QCoreApplication.translate("DayView", u"Delete Day", None))
+        self.pushButton_2.setText(QCoreApplication.translate("DayView", u"afficher nourriture dispo", None))
+        self.deleteDayButton.setText(QCoreApplication.translate("DayView", u"ajouter journee", None))
     # retranslateUi
 

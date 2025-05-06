@@ -164,7 +164,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
    <item>
     <widget class="QLabel" name="headerLabel">
      <property name="text">
-      <string>Available Exercises</string>
+      <string> Exercises Valides</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
