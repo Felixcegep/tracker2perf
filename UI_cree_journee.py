@@ -52,7 +52,7 @@ class cree_journee(QWidget):
             msg = QMessageBox(self)
             msg.setWindowTitle("Erreur Inattendue")
             msg.setText(
-                "Une erreur est survenue lors de l'ajout ou de la sauvegarde.\n\nVérifiez vos données dans le formulaire et réessayez.")
+                "Une erreur est survenue lors de l'ajout ou de la sauvegarde.\n\nVeuillez vérifier que les données saisies sont valides et réessayez. Les données ne peuvent pas être postérieures à la date actuelle.")
             msg.setIcon(QMessageBox.Critical)
 
             # 🎨 Forcer mode clair

@@ -106,7 +106,7 @@ class journeemodif(QWidget):
         confirm_msg = QMessageBox()
         confirm_msg.setIcon(QMessageBox.Warning)
         confirm_msg.setWindowTitle("Confirm Deletion")
-        confirm_msg.setText(f"es tu certain de vouloir supprimer la journee'?")
+        confirm_msg.setText("Êtes-vous certain de vouloir supprimer cette journée ?")
         confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         confirm_msg.setDefaultButton(QMessageBox.No)
         reply = confirm_msg.exec()
@@ -171,7 +171,8 @@ class journeemodif(QWidget):
             confirm_msg = QMessageBox()
             confirm_msg.setIcon(QMessageBox.Warning)
             confirm_msg.setWindowTitle("Confirm Deletion")
-            confirm_msg.setText(f"Es-tu certain de vouloir supprimer l'élément à la ligne {row_index + 1} ?")
+            confirm_msg.setText(f"Êtes-vous certain de vouloir supprimer l'élément situé à la ligne {row_index + 1} ?")
+
             confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             confirm_msg.setDefaultButton(QMessageBox.No)
 
@@ -202,7 +203,7 @@ class journeemodif(QWidget):
             confirm_msg = QMessageBox()
             confirm_msg.setIcon(QMessageBox.Warning)
             confirm_msg.setWindowTitle("Confirm Deletion")
-            confirm_msg.setText(f"Es-tu certain de vouloir supprimer l'exercice à la ligne {row_index + 1} ?")
+            confirm_msg.setText(f"Êtes-vous certain de vouloir supprimer l'exercice situé à la ligne {row_index + 1} ?")
             confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             confirm_msg.setDefaultButton(QMessageBox.No)
 
