@@ -401,6 +401,6 @@ class Ui_DayView(object):
         self.removeFoodButton.setText(QCoreApplication.translate("DayView", u"- supprimer", None))
         self.pushButton_3.setText(QCoreApplication.translate("DayView", u"changer nourriture", None))
         self.pushButton_2.setText(QCoreApplication.translate("DayView", u"afficher nourriture dispo", None))
-        self.deleteDayButton.setText(QCoreApplication.translate("DayView", u"ajouter journee", None))
+        self.deleteDayButton.setText(QCoreApplication.translate("DayView", u"supprimer journee", None))
     # retranslateUi
 

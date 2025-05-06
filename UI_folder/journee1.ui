@@ -532,7 +532,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
-      <string>ajouter journee</string>
+      <string>supprimer journee</string>
      </property>
     </widget>
    </item>
