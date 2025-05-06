@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width> <!-- Adjusted width -->
-    <height>480</height> <!-- Adjusted height -->
+    <width>420</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Tracker2Perf - Create Exercise</string> <!-- Updated Title -->
+   <string>Tracker2Perf - Create Exercise</string>
   </property>
   <property name="styleSheet">
    <string>/* === Main Widget === */
@@ -54,48 +54,70 @@ QLineEdit[placeholderText] {
     color: #AAAAAA;
 }
 
-/* === Combo Box === */
+/* === Enhanced Combo Box Styling === */
 QComboBox {
     background-color: #FFFFFF;
     border: 1px solid #DCDCDC;
     border-radius: 6px;
-    padding: 5px 10px; /* Adjusted padding for combo box */
+    padding: 6px 28px 6px 10px; /* Adjusted right padding for dropdown area */
     min-height: 22px; /* Match LineEdit */
     font-size: 11pt;
     color: #333333;
 }
+
 QComboBox:focus {
     border: 1px solid #007AFF;
 }
-QComboBox:on { /* shift the text when the popup opens */
+
+/* Keep the :on style if needed for editable combos (though this one is now non-editable) */
+/* QComboBox:on {
     padding-top: 3px;
     padding-left: 4px;
-}
-/* Style the dropdown arrow */
+} */
+
 QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-    border-left-width: 1px;
-    border-left-color: #DCDCDC;
+    subcontrol-origin: padding; /* Position relative to padding */
+    subcontrol-position: top right; /* Position in top-right */
+    width: 25px; /* Width of the dropdown clickable area */
+
+    border-left-width: 1px; /* Separator line */
+    border-left-color: #C0C0C0; /* Slightly darker separator */
     border-left-style: solid;
-    border-top-right-radius: 6px;
+
+    border-top-right-radius: 6px; /* Match main border radius */
     border-bottom-right-radius: 6px;
+
+    /* Use a gradient or distinct background for the button area */
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #F8F8F8, stop: 1 #EAEAEA);
+
+    margin: 1px; /* Small margin to inset the button slightly */
 }
+
+QComboBox::drop-down:hover {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #FFFFFF, stop: 1 #E0E0E0); /* Lighter on hover */
+    border-left-color: #A0A0A0;
+}
+
 QComboBox::down-arrow {
-     image: url(noexist.png); /* Placeholder - Use a real icon */
+     /* You might want a specific arrow icon here */
+     /* image: url(:/path/to/your/down_arrow.png); */
      width: 12px;
      height: 12px;
 }
+
 /* Style the dropdown list */
 QComboBox QAbstractItemView {
-    border: 1px solid #DCDCDC;
+    border: 1px solid #A0A0A0; /* Match hover border */
     background-color: #FFFFFF;
     selection-background-color: #007AFF;
     selection-color: #FFFFFF;
     color: #333333;
     padding: 4px;
+    outline: 0px; /* Remove focus outline from popup */
 }
+/* === End Enhanced Combo Box Styling === */
 
 
 /* === Segmented Buttons === */
@@ -243,32 +265,30 @@ QPushButton#cancelButton:pressed, QPushButton#addNewMovementButton:pressed {
      <property name="verticalSpacing">
       <number>10</number>
      </property>
-     <item row="0" column="0"> <!-- Changed row back to 0 -->
+     <item row="0" column="0">
       <widget class="QLabel" name="nomExerciceLabel">
        <property name="text">
-        <string>Nom Exercice</string> <!-- Corrected Text -->
+        <string>Nom Exercice</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1"> <!-- Changed row back to 0 -->
-      <widget class="QComboBox" name="nomExerciceComboBox"> <!-- Renamed ComboBox -->
+     <item row="0" column="1">
+      <widget class="QComboBox" name="nomExerciceComboBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed"> <!-- Allow expansion, Fixed height -->
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="styleSheet">
-        <string notr="true"/> <!-- Removed inline style -->
+       <!-- *** THIS IS THE KEY CHANGE *** -->
+       <property name="editable">
+          <bool>false</bool>
        </property>
-       <property name="editable"> <!-- Allow user input/filtering? -->
-          <bool>true</bool>
-       </property>
-       <property name="insertPolicy"> <!-- How to handle edits -->
-           <enum>QComboBox::NoInsert</enum> <!-- Or FilteredList? -->
+       <!-- ****************************** -->
+       <property name="insertPolicy">
+           <enum>QComboBox::NoInsert</enum>
        </property>
        <!-- Items should be populated from Python -->
-       <!-- Placeholder items removed -->
       </widget>
      </item>
     </layout>
@@ -276,7 +296,7 @@ QPushButton#cancelButton:pressed, QPushButton#addNewMovementButton:pressed {
    <item>
     <widget class="QStackedWidget" name="inputStackedWidget">
      <property name="currentIndex">
-      <number>0</number> <!-- Default back to Cardio -->
+      <number>0</number>
      </property>
      <widget class="QWidget" name="cardioPage">
       <layout class="QFormLayout" name="cardioFormLayout">
@@ -396,21 +416,18 @@ QPushButton#cancelButton:pressed, QPushButton#addNewMovementButton:pressed {
    <item>
     <layout class="QHBoxLayout" name="buttonBoxHLayout">
      <item>
-      <widget class="QPushButton" name="addNewMovementButton"> <!-- Renamed pushButton -->
+      <widget class="QPushButton" name="addNewMovementButton">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed"> <!-- Use Fixed height -->
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="styleSheet">
-        <string notr="true"/> <!-- Removed inline style -->
-       </property>
        <property name="text">
-        <string>Nouveau Mouvement</string> <!-- Changed Text -->
+        <string>Nouveau Mouvement</string>
        </property>
        <property name="toolTip">
-        <string>Ajouter un nouveau type de mouvement à la liste globale</string> <!-- Added tooltip -->
+        <string>Ajouter un nouveau type de mouvement à la liste globale</string>
        </property>
       </widget>
      </item>
@@ -429,13 +446,13 @@ QPushButton#cancelButton:pressed, QPushButton#addNewMovementButton:pressed {
      </item>
      <item>
       <widget class="QPushButton" name="cancelButton">
-       <property name="text"><string>Annuler</string></property> <!-- Changed Text -->
+       <property name="text"><string>Annuler</string></property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="saveButton">
-       <property name="text"><string>Enregistrer</string></property> <!-- Changed Text -->
-        <property name="default"><bool>true</bool></property> <!-- Made Save default -->
+       <property name="text"><string>Enregistrer</string></property>
+        <property name="default"><bool>true</bool></property>
       </widget>
      </item>
     </layout>
