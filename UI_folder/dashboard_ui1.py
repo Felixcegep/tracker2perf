@@ -54,7 +54,7 @@ class Ui_dashboard(object):
         self.scrollArea_days.setWidgetResizable(True)
         self.scrollAreaWidgetContents_days = QWidget()
         self.scrollAreaWidgetContents_days.setObjectName(u"scrollAreaWidgetContents_days")
-        self.scrollAreaWidgetContents_days.setGeometry(QRect(0, 0, 196, 540))
+        self.scrollAreaWidgetContents_days.setGeometry(QRect(0, 0, 196, 538))
         self.verticalLayout_scroll_content = QVBoxLayout(self.scrollAreaWidgetContents_days)
         self.verticalLayout_scroll_content.setSpacing(0)
         self.verticalLayout_scroll_content.setObjectName(u"verticalLayout_scroll_content")
@@ -233,11 +233,6 @@ class Ui_dashboard(object):
         self.buttonSinceStart.setObjectName(u"buttonSinceStart")
 
         self.verticalLayout_right.addWidget(self.buttonSinceStart)
-
-        self.changer_graph = QPushButton(self.rightAreaWidget)
-        self.changer_graph.setObjectName(u"changer_graph")
-
-        self.verticalLayout_right.addWidget(self.changer_graph)
 
         self.verticalSpacer_right = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -531,16 +526,15 @@ class Ui_dashboard(object):
 #endif // QT_CONFIG(tooltip)
         self.ajouterjournee.setText(QCoreApplication.translate("dashboard", u"Ajouter Journ\u00e9e", None))
         self.welcomeLabel.setText(QCoreApplication.translate("dashboard", u"Bienvenue", None))
-        self.label_1.setText(QCoreApplication.translate("dashboard", u"Stat 1", None))
+        self.label_1.setText(QCoreApplication.translate("dashboard", u"STATISTIQUE 1 ", None))
         self.description_1.setText(QCoreApplication.translate("dashboard", u"Description", None))
-        self.label_2.setText(QCoreApplication.translate("dashboard", u"Stat 2", None))
+        self.label_2.setText(QCoreApplication.translate("dashboard", u"STATISTIQUE 2 ", None))
         self.description_2.setText(QCoreApplication.translate("dashboard", u"Description", None))
-        self.label_3.setText(QCoreApplication.translate("dashboard", u"Stat 3", None))
+        self.label_3.setText(QCoreApplication.translate("dashboard", u"STATISTIQUE 3", None))
         self.description_3.setText(QCoreApplication.translate("dashboard", u"Description", None))
         self.timelineLabel.setText(QCoreApplication.translate("dashboard", u"Timeline", None))
         self.button7Days.setText(QCoreApplication.translate("dashboard", u"7 Derniers Jours", None))
         self.button30Days.setText(QCoreApplication.translate("dashboard", u"30 Derniers Jours", None))
         self.buttonSinceStart.setText(QCoreApplication.translate("dashboard", u"Depuis le D\u00e9but", None))
-        self.changer_graph.setText(QCoreApplication.translate("dashboard", u"changer de graph", None))
     # retranslateUi
 

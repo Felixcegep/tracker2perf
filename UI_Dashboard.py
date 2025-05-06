@@ -52,22 +52,29 @@ class Dashboard(QMainWindow):
         for exerce in tous_exercice:
             total_volume_debut +=(int(exerce["set"]) * int(exerce["rep"]) * int(exerce["poid_kg"]))
         print(total_volume_debut)
-        texte_formater_volume = "volume total " + str(total_volume_debut)
+        texte_formater_volume = f'Poids total soulevé depuis le début : {total_volume_debut:,} kg'.replace(',', ' ')
         self.ui.description_1.setText(texte_formater_volume)
     def intensite_moyenne(self):
         self.ui.description_1.setText("intensite moyenne")
 
     def nombre_defois_gym(self):
         total_gym = 0
-        test = 0
         for journee in self.info_utilisateur.historique_journee:
             total_gym += len(journee.seances_ajourdhui)
-        self.ui.description_2.setText("nombre de seance depuis le debut" + str(total_gym))
+
+        texte_formate = f'Nombre total de séances depuis le début : {total_gym}'
+        self.ui.description_2.setText(texte_formate)
     def nombre_temps_gym(self):
         temps_total = 0
         for journee in self.info_utilisateur.historique_journee:
             temps_total += journee.obtenir_seance_temps()
-        text_formater_temps = "temps total " + str(temps_total)
+        heures = temps_total // 60
+        minutes = temps_total % 60
+
+        if heures > 0:
+            text_formater_temps = f'Temps total passé au gym : {heures}h {minutes}min'
+        else:
+            text_formater_temps = f'Temps total passé au gym : {minutes}min'
         self.ui.description_3.setText(text_formater_temps)
 
     def selection_scrollbar(self):
