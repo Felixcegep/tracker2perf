@@ -148,7 +148,7 @@ class cree_exercice(QWidget):
         confirm_msg = QMessageBox()
         confirm_msg.setIcon(QMessageBox.Warning)
         confirm_msg.setWindowTitle("Confirm Deletion")
-        confirm_msg.setText(f"es tu certain de vouloir quitter'?")
+        confirm_msg.setText("Êtes-vous certain de vouloir quitter ?")
         confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         confirm_msg.setDefaultButton(QMessageBox.No)
         reply = confirm_msg.exec()
