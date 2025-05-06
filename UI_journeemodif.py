@@ -126,9 +126,10 @@ class journeemodif(QWidget):
 
         exercice_liste_scrollbar = []
         for exercice in self.info_utilisateur.historique_journee[self.index_specifique].obtenir_exercices_info():
+            formatted_string = f'{exercice["nom"]} — {exercice["set"]} x {exercice["rep"]}  |  RPE: {exercice["rpe"]}'
 
 
-            exercice_liste_scrollbar.append(exercice["nom"])
+            exercice_liste_scrollbar.append(formatted_string)
 
 
         self.ui.exercisesList.addItems(exercice_liste_scrollbar)
@@ -140,33 +141,39 @@ class journeemodif(QWidget):
             print(nourriture_pour_100,self.aliment_info[nourriture.nom].calories)
             nombre_prot_total = str(self.aliment_info[nourriture.nom].proteines*nourriture_pour_100)
             nombre_calories_total = str(self.aliment_info[nourriture.nom].calories*nourriture_pour_100)
-            nourriture_formater = nourriture.nom +""+" "+ str(nourriture.par_100_grammes) +"g"+" "+"Calories : "+nombre_calories_total+" "+ "Protéines : "+nombre_prot_total
+            nourriture_formater = f'{nourriture.nom} — {nourriture.par_100_grammes}g | Calories : {nombre_calories_total} | Protéines : {nombre_prot_total}g'
 
             print(self.aliment_info[nourriture.nom].calories)
 
             nourriture_liste_scrollbar.append(nourriture_formater)
         self.ui.foodList.addItems(nourriture_liste_scrollbar)
+
     def supprimer_nourriture_person(self):
-        element_selectionner = self.ui.foodList.currentItem()
-        if element_selectionner is not None:
-            print(self.ui.foodList.row(self.ui.foodList.currentItem()))
-            element_selectionner = element_selectionner.text()
+        row_index = self.ui.foodList.currentRow()
+
+        if row_index != -1:
             confirm_msg = QMessageBox()
             confirm_msg.setIcon(QMessageBox.Warning)
             confirm_msg.setWindowTitle("Confirm Deletion")
-            confirm_msg.setText(f"es tu certain de vouloir supprimer '{element_selectionner}'?")
+            confirm_msg.setText(f"Es-tu certain de vouloir supprimer l'élément à la ligne {row_index + 1} ?")
             confirm_msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             confirm_msg.setDefaultButton(QMessageBox.No)
-            reply = confirm_msg.exec()
-            if reply == QMessageBox.Yes:
-                print(element_selectionner)
-                self.info_utilisateur.historique_journee[self.index_specifique].supprimer_nutrition_quotidienne(element_selectionner)
-                print("supprimer avec succes")
+
+            if confirm_msg.exec() == QMessageBox.Yes:
+                nutrition_list = self.info_utilisateur.historique_journee[self.index_specifique].nutrition_aujourdhui
+                print("Avant suppression :", nutrition_list)
+
+                try:
+                    del nutrition_list[row_index]
+                    print("Supprimé avec succès.")
+                except IndexError:
+                    print(f"Index {row_index} invalide.")
+
                 self.afficher_nourriture()
             else:
-                print("non annuler")
+                print("Suppression annulée.")
         else:
-            print("rien n'a été selectionner")
+            print("Aucun élément sélectionné.")
 
     def supprimer_exercices(self,):
         if self.index_specifique == -1:
