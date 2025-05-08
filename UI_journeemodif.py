@@ -152,14 +152,17 @@ class journeemodif(QWidget):
     def afficher_nourriture(self):
         self.ui.foodList.clear()
         nourriture_liste_scrollbar = []
+
         for nourriture in self.info_utilisateur.historique_journee[self.index_specifique].nutrition_aujourdhui:
             nourriture_pour_100 = nourriture.par_100_grammes / 100
-            print(nourriture_pour_100,self.aliment_info[nourriture.nom].calories)
+            print(f"Nom: {nourriture.nom}")
+
             nombre_prot_total = str(self.aliment_info[nourriture.nom].proteines*nourriture_pour_100)
             nombre_calories_total = str(self.aliment_info[nourriture.nom].calories*nourriture_pour_100)
-            nourriture_formater = f'{nourriture.nom} — {nourriture.par_100_grammes}g | Calories : {nombre_calories_total} | Protéines : {nombre_prot_total}g'
 
-            print(self.aliment_info[nourriture.nom].calories)
+            nourriture_formater = f'{nourriture.nom} — {nourriture.par_100_grammes}g | Calories : {nombre_prot_total} | Protéines : {nombre_calories_total}g'
+
+
 
             nourriture_liste_scrollbar.append(nourriture_formater)
         self.ui.foodList.addItems(nourriture_liste_scrollbar)

@@ -266,7 +266,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>appuyer sur les dates pour modifier</string>
+          <string>Appuyez sur les dates pour modifier</string>
          </property>
         </widget>
        </item>
